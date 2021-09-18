@@ -2,7 +2,7 @@ CFLAGS = -O3 `sdl2-config --cflags`
 LDFLAGS = `sdl2-config --libs` -lSDL2_ttf -lm
 
 INC = sdl2-light.h sld2-ttf-light.h
-SRC = main.c Modules/sdl2-light.c Modules/sdl2-ttf-light.c Modules/graphics.c Modules/world.c Modules/player.c
+SRC = main.c Modules/graphics.c Modules/world.c Modules/player.c
 OBJ = $(SRC:%.c=%.o)
 
 INC_TEST = Modules/world.h Modules/player.h
