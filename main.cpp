@@ -11,12 +11,12 @@ int main(int argc, char ** argv) {
 	renderWindow.setFramerateLimit(60);
 
 	sf::Texture texture1; //on loade la texture de la premier frame
-	if (!texture1.loadFromFile("test.png", sf::IntRect(0, 0, 20, 20))){
+	if (!texture1.loadFromFile("ressources/test.png", sf::IntRect(0, 0, 20, 20))){
 		std::cout <<"Erreur de load de la texture" << std::endl;
 	}
 
 	sf::Texture texture2; //on charge la texture de la seconde frame
-	if (!texture2.loadFromFile("test.png", sf::IntRect(20, 0, 20, 20))){
+	if (!texture2.loadFromFile("ressources/test.png", sf::IntRect(20, 0, 20, 20))){
 		std::cout <<"Erreur de load de la texture" << std::endl;
 	}
 
