@@ -14,13 +14,11 @@ int main(int argc, char ** argv) {
 	if (!texture1.loadFromFile("test.png", sf::IntRect(0, 0, 20, 20))){
 		std::cout <<"Erreur de load de la texture" << std::endl;
 	}
-	//texture1.setSmooth(true);
 
 	sf::Texture texture2; //on charge la texture de la seconde frame
 	if (!texture2.loadFromFile("test.png", sf::IntRect(20, 0, 20, 20))){
 		std::cout <<"Erreur de load de la texture" << std::endl;
 	}
-	//texture2.setSmooth(true);
 
 	sf::Sprite elise;  //sprite de la fille
 	elise.setScale(sf::Vector2f(4.f, 4.f));
@@ -35,20 +33,24 @@ int main(int argc, char ** argv) {
             if (event.type == sf::Event::Closed)
                 renderWindow.close();
         }
+        
         /*
         renderWindow.clear();
 		elise.setTexture(texture1);
 		renderWindow.draw(elise);
 		renderWindow.display();
-		clock.restart();
-		*/
+		//clock.restart();
 
-		while(((attente.asSeconds())%2) == 0){
+		std::cout << "horloge:" << clock.GetElapsedTime() << std::endl;
+*/
+		
+
+		while((static_cast<int>(attente.asSeconds())%2) == 0){
 			renderWindow.clear();
 			elise.setTexture(texture1);
 			renderWindow.draw(elise);
 			renderWindow.display();
-
+			attente = clock.getElapsedTime();
 		}
 
 		while((static_cast<int>(attente.asSeconds())%2) != 0){
@@ -56,6 +58,7 @@ int main(int argc, char ** argv) {
 			elise.setTexture(texture2);
 			renderWindow.draw(elise);
 			renderWindow.display();
+			attente = clock.getElapsedTime();
 		}	
 	}
 	return 0;
