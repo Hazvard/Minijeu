@@ -1,24 +1,24 @@
- #include <SFML/Graphics.hpp>
+
+#ifndef CARTE_H
+#define CARTE_H
+
+#include <SFML/Graphics.hpp>
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <sstream>
 #include <vector>
-
- 
-#ifndef CARTE_H
-#define CARTE_H
  
  using namespace sf; // Permet de ne pas écrire sf::
  
 class Carte{
-    
+
 public:
  
-//Constructeur
+//Constructeur ---------------------------------------
 Carte();
  
-//Fonctions
+//Fonctions ------------------------------------------
 void drawBackground(sf::RenderWindow &window);
  
  
