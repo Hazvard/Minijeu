@@ -5,7 +5,6 @@
 
 int main(int argc, char ** argv) {
 	sf::RenderWindow renderWindow(sf::VideoMode(800, 600), "Testage SFML"); //fenetre utilisée pour le rendering
-	sf::Time t2 = sf::milliseconds(10);
 	sf::Clock clock; //on crée une horloge pour pouvoir attendre
 	sf::Time attente = clock.getElapsedTime(); //on crée une mesure du temps écoulé
 	renderWindow.setFramerateLimit(60);
@@ -27,24 +26,48 @@ int main(int argc, char ** argv) {
 
 	while (renderWindow.isOpen()) {
 
+        renderWindow.clear();
+
 		sf::Event event;
         while (renderWindow.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
                 renderWindow.close();
         }
-        
+
+
+        //Tentative de mouvement d'élise
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){ //fleche gauche
+            elise.move(sf::Vector2f(-5.f, 0.f));  //déplacement relatif à la position absolue
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){ //fleche droite
+            elise.move(sf::Vector2f(5.f, 0.f));  //vector (abscisse float ordonnée float)
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){ //fleche haut
+            elise.move(sf::Vector2f(0.f, -5.f));  //ATTENTION Ordonnée orientée vers le bas
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){ //fleche bas
+            elise.move(sf::Vector2f(0.f, 5.f));  
+        }
+
+
+        //Texturage
+        if(( static_cast<int> (clock.getElapsedTime().asSeconds()) %10) == 1){  //prévu pour 6 textures (60/6)
+            elise.setTexture(texture1);
+        }
+
+        if(( static_cast<int> (clock.getElapsedTime().asSeconds()) %10) == 2){
+            elise.setTexture(texture2);
+        }
+
+        //Affichage d'élise
+        renderWindow.draw(elise);
+        renderWindow.display();
+    	
         /*
-        renderWindow.clear();
-		elise.setTexture(texture1);
-		renderWindow.draw(elise);
-		renderWindow.display();
-		//clock.restart();
-
-		std::cout << "horloge:" << clock.GetElapsedTime() << std::endl;
-*/
-		
-
 		while((static_cast<int>(attente.asSeconds())%2) == 0){
 			renderWindow.clear();
 			elise.setTexture(texture1);
@@ -60,6 +83,8 @@ int main(int argc, char ** argv) {
 			renderWindow.display();
 			attente = clock.getElapsedTime();
 		}	
+
+        */
 	}
 	return 0;
 }
