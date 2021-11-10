@@ -39,43 +39,69 @@ int main(int argc, char ** argv) {
 
 	while (renderWindow.isOpen()) {
 
-  
+        renderWindow.clear();
+
 		sf::Event event;
         while (renderWindow.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
                 renderWindow.close();
         }
-        
-        /*
-        renderWindow.clear();
-		elise.setTexture(texture1);
-		renderWindow.draw(elise);
-		renderWindow.display();
-		//clock.restart();
 
-		std::cout << "horloge:" << clock.GetElapsedTime() << std::endl;
-*/
+	
+
 
     
 
-		while((static_cast<int>(attente.asSeconds())%2) == 0){
-			renderWindow.clear();
-			elise.setTexture(texture1);
-      fond1.drawBackground(renderWindow) ;
-			renderWindow.draw(elise);
-			renderWindow.display();
-			attente = clock.getElapsedTime();
-		}
+        //Tentative de mouvement d'élise
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){ //fleche gauche
+            elise.move(sf::Vector2f(-5.f, 0.f));  //déplacement relatif à la position absolue
+        }
 
-		while((static_cast<int>(attente.asSeconds())%2) != 0){
-			renderWindow.clear();
-      fond1.drawBackground(renderWindow) ;
-			elise.setTexture(texture2);
-			renderWindow.draw(elise);
-      renderWindow.display();
-			attente = clock.getElapsedTime();
-		}	
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){ //fleche droite
+            elise.move(sf::Vector2f(5.f, 0.f));  //vector (abscisse float ordonnée float)
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){ //fleche haut
+            elise.move(sf::Vector2f(0.f, -5.f));  //ATTENTION Ordonnée orientée vers le bas
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){ //fleche bas
+            elise.move(sf::Vector2f(0.f, 5.f));  
+        }
+
+
+        //Texturage
+        if(( static_cast<int> (clock.getElapsedTime().asSeconds()) %10) == 1){  //prévu pour 6 textures (60/6)
+            elise.setTexture(texture1);
+        }
+
+        if(( static_cast<int> (clock.getElapsedTime().asSeconds()) %10) == 2){
+            elise.setTexture(texture2);
+        }
+
+        //Affichage d'élise
+        renderWindow.draw(elise);
+        renderWindow.display();
+    	
+    
+		// while((static_cast<int>(attente.asSeconds())%2) == 0){
+		// 	renderWindow.clear();
+		// 	elise.setTexture(texture1);
+    //   fond1.drawBackground(renderWindow) ;
+		// 	renderWindow.draw(elise);
+		// 	renderWindow.display();
+		// 	attente = clock.getElapsedTime();
+		// }
+
+		// while((static_cast<int>(attente.asSeconds())%2) != 0){
+		// 	renderWindow.clear();
+    //   fond1.drawBackground(renderWindow) ;
+		// 	elise.setTexture(texture2);
+		// 	renderWindow.draw(elise);
+    //   renderWindow.display();
+		// 	attente = clock.getElapsedTime();
+		// }	
     
 	}
 	return 0;
