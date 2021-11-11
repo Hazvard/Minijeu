@@ -16,12 +16,11 @@ class Map
  
 public:
  
-// Structures pour les A-RPGs
-struct PNJ { int type, text, quest; };
-struct CHEST { int type; };
+// Structures
+struct COFFRE { int type; };
 struct WARPSPE { int value; };
 struct BUTTON { int type; };
-struct TRAP { int type; };
+struct PIEGE { int type; };
 struct POINT { int x, y; };
  
 //Constructeur
@@ -36,7 +35,6 @@ int getMaxX(void) const;
 int getMaxY(void) const;
 int getTile(int y, int x) const;
 int getLevel(void) const;
-int getNombreMonstres(void) const;
 int getWarpUp(void) const;
 int getWarpDown(void) const;
 int getWarpLeft(void) const;
@@ -51,7 +49,6 @@ void setLevel(int valeur);
 void setStartX(int valeur);
 void setStartY(int valeur);
 void setTile(int y, int x, int valeur);
-void setNombreMonstres(int valeur);
 void setWarpDirection(int valeur);
 void setWarp_coming_from_x(int valeur);
 void setWarp_coming_from_y(int valeur);
@@ -60,7 +57,7 @@ void setWarp_coming_from_y(int valeur);
 void loadMap(std::string filename);
 void draw(int layer, sf::RenderWindow &window);
 void changeLevel(void);
-void testDefilement(void);
+void testDefilement(void); //fait déffiler la carte toute seule.
  
  
 private:
@@ -99,16 +96,12 @@ int level;
 //Variable pour testDefilement()
 int testdefil;
  
-//Nouvelles variables pour les A-RPG
+//Nouvelles variabbles
 int warpUp, warpDown, warpLeft, warpRight;
 WARPSPE warpSP[10];
-PNJ pnj[20];
-CHEST chest[20];
-int loot, weather;
-int cinematics, cinematics_condition;
-int musicNumber;
+COFFRE coffre[20];
 BUTTON button[10];
-TRAP trap[10];
+PIEGE piege[10];
  
 //Pour gérer les warps
 int warpDirection;
@@ -121,8 +114,6 @@ sf::Sprite tileSet1;
 sf::Texture tileSet1BTexture;
 sf::Sprite tileSet1B;
  
-//Nombre max de monstres à l'écran
-int nombreMonstres;
  
 //Police de caractères
 sf::Font font;
@@ -152,22 +143,11 @@ const int TILE_SIZE = 32;
 /* Constante pour l'animation */
 const int TIME_BETWEEN_2_FRAMES = 20;
  
-//Nombre max de monstres gérés
-const int MONSTRES_MAX = 50;
- 
 //Directions
-const int DOWN = 0;
-const int UP = 1;
-const int RIGHT = 2;
-const int LEFT = 3;
+const int NEUTRE = 0;
+const int RIGHT = 1;
+const int LEFT = 2;
  
- 
-/*************************/
-/* VALEURS DES TILES */
-/************************/
- 
-const int TILE_MONSTRE_DEBUT = 20;
-const int TILE_MONSTRE_FIN = 39;
  
 };
 #endif

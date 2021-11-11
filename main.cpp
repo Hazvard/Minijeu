@@ -18,8 +18,9 @@ int main(int argc, char ** argv) {
   //Instanciation des classes
   
   // Ajouter la classe input / handleevent de Simon
+  Entree entree;
   Map map; // Nouvelle classe carte
-  Elise  bout ;
+  Elise  elise ;
   Carte fond1; // Ancienne classe carte
   
  
@@ -31,13 +32,14 @@ int main(int argc, char ** argv) {
   while (renderWindow.isOpen()){
  
     // Gestion des inputs / handle event Par Simon
- 
+    entree.gestionEntrees(renderWindow);
+
     //Updates (besoin de handle event)
-    //maj(input, map);
+    maj(entree, map);
  
     // Dessin - draw
     draw(renderWindow, map);
-  
+    elise.drawElise(renderWindow, static_cast<int> ( clock.getElapsedTime().asSeconds() * 8 ) % 8, 1 ) ;
     renderWindow.display();
   }
  
@@ -50,9 +52,11 @@ int main(int argc, char ** argv) {
  
 //Fonction de mise à jour du jeu : gère la logique du jeu
 
-/*void maj(Input &input, Map &map){
-  map.testDefilement();
-}*/
+void maj(Entree &entree, Map &map){
+  map.testDefilement(); // Défilement auto
+
+
+}
  
  
  
@@ -69,4 +73,6 @@ void draw(RenderWindow &window, Map &map){
  
   // Affiche la map de tiles : layer 3 (couche en foreground / devant)
   map.draw(3, window);
+
+  
 }

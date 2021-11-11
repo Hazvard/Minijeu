@@ -29,10 +29,13 @@ Elise::Elise(){
 
 void Elise::drawElise(sf::RenderWindow &window, int numTexture, int pose ){
 
-    if(pose == 0) // Marche
+    if(pose == 2) // Marche gauche
         eliseSprite.setTexture( eliseMarcheTexture[numTexture] ) ;
 
-    if(pose == 1) // Neutre
+    if(pose == 1) // Marche droite
+        eliseSprite.setTexture( eliseMarcheTexture[numTexture] ) ;
+
+    if(pose == 0) // Neutre
         eliseSprite.setTexture( eliseNeutreTexture[numTexture] ) ;
 
     window.draw(eliseSprite) ;

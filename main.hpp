@@ -9,12 +9,13 @@
 #include "modules/carte.hpp"
 #include "modules/Elise.hpp"
 #include "modules/map.hpp"
+#include "modules/entree.hpp"
 
 using namespace sf; // Permet de ne pas écrire sf::
 using namespace std;
 
 //Fonctions
-//void maj(Input &input,Map &map);
+void maj(Entree &entree,Map &map);
 void draw(sf::RenderWindow &window, Map &map);
 
 // Taille de la fenêtre : 800x600 pixels

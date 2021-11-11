@@ -30,7 +30,7 @@ Map::Map(){
     startX = startY = 0;
     warpDirection = warp_coming_from_x = warp_coming_from_y = 0;
     HUDtimer = 3;
-    HUDDirection = DOWN;
+    HUDDirection = NEUTRE;
 }
  
  
@@ -43,7 +43,6 @@ int Map::getMaxX(void) const { return maxX; }
 int Map::getMaxY(void) const { return maxY; }
 int Map::getTile(int y, int x) const { return tile4[y][x]; }
 int Map::getLevel(void) const { return level; }
-int Map::getNombreMonstres(void) const { return nombreMonstres; }
 int Map::getWarpUp(void) const { return warpUp; }
 int Map::getWarpDown(void) const { return warpDown; }
 int Map::getWarpLeft(void) const { return warpLeft; }
@@ -59,7 +58,6 @@ void Map::setLevel(int valeur) { level = valeur; }
 void Map::setStartX(int valeur) { startX = valeur; }
 void Map::setStartY(int valeur) { startY = valeur; }
 void Map::setTile(int y, int x, int valeur) { tile[y][x] = valeur; }
-void Map::setNombreMonstres(int valeur) { nombreMonstres = valeur; }
 void Map::setWarpDirection(int valeur) { warpDirection = valeur; }
 void Map::setWarp_coming_from_x(int valeur) { warp_coming_from_x = valeur; }
 void Map::setWarp_coming_from_y(int valeur) { warp_coming_from_y = valeur; }
@@ -441,27 +439,15 @@ void Map::loadMap(string filename){
     }
     
     for (int i = 0; i < 20; i++){
-        pnj[i].type = lignes[y][14 + i * 3];
-        pnj[i].text = lignes[y][15 + i * 3];
-        pnj[i].quest = lignes[y][16 + i * 3];
+        coffre[i].type = lignes[y][74 + i];
     }
-    
-    for (int i = 0; i < 20; i++){
-        chest[i].type = lignes[y][74 + i];
-    }
-    
-    loot = lignes[y][94];
-    weather = lignes[y][95];
-    cinematics = lignes[y][96];
-    cinematics_condition = lignes[y][97];
-    musicNumber = lignes[y][98];
     
     for (int i = 0; i < 10; i++){
         button[i].type = lignes[y][99 + i];
     }
     
     for (int i = 0; i < 10; i++){
-        trap[i].type = lignes[y][109 + i];
+        piege[i].type = lignes[y][109 + i];
     }
     
     

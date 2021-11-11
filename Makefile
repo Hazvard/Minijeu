@@ -3,7 +3,7 @@ CFLAGS = -W -Wall -ansi -std=c99
 LDFLAGS = -lsfml-graphics -lsfml-window -lsfml-system
 
 EXEC = minijeu
-SRC = main.cpp modules/carte.cpp modules/Elise.cpp modules/map.cpp
+SRC = main.cpp modules/carte.cpp modules/Elise.cpp modules/map.cpp modules/entree.cpp
 OBJ = $(SRC:.c=.o)
 
 INC_TEST = 
