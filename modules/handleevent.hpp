@@ -20,7 +20,7 @@ HandleEvent();
  
 //Fonctions
 
-void walk(sf::Sprite elise, float pas);
+int walk(sf::Sprite elise, float pas);  //renvoie 0 si OK, -1 si on doit scroller vers la gauche et 1 vers la droite
  
  
 private:
