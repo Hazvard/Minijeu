@@ -1,57 +1,72 @@
-#include <iostream>
-#include <stdio.h>
-#include <stdlib.h>
-#include "SFML/Graphics.hpp"
-#include "modules/carte.hpp"
-#include "modules/Elise.hpp"
-
-using namespace sf; // Permet de ne pas écrire sf::
-using namespace std;
-
-// Taille de la fenêtre : 800x600 pixels
-const int SCREEN_WIDTH = 800;
-const int SCREEN_HEIGHT = 600;
+#include "main.hpp"
 
 int main(int argc, char ** argv) {
 	sf::RenderWindow renderWindow(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Elise's adventurs"); //fenetre utilisée pour le rendering
 	sf::Time t2 = sf::milliseconds(10);
 	sf::Clock clock; //on crée une horloge pour pouvoir attendre
+
 	sf::Time attente = clock.getElapsedTime(); //on crée une mesure du temps écoulé
+
+  //On limite à 60 image par secondes
 	renderWindow.setFramerateLimit(60);
 
+  //On active la synchro verticale
+  renderWindow.setVerticalSyncEnabled(true);
 
 
 
+  //Instanciation des classes
+  
+  // Ajouter la classe input / handleevent de Simon
+  Map map; // Nouvelle classe carte
   Elise  bout ;
-  Carte fond1;
+  Carte fond1; // Ancienne classe carte
   
-
-
-	while (renderWindow.isOpen()) {
-
-        renderWindow.clear();
-        fond1.drawBackground(renderWindow) ;
-        bout.drawElise(renderWindow, static_cast<int> ( clock.getElapsedTime().asSeconds() * 8 ) % 8, 1 ) ;
-
-		sf::Event event;
-        while (renderWindow.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                renderWindow.close();
-        }
-
-	
-
-
-    
-
-
-
-      
-
+ 
+  //On commence au premier niveau
+  map.setLevel(1);
+  map.changeLevel();
+ 
+  // Boucle de jeu
+  while (renderWindow.isOpen()){
+ 
+    // Gestion des inputs / handle event Par Simon
+ 
+    //Updates (besoin de handle event)
+    //maj(input, map);
+ 
+    // Dessin - draw
+    draw(renderWindow, map);
   
-        renderWindow.display();	
-    
-	}
-	return 0;
+    renderWindow.display();
+  }
+ 
+  // On quitte
+  return 0;
+ 
+}
+ 
+ 
+ 
+//Fonction de mise à jour du jeu : gère la logique du jeu
+
+/*void maj(Input &input, Map &map){
+  map.testDefilement();
+}*/
+ 
+ 
+ 
+//Fonction de dessin du jeu : dessine tous les éléments
+void draw(RenderWindow &window, Map &map){
+  //On efface tout
+  window.clear();
+ 
+  // Affiche la map de tiles : layer 2 (couche du fond)
+  map.draw(2, window);
+ 
+  // Affiche la map de tiles : layer 1 (couche active : sol, etc.)
+  map.draw(1, window);
+ 
+  // Affiche la map de tiles : layer 3 (couche en foreground / devant)
+  map.draw(3, window);
 }
