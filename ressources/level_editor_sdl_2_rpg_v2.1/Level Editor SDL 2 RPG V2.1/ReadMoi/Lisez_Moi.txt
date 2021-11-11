@@ -1,0 +1,49 @@
+Level Editor (Editeur de niveaux) pour Legends of Meruvia - Action-RPG
+Compatible avec les Big Tutos SFML 2 et SDL 2 (à écrire).
+
+
+Meruvia Game Studio, www.meruvia.fr, 15 Mai 2015, version 2.0.
+
+Changements :
+	- Ajout de fichiers de map (41 en tout).
+	- Modification dans la manière de changer de level : on peut désormais cibler
+	rapidement un niveau éloigné (par exemple le niveau 41) sans avoir à faire
+	défiler chaque niveau.
+	- Correction d'un warning passé inaperçu auparavant. ;)
+	
+
+Meruvia Game Studio, www.meruvia.fr, 2 Mai 2015, version 1.9.
+
+Changements :
+	- Résolution du bug du copier/coller par Stephantasy.
+	
+
+	
+Meruvia Game Studio, www.meruvia.fr, 1er Mai 2015, version 1.8.
+
+Changements :
+	- Le programme se base sur le level editor de Rabidja qu'il adapte et augmente pour pouvoir
+	créer et gérer des maps pour un action-RPG à la Zelda (en 2D vue de dessus).
+	- Ajout de nombreuses variables pour gérer les maps.
+	- Ajout d'une couche pour les collisions / tiles spéciales.
+	- Gestion de la transparence pour éditer les couches.
+	- Changement du format de la map.
+	
+
+L'archive contient :
+
+	- Un dossier Projet SDL 2 avec le projet Code::Blocks préconfiguré pour compiler en SDL 2. 
+	Pour cela, copiez simplement l'archive SDL2 sous C: Cela évitera ainsi aux utilisateurs de la SFML
+	de devoir aussi se mettre à la SDL 2 ;) .
+	
+	- Un dossier Level Editor qui contient le programme précompilé pour Windows 32bits et prêt à l'emploi.
+	Cliquez simplement sur l'exécutable LevelEditor.exe.
+	
+	- Un dossier SDL2 qui contient la lib SDL2, à copier sous C: (et pas ailleurs), pour pouvoir recompiler
+	directement avec le projet Code::Blocks sans avoir à tout reconfigurer. ;)
+
+	
+	Voilà, c'est tout ! ;)
+	
+		@ bientôt sur meruvia.fr,
+								Jay.
