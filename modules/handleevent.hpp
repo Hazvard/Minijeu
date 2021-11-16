@@ -12,17 +12,10 @@
 using namespace sf;
 
 class HandleEvent{
-    
-public:
- 
-//Constructeur
-HandleEvent();
- 
-//Fonctions
-
-int walk(sf::Sprite elise, float pas);  //renvoie 0 si OK, -1 si on doit scroller vers la gauche et 1 vers la droite
- 
- 
-private:
+	    
+	public:
+	 
+	//Constructeur
+	HandleEvent();
 };
 #endif
