@@ -8,8 +8,6 @@
 #include <sstream>
 #include <vector>
  
-class Player;
-class Monster;
  
 class Map
 {

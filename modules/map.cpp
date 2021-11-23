@@ -18,9 +18,9 @@ Map::Map(){
         tileSet1B.setTexture(tileSet1BTexture);
  
     //Chargement de la police Arial
-    if (!font.loadFromFile("ressources/Arial.ttf")){
-        cout << "Erreur durant le chargement de la police." << endl;
-    }
+    // if (!font.loadFromFile("ressources/Arial.ttf")){
+    //     cout << "Erreur durant le chargement de la police." << endl;
+    // }
 
     //Autres variables
     mapTimer = TIME_BETWEEN_2_FRAMES * 3;
