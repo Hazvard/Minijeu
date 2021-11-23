@@ -142,20 +142,33 @@ void Elise::drawElise(sf::RenderWindow &window, Map &map){
 }
 
 void Elise::collisionObjets(Map &map){
-	int hgy = ordonne; //point haut gauche y : un perso est défini en haut à gauche, donc pas besoin d'offset
-	int hgx = abscisse;
-	int bdx = abscisse + w; //bas droit x
-	int bdy = ordonne + h;
 
-	int zebi; //t'occupe pas, variable de controle
+	int xg, xd, yh, yb; //coordonnées de test pour voir quelles tiles touche elise : gauche, droite, haut, bas
+	bool okay = true; //controle de la boucle while
+	i = TILE_SIZE; //itérateur pour parcourir la boucle, à modifier selon la taille d'elise: on vérifie les collisions par ligne de tiles, et le i sert à changer de ligne
 
 	/*
 	Sous entendu par la classe player:
+	int x, y, w, h: position et taille d'élise
 	int dirX, dirY : vecteurs de déplacement du sprite
-	On dit que Elise fait au plus une tile de haut et une tile de large, sinon c'est galère
+	MUR et autres gros titres: attributs de la tile, on pourra les remplacer apres
 	*/
 
-	bool okay = true; //controle du blocage qui a été fait ou non
+	while(okay){
+
+		//on reporte les mesures de position d'elise vers des mesures sur la map (conversion base pixel vers base ecran)
+		xg = (x + dirX)/TILE_SIZE;
+		xd = (x + dirX + w - 1)/TILE_SIZE; //si c'est kaputt, enlever le -1
+		yh = y/TILE_SIZE;
+		yb = (y + i - 1)/TILE_SIZE; //le i sert à descendre d'une ligne de tiles
+
+	}
+
+//A PARTIR D'ICI C'EST DE LA MERDE
+
+	int zebi; //t'occupe pas, variable de controle
+
+
 
 
 	//on ne teste pas si le player est dans les limites de l'écran, mais on pourrait
