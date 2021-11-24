@@ -182,6 +182,7 @@ void Elise::collisionObjets(Map &map){
 	TILESIZE vient de elise.hpp
 	*/
 
+	//on boucle sur l'axe de x pour controler le contact des tiles
 	while(okay){
 
 		//on reporte les mesures de position d'elise vers des mesures sur la map (conversion base pixel vers base ecran)
@@ -192,108 +193,67 @@ void Elise::collisionObjets(Map &map){
 
 		//on checke pas si on est dans les limites de l'écran, c'est pour les losers ca
 
-		
-
-	}
-
-
-//A PARTIR D'ICI C'EST DE LA MERDE
-
-	int zebi; //t'occupe pas, variable de controle
-
-
-
-
-	//on ne teste pas si le player est dans les limites de l'écran, mais on pourrait
-
-	//test pour aller vers la droite
-	if (dirX > 0){
-
-		if (map.getTile(bdy, bdx + dirX) == MUR || map.getTile(hgy, bdx + dirX) == MUR){ //si les deux tiles superposées à la droite sont des murs
-			zebi = 0;
-			dirX = 0;
-			while(!(map.getTile(bdy, bdx + dirX) == MUR || map.getTile(hgy, bdx + dirX) == MUR)){  //on recherche la valeur de dirX pour se coller au mur
-				dirX++;
-				zebi++;
+		if(dirX >0){
+			if(map.getTile(yh, xd) == DUR || map.getTile(yb, xd) == DUR){
+				//on colle elise à la tile qu'on peut pas traverser
+				x = xd*TILE_SIZE; //revient à ajouter dirX + w - 1 à x
+				x = x-w -1;
+				dirX = 0;
 			}
-			if(zebi != 0){  //pour bien s'assurer qu'on n'est pas dans le cas où le while n'a pas été fait
-				dirX--; //au cas où
-			}	
-			okay = false; //ne pas appliquer le mouvement plus tard			
 		}
-	}
-
-	//test pour aller vers la gauche
-	if(dirX<0){
-
-		if(map.getTile(bdy, hgx - dirX) == MUR || map.getTile(hgy, hgx - dirX) == MUR){
-			zebi = 0;
-			dirX == 0;
-			while(!(map.getTile(bdy, hgx - dirX) == MUR || map.getTile(hgy, hgx - dirX) == MUR)){
-				dirX--;
-				zebi++;
+		else if(dirX<0){
+			if(map.getTile(yh, xg) == DUR || map.getTile(yb, xg) == DUR){
+				x = (xg + 1)*TILE_SIZE; //revient à ajouter dirX + 1
+				dirX = 0;
 			}
-			if(zebi != 0){
-				dirX++;
-			}
-			okay = false; //ne pas appliquer le mouvement plus tard	
 		}
+
+		okay = !(i == h); //sortie de la boucle si on a vérifié toutes les tiles
+		i = i+ TILE_SIZE;
+		if(i>h)
+			i=h;
 	}
 
-	//test pour aller vers le haut    ON CONSIDERE QUE SES PIEDS DOIVENT TOUCHER LA TEXTURE MUR, DONC ON UTILISE LES MESURES DE Y DU BAS
-	if(dirY<0){
+	//meme chose pour l'axe y
+	i = TILE_SIZE;
+	okay = true;
+	while(okay){
 
-		if(map.getTile(bdy - dirY, hgx) == MUR || map.getTile(bdy - dirY, bdx) == MUR){
-			zebi = 0;
-			dirY=0;
-			while(!(map.getTile(bdy - dirY, hgx) == MUR || map.getTile(bdy - dirY, bdx) == MUR)){
-				dirY--;
-				zebi++;
+		xg = x/TILE_SIZE;
+		xd = (x+i) / TILE_SIZE;
+		yh = (y + dirY)/TILE_SIZE;
+		yb = (y + dirY +h) / TILE_SIZE;
+
+		if(dirY>0){ //attention, vers le bas!
+			if(map.getTile(yb, xd) == DUR || map.getTile(yb, xg) == DUR){
+				y = yb*TILE_SIZE;
+				y = y - h - 1; //evient à faire y = y -1
+				dirY = 0;
 			}
-			if(zebi != 0){
-				dirY++;
-			}	
-			okay = false; //ne pas appliquer le mouvement plus tard				
 		}
-	}
-
-	//test pour aller vers le bas	ON CONSIDERE QUE ELISE PEUT PASSER DERRIERE LES OBSTACLES, POUR ETRE CACHÉE À UN RANG DE PIXEL PRES, DONC ON UTILISE LES MESURES DE Y DU BAS
-	if(dirY>0){
-
-		if(map.getTile(hgy + dirY, hgx) == MUR || map.getTile(hgy + dirY, bdx) == MUR){
-			zebi = 0;
-			dirY = 0;
-			while(!(map.getTile(hgy + dirY, hgx) == MUR || map.getTile(hgy + dirY, bdx) == MUR)){
-				dirY--;
-				zebi++;
+		else if(dirX<0){ //vers le haut
+			if(map.getTile(yh, xd) == DUR || map.getTile(yh, xg) == DUR){
+				y = (yh + 1) *TILE_SIZE;
+				dirY = 0;
 			}
-			if(zebi != 0){
-				dirY++;
-			}	
-			okay = false; //ne pas appliquer le mouvement plus tard				
 		}
+		okay = !(i==w);
+		i = i+ TILE_SIZE;
+		if(i>w)
+			i = w;
 	}
 
-	//on applique les mouvements si rien n'a été bloqué
-	if(okay){
-		abscisse +=  dirX;
-		ordonne +=  dirY;
-	}
+	//application des mouvements, si ils ont été corrigés ils seront nuls
+	x = x + dirX;
+	y = y +dirY;
 
-	//on vérifie si on est au bord de la map
-	if( abscisse < 0 ){
-		abscisse = 0;
-	}
-
-	if( abscisse + w >=map.getMaxX()){
-		abscisse = map.getMaxX() - w;
-	}
-
- 	if (ordonne < 0){
-	y = 0;
-	}
-	
- 	if ( ordonne + h > map.getMaxY()){
-	y = map.getMaxY() - h;
-	}
+	//correction des dépassements
+	if(x<0)
+		x = 0
+	if (x + w >= map.getMaxX())
+		x=map.getMaxX() - w;
+	if(y<0)
+		y = 0;
+	if (y + h > map.getMaxY())
+		y = map.getMaxY() - h;
 }

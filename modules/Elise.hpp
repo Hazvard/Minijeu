@@ -54,6 +54,8 @@ void setStamina(int valeur);
 void initialize(Map &map);
 void draw(Map &map, sf::RenderWindow &window);
 void update(Entree &entree, Map &map);
+void centerScrolling(Map &map);
+void collisionObjets(Map &map);
 
 
 
@@ -119,6 +121,9 @@ const int LIMITE_HEIGHT = 80;
 
 //Constante pour la vitesse du centerscrolling
 const int SCROLL_DISTANCE = 3;
+
+//Constante qui code pour les cases collisionnées
+const int DUR = 1;
 
 //Enum pour les entrées
 enum{ haut, bas, droite, gauche, entrer };
