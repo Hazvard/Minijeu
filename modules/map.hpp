@@ -27,8 +27,8 @@ Map();
 //Accesseurs
 int getBeginX(void) const;
 int getBeginY(void) const;
-int getStartX(void) const;
-int getStartY(void) const;
+int getDebutAbscisse(void) const;
+int getDebutOrdonne(void) const;
 int getMaxX(void) const;
 int getMaxY(void) const;
 int getTile(int y, int x) const;
@@ -44,8 +44,8 @@ int getWarp_coming_from_y(void) const;
  
 //Mutateurs
 void setLevel(int valeur);
-void setStartX(int valeur);
-void setStartY(int valeur);
+void setDebutAbscisse(int valeur);
+void setDebutOrdonne(int valeur);
 void setTile(int y, int x, int valeur);
 void setWarpDirection(int valeur);
 void setWarp_coming_from_x(int valeur);
@@ -68,7 +68,7 @@ int tilesetAffiche;
 int beginx, beginy;
  
 /* Coordonnées de début, lorsqu'on doit draw la map */
-int startX, startY;
+int debutAbscisse, debutOrdonne;
  
 /* Coordonnées max de fin de la map */
 int maxX, maxY;

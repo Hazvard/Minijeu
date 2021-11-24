@@ -27,7 +27,7 @@ Map::Map(){
     tileSetNumber = 0;
     testdefil = 0;
     level = 1;
-    startX = startY = 0;
+    debutAbscisse = debutOrdonne = 0;
     warpDirection = warp_coming_from_x = warp_coming_from_y = 0;
     HUDtimer = 3;
     HUDDirection = NEUTRE;
@@ -37,11 +37,11 @@ Map::Map(){
 //Les getteurs
 int Map::getBeginX(void) const { return beginx; }
 int Map::getBeginY(void) const { return beginy; }
-int Map::getStartX(void) const { return startX; }
-int Map::getStartY(void) const { return startY; }
+int Map::getDebutAbscisse(void) const { return debutAbscisse; }
+int Map::getDebutOrdonne(void) const { return debutOrdonne; }
 int Map::getMaxX(void) const { return maxX; }
 int Map::getMaxY(void) const { return maxY; }
-int Map::getTile(int y, int x) const { return tile4[y][x]; }
+int Map::getTile(int y, int x) const { return tile4[y][x]; } // tile4
 int Map::getLevel(void) const { return level; }
 int Map::getWarpUp(void) const { return warpUp; }
 int Map::getWarpDown(void) const { return warpDown; }
@@ -55,8 +55,8 @@ int Map::getWarp_coming_from_y(void) const { return warp_coming_from_y; }
  
 //Mutateurs
 void Map::setLevel(int valeur) { level = valeur; }
-void Map::setStartX(int valeur) { startX = valeur; }
-void Map::setStartY(int valeur) { startY = valeur; }
+void Map::setDebutAbscisse(int valeur) { debutAbscisse = valeur; }
+void Map::setDebutOrdonne(int valeur) { debutOrdonne = valeur; }
 void Map::setTile(int y, int x, int valeur) { tile[y][x] = valeur; }
 void Map::setWarpDirection(int valeur) { warpDirection = valeur; }
 void Map::setWarp_coming_from_x(int valeur) { warp_coming_from_x = valeur; }
@@ -79,14 +79,15 @@ void Map::draw(int layer, RenderWindow &window){
     Celle-ci correspond au x de la map (en pixels) divisés par la taille d'une tile (32)
     pour obtenir la bonne colonne de notre map
     Exemple : si x du début de la map = 1026, on fait 1026 / 32
-    et on sait qu'on doit commencer par afficher la 32eme colonne de tiles de notre map */
-    mapX = startX / TILE_SIZE;
+    et on sait qu'on doit commencer par afficher la 32eme colonne de tiles de notre map
+    */
+    mapX = debutAbscisse / TILE_SIZE; 
  
     /* Coordonnées de départ pour l'affichage de la map : permet
     de déterminer à quels coordonnées blitter la 1ère colonne de tiles au pixel près
     (par exemple, si la 1ère colonne n'est visible qu'en partie, on devra commencer à blitter
     hors écran, donc avoir des coordonnées négatives - d'où le -1). */
-    x1 = (startX % TILE_SIZE) * -1;
+    x1 = (debutAbscisse % TILE_SIZE) * -1;
  
     /* Calcul des coordonnées de la fin de la map : jusqu'où doit-on blitter ?
     Logiquement, on doit aller à x1 (départ) + SCREEN_WIDTH (la largeur de l'écran).
@@ -98,8 +99,8 @@ void Map::draw(int layer, RenderWindow &window){
     x2 = x1 + SCREEN_WIDTH + (x1 == 0 ? 0 : TILE_SIZE);
  
     /* On fait exactement pareil pour calculer y */
-    mapY = startY / TILE_SIZE;
-    y1 = (startY % TILE_SIZE) * -1;
+    mapY = debutOrdonne / TILE_SIZE;
+    y1 = (debutOrdonne % TILE_SIZE) * -1;
     y2 = y1 + SCREEN_HEIGHT + (y1 == 0 ? 0 : TILE_SIZE);
  
  
@@ -118,7 +119,7 @@ void Map::draw(int layer, RenderWindow &window){
         mapTimer--;
     
  
-    /* Dessine la carte en commençant par startX et startY */
+    /* Dessine la carte en commençant par debutAbscisse et debutOrdonne */
  
     /* On dessine ligne par ligne en commençant par y1 (0) jusqu'à y2 (480)
     A chaque fois, on rajoute TILE_SIZE (donc 32), car on descend d'une ligne
@@ -127,7 +128,7 @@ void Map::draw(int layer, RenderWindow &window){
         for (y = y1; y < y2; y += TILE_SIZE){
         /* A chaque début de ligne, on réinitialise mapX qui contient la colonne
         (0 au début puisqu'on ne scrolle pas) */
-        mapX = startX / TILE_SIZE;
+        mapX = debutAbscisse / TILE_SIZE;
     
         /* A chaque colonne de tile, on dessine la bonne tile en allant
         de x = 0 à x = 640 */
@@ -166,7 +167,7 @@ void Map::draw(int layer, RenderWindow &window){
 
             //Deuxième couche de tiles ;)
         for (y = y1; y < y2; y += TILE_SIZE){
-            mapX = startX / TILE_SIZE;
+            mapX = debutAbscisse / TILE_SIZE;
         
             for (x = x1; x < x2; x += TILE_SIZE){
 
@@ -204,7 +205,7 @@ void Map::draw(int layer, RenderWindow &window){
     else if (layer == 3){
         //Troisième couche de tiles ;)
         for (y = y1; y < y2; y += TILE_SIZE){
-            mapX = startX / TILE_SIZE;
+            mapX = debutAbscisse / TILE_SIZE;
             
             for (x = x1; x < x2; x += TILE_SIZE){
                 /* Suivant le numéro de notre tile, on découpe le tileset (a = le numéro
@@ -250,35 +251,35 @@ void Map::testDefilement(void){
         //Tant que le début du blittage de la map est inférieur aux coordonnées
         //en X de la fin de la map (- la largeur de l'écran pour ne pas afficher
         //du noir), on fait défiler la map.
-        if (startX < maxX - SCREEN_WIDTH)
+        if (debutAbscisse < maxX - SCREEN_WIDTH)
             //Vous pouvez changer cette valeur pour faire défiler la map plus ou moins vite
-            startX += 2;
+            debutAbscisse += 2;
         else
             testdefil = 1;
     }
     //Une fois au bout, on fait défiler vers le bas (valeur == 1)
     else if (testdefil == 1){
-        if (startY < maxY - SCREEN_HEIGHT)
+        if (debutOrdonne < maxY - SCREEN_HEIGHT)
             //Vous pouvez changer cette valeur pour faire défiler la map plus ou moins vite
-            startY += 2;
+            debutOrdonne += 2;
         else
             testdefil = 2;
     }
 
     //Une fois en bas, on fait défiler vers la gauche (valeur == 2)
     else if (testdefil == 2){
-        if (startX > 0)
+        if (debutAbscisse > 0)
             //Vous pouvez changer cette valeur pour faire défiler la map plus ou moins vite
-            startX -= 2;
+            debutAbscisse -= 2;
         else
             testdefil = 3;
     }
 
     //Puis on remonte au point de départ (valeur == 3) et on recommence
     else if (testdefil == 3){
-        if (startY > 0)
+        if (debutOrdonne > 0)
             //Vous pouvez changer cette valeur pour faire défiler la map plus ou moins vite
-            startY -= 2;
+            debutOrdonne -= 2;
         else
             testdefil = 0;
     }

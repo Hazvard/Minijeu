@@ -25,7 +25,7 @@ int main(int argc, char ** argv) {
   
  
   //On commence au premier niveau
-  map.setLevel(1);
+  map.setLevel(2);
   map.changeLevel();
  
   // Boucle de jeu
@@ -39,7 +39,7 @@ int main(int argc, char ** argv) {
  
     // Dessin - draw
     draw(renderWindow, map);
-    elise.drawElise(renderWindow, static_cast<int> ( clock.getElapsedTime().asSeconds() * 8 ) % 8, 1 ) ;
+    //elise.drawElise(renderWindow, static_cast<int> ( clock.getElapsedTime().asSeconds() * 8 ) % 8, 1 ) ;
     renderWindow.display();
   }
  
