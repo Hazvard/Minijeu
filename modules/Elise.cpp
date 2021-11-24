@@ -127,18 +127,45 @@ void Elise::drawElise(sf::RenderWindow &window, Map &map){
 }
 
 
+void Elise::centerScrolling(Map &map){
 
+	int centrex = w/2 + x; //centre d'élise
+	int centrey = h/2 + y;
+	int minx = LIMITE_ABSCISSE + map.getStartX();  //Constantes d'élise, voir hpp
+	int maxx = minx + LIMITE_WIDTH;
+	int miny = LIMITE_ORDONNE + map.getStartY();
+	int maxy = miny + LIMITE_HEIGHT;
 
-    // Fonction Simon
-    void Elise::centerScrolling(Map &map){
+	//centrage de la map sur x
+	if(centrex < minx){
+		map.setStartX(map.getStartX() - SCROLL_DISTANCE);
+	}
+	else if(centrex > maxx){
+		map.setStartX(map.getStartX() + SCROLL_DISTANCE);
+	}
 
-	int colup = abscisse; //collision vers le haut : un perso est défini en haut à gauche, donc pas besoin d'offset
-	int coldown = abscisse + h;
-	int colleft = ordonne;
-	int colright = ordonne + w;
+	//si on arrive en bout de map sur x
+	if (map.getStartX() < 0){
+		map.setStartX(0);
+	}
+	else if(map.getMaxX() <= map.getStartX() + SCREEN_WIDTH){
+		map.setStartX(map.getMaxX() - SCREEN_WIDTH);
+	}
 
-	//si le player arrive sur le bord gauche de la map, on scrolle
+	//meme chose pour y
+	if(centrey < miny){
+		map.setStartY(map.getStartY() - SCROLL_DISTANCE);
+	}
+	else if(centrey > maxy){
+		map.setStartY(map.getStartY() + SCROLL_DISTANCE);
+	}
 
+	if (map.getStartY() < 0){
+		map.setStartY(0);
+	}
+	else if(map.getMaxY() <= map.getStartY() + SCREEN_HEIGHT){
+		map.setStartY(map.getMaxY() - SCREEN_HEIGHT);
+	}
 }
 
 void Elise::collisionObjets(Map &map){
@@ -152,6 +179,7 @@ void Elise::collisionObjets(Map &map){
 	int x, y, w, h: position et taille d'élise
 	int dirX, dirY : vecteurs de déplacement du sprite
 	MUR et autres gros titres: attributs de la tile, on pourra les remplacer apres
+	TILESIZE vient de elise.hpp
 	*/
 
 	while(okay){
@@ -162,7 +190,12 @@ void Elise::collisionObjets(Map &map){
 		yh = y/TILE_SIZE;
 		yb = (y + i - 1)/TILE_SIZE; //le i sert à descendre d'une ligne de tiles
 
+		//on checke pas si on est dans les limites de l'écran, c'est pour les losers ca
+
+		
+
 	}
+
 
 //A PARTIR D'ICI C'EST DE LA MERDE
 
