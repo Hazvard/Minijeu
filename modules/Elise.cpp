@@ -123,7 +123,7 @@ void Elise::drawElise(sf::RenderWindow &window, Map &map){
     }
 
     // On place le joueur correctement sur la map
-    // truc de texture .setPosition(Vector2f(abscisse - map.getStartX(), ordonne - map.getStartY()));
+    // truc de texture .setPosition(Vector2f(abscisse - map.getDebutAbscisse(), ordonne - map.getDebutOrdonne()));
 }
 
 
@@ -131,40 +131,40 @@ void Elise::centerScrolling(Map &map){
 
 	int centrex = w/2 + x; //centre d'élise
 	int centrey = h/2 + y;
-	int minx = LIMITE_ABSCISSE + map.getStartX();  //Constantes d'élise, voir hpp
+	int minx = LIMITE_ABSCISSE + map.getDebutAbscisse();  //Constantes d'élise, voir hpp
 	int maxx = minx + LIMITE_WIDTH;
-	int miny = LIMITE_ORDONNE + map.getStartY();
+	int miny = LIMITE_ORDONNE + map.getDebutOrdonne();
 	int maxy = miny + LIMITE_HEIGHT;
 
 	//centrage de la map sur x
 	if(centrex < minx){
-		map.setStartX(map.getStartX() - SCROLL_DISTANCE);
+		map.setDebutAbscisse(map.getDebutAbscisse() - SCROLL_DISTANCE);
 	}
 	else if(centrex > maxx){
-		map.setStartX(map.getStartX() + SCROLL_DISTANCE);
+		map.setDebutAbscisse(map.getDebutAbscisse() + SCROLL_DISTANCE);
 	}
 
 	//si on arrive en bout de map sur x
-	if (map.getStartX() < 0){
-		map.setStartX(0);
+	if (map.getDebutAbscisse() < 0){
+		map.setDebutAbscisse(0);
 	}
-	else if(map.getMaxX() <= map.getStartX() + SCREEN_WIDTH){
-		map.setStartX(map.getMaxX() - SCREEN_WIDTH);
+	else if(map.getMaxX() <= map.getDebutAbscisse() + SCREEN_WIDTH){
+		map.setDebutAbscisse(map.getMaxX() - SCREEN_WIDTH);
 	}
 
 	//meme chose pour y
 	if(centrey < miny){
-		map.setStartY(map.getStartY() - SCROLL_DISTANCE);
+		map.setDebutOrdonne(map.getDebutOrdonne() - SCROLL_DISTANCE);
 	}
 	else if(centrey > maxy){
-		map.setStartY(map.getStartY() + SCROLL_DISTANCE);
+		map.setDebutOrdonne(map.getDebutOrdonne() + SCROLL_DISTANCE);
 	}
 
-	if (map.getStartY() < 0){
-		map.setStartY(0);
+	if (map.getDebutOrdonne() < 0){
+		map.setDebutOrdonne(0);
 	}
-	else if(map.getMaxY() <= map.getStartY() + SCREEN_HEIGHT){
-		map.setStartY(map.getMaxY() - SCREEN_HEIGHT);
+	else if(map.getMaxY() <= map.getDebutOrdonne() + SCREEN_HEIGHT){
+		map.setDebutOrdonne(map.getMaxY() - SCREEN_HEIGHT);
 	}
 }
 
