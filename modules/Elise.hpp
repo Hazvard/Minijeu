@@ -117,6 +117,11 @@ const int LIMITE_ORDONNE = 220;
 const int LIMITE_WIDTH = 100;
 const int LIMITE_HEIGHT = 80;
 
+
+const int TILE_SIZE = 32 ;
+//Constante pour la vitesse du centerscrolling
+const int SCROLL_DISTANCE = 3;
+
 //Enum pour les entrées
 enum{ haut, bas, droite, gauche, entrer };
  
