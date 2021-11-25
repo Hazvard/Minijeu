@@ -37,7 +37,7 @@ Elise();
 
 // Getteurs
 int getAbscisse();
-int getOrdonne();
+int getOrdonnee();
 int getStamina();
 int getHeight();
 int getWidth();
@@ -45,28 +45,18 @@ int getWidth();
 
 // Setteurs
 void setAbscisse(int valeur);
-void setOrdonne(int valeur);
+void setOrdonnee(int valeur);
 void setWidth(int valeur);
 void setHeight(int valeur);
 void setStamina(int valeur);
 
 //Fonctions
 void initialize(Map &map);
-void draw(Map &map, sf::RenderWindow &window);
 void update(Entree &entree, Map &map);
 void centerScrolling(Map &map);
 void collisionObjets(Map &map);
-
-
-
-
-
-
 void drawElise(sf::RenderWindow &window, Map &map);
 
-
-void centerScrolling(Map &map);
-void collisionObjets(Map &map);
  
 private:
 //Variables de la classe en accès privé
@@ -75,7 +65,7 @@ private:
     int stamina ;
 
     // Position du sprite d'Elise
-    int abscisse, ordonne ;
+    int abscisse, ordonnee ;
 
     // Dimmension du sprite d'Elise
     int w, h ;
@@ -115,7 +105,7 @@ const int SCREEN_HEIGHT = 480;
  
 //Constantes pour les limites de la caméra avant scrolling
 const int LIMITE_ABSCISSE = 400;
-const int LIMITE_ORDONNE = 220;
+const int LIMITE_ORDONNEE = 220;
 const int LIMITE_WIDTH = 100;
 const int LIMITE_HEIGHT = 80;
 
