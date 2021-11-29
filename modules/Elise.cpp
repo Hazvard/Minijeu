@@ -26,7 +26,7 @@ Elise::Elise(){
     // Initialisation des variables
     int stamina = 100 ;
 
-    int frameNumber = frameTimer = frameMax = abscisse = ordonne = w = h = 0;
+    int frameNumber = frameTimer = frameMax = abscisse = ordonnee = w = h = 0;
 
 
 }
@@ -37,8 +37,8 @@ int Elise::getAbscisse(){
     return abscisse ;
 }
 
-int Elise::getOrdonne(){
-    return ordonne ;
+int Elise::getOrdonnee(){
+    return ordonnee ;
 }
 
 int Elise::getHeight(){
@@ -57,8 +57,8 @@ void Elise::setAbscisse(int valeur){
     abscisse = valeur ;
 }
 
-void Elise::setOrdonne(int valeur){
-    ordonne = valeur ;
+void Elise::setOrdonnee(int valeur){
+    ordonnee = valeur ;
 }
 
 void Elise::setWidth(int valeur){
@@ -89,7 +89,7 @@ void Elise::initialize(Map &map){
     frameMax = 3 ;
 
     abscisse = map.getBeginX();
-    ordonne = map.getBeginY();
+    ordonnee = map.getBeginY();
 
     // Initialise la caméra
     map.setDebutAbscisse(0) ;
@@ -123,17 +123,29 @@ void Elise::drawElise(sf::RenderWindow &window, Map &map){
     }
 
     // On place le joueur correctement sur la map
+<<<<<<< HEAD
     // truc de texture .setPosition(Vector2f(abscisse - map.getDebutAbscisse(), ordonne - map.getDebutOrdonne()));
+=======
+    // truc de texture .setPosition(Vector2f(abscisse - map.getStartX(), ordonnee - map.getStartY()));
+>>>>>>> c1be206f8de1c915658b196f360d716b64eb949a
 }
 
 
 void Elise::centerScrolling(Map &map){
 
+<<<<<<< HEAD
 	int centrex = w/2 + x; //centre d'élise
 	int centrey = h/2 + y;
 	int minx = LIMITE_ABSCISSE + map.getDebutAbscisse();  //Constantes d'élise, voir hpp
 	int maxx = minx + LIMITE_WIDTH;
 	int miny = LIMITE_ORDONNE + map.getDebutOrdonne();
+=======
+	int centrex = (*this).getWidth()/2 + (*this).getAbscisse(); //centre d'élise
+	int centrey = (*this).getHeight()/2 + (*this).getOrdonnee();
+	int minx = LIMITE_ABSCISSE + map.getStartX();  //Constantes d'élise, voir hpp
+	int maxx = minx + LIMITE_WIDTH;
+	int miny = LIMITE_ORDONNEE + map.getStartY();
+>>>>>>> c1be206f8de1c915658b196f360d716b64eb949a
 	int maxy = miny + LIMITE_HEIGHT;
 
 	//centrage de la map sur x
@@ -172,7 +184,7 @@ void Elise::collisionObjets(Map &map){
 
 	int xg, xd, yh, yb; //coordonnées de test pour voir quelles tiles touche elise : gauche, droite, haut, bas
 	bool okay = true; //controle de la boucle while
-	i = TILE_SIZE; //itérateur pour parcourir la boucle, à modifier selon la taille d'elise: on vérifie les collisions par ligne de tiles, et le i sert à changer de ligne
+	int i = TILE_SIZE; //itérateur pour parcourir la boucle, à modifier selon la taille d'elise: on vérifie les collisions par ligne de tiles, et le i sert à changer de ligne
 
 	/*
 	Sous entendu par la classe player:
@@ -182,98 +194,69 @@ void Elise::collisionObjets(Map &map){
 	TILESIZE vient de elise.hpp
 	*/
 
+	//on boucle sur l'axe de x pour controler le contact des tiles
 	while(okay){
 
 		//on reporte les mesures de position d'elise vers des mesures sur la map (conversion base pixel vers base ecran)
-		xg = (x + dirX)/TILE_SIZE;
-		xd = (x + dirX + w - 1)/TILE_SIZE; //si c'est kaputt, enlever le -1
-		yh = y/TILE_SIZE;
-		yb = (y + i - 1)/TILE_SIZE; //le i sert à descendre d'une ligne de tiles
+		xg = ((*this).getAbscisse() + dirX)/TILE_SIZE;
+		xd = ((*this).getAbscisse() + dirX + (*this).getWidth() - 1)/TILE_SIZE; //si c'est kaputt, enlever le -1
+		yh = (*this).getOrdonnee()/TILE_SIZE;
+		yb = ((*this).getOrdonnee() + i - 1)/TILE_SIZE; //le i sert à descendre d'une ligne de tiles
 
 		//on checke pas si on est dans les limites de l'écran, c'est pour les losers ca
 
-		
-
-	}
-
-
-//A PARTIR D'ICI C'EST DE LA MERDE
-
-	int zebi; //t'occupe pas, variable de controle
-
-
-
-
-	//on ne teste pas si le player est dans les limites de l'écran, mais on pourrait
-
-	//test pour aller vers la droite
-	if (dirX > 0){
-
-		if (map.getTile(bdy, bdx + dirX) == MUR || map.getTile(hgy, bdx + dirX) == MUR){ //si les deux tiles superposées à la droite sont des murs
-			zebi = 0;
-			dirX = 0;
-			while(!(map.getTile(bdy, bdx + dirX) == MUR || map.getTile(hgy, bdx + dirX) == MUR)){  //on recherche la valeur de dirX pour se coller au mur
-				dirX++;
-				zebi++;
+		if(dirX >0){
+			if(map.getTile(yh, xd) == DUR || map.getTile(yb, xd) == DUR){
+				//on colle elise à la tile qu'on peut pas traverser
+				(*this).setAbscisse(xd*TILE_SIZE); //revient à ajouter dirX + w - 1 à x
+				(*this).setAbscisse((*this).getAbscisse()- (*this).getWidth() -1);
+				dirX = 0;
 			}
-			if(zebi != 0){  //pour bien s'assurer qu'on n'est pas dans le cas où le while n'a pas été fait
-				dirX--; //au cas où
-			}	
-			okay = false; //ne pas appliquer le mouvement plus tard			
 		}
-	}
-
-	//test pour aller vers la gauche
-	if(dirX<0){
-
-		if(map.getTile(bdy, hgx - dirX) == MUR || map.getTile(hgy, hgx - dirX) == MUR){
-			zebi = 0;
-			dirX == 0;
-			while(!(map.getTile(bdy, hgx - dirX) == MUR || map.getTile(hgy, hgx - dirX) == MUR)){
-				dirX--;
-				zebi++;
+		else if(dirX<0){
+			if(map.getTile(yh, xg) == DUR || map.getTile(yb, xg) == DUR){
+				(*this).setAbscisse((xg + 1)*TILE_SIZE); //revient à ajouter dirX + 1
+				dirX = 0;
 			}
-			if(zebi != 0){
-				dirX++;
-			}
-			okay = false; //ne pas appliquer le mouvement plus tard	
 		}
+
+		okay = !(i == h); //sortie de la boucle si on a vérifié toutes les tiles
+
+		i = i+ TILE_SIZE;
+		if(i>(*this).getHeight())
+			i=(*this).getHeight();
 	}
 
-	//test pour aller vers le haut    ON CONSIDERE QUE SES PIEDS DOIVENT TOUCHER LA TEXTURE MUR, DONC ON UTILISE LES MESURES DE Y DU BAS
-	if(dirY<0){
+	//meme chose pour l'axe y
+	i = TILE_SIZE;
+	okay = true;
+	while(okay){
 
-		if(map.getTile(bdy - dirY, hgx) == MUR || map.getTile(bdy - dirY, bdx) == MUR){
-			zebi = 0;
-			dirY=0;
-			while(!(map.getTile(bdy - dirY, hgx) == MUR || map.getTile(bdy - dirY, bdx) == MUR)){
-				dirY--;
-				zebi++;
+		xg = (*this).getAbscisse()/TILE_SIZE;
+		xd = ((*this).getAbscisse()+i) / TILE_SIZE;
+		yh = ((*this).getOrdonnee() + dirY)/TILE_SIZE;
+		yb = ((*this).getOrdonnee() + dirY +(*this).getHeight()) / TILE_SIZE;
+
+		if(dirY>0){ //attention, vers le bas!
+			if(map.getTile(yb, xd) == DUR || map.getTile(yb, xg) == DUR){
+				(*this).setOrdonnee(yb*TILE_SIZE);
+				(*this).setOrdonnee((*this).getOrdonnee() - (*this).getHeight() - 1); //evient à faire y = y -1
+				dirY = 0;
 			}
-			if(zebi != 0){
-				dirY++;
-			}	
-			okay = false; //ne pas appliquer le mouvement plus tard				
 		}
-	}
-
-	//test pour aller vers le bas	ON CONSIDERE QUE ELISE PEUT PASSER DERRIERE LES OBSTACLES, POUR ETRE CACHÉE À UN RANG DE PIXEL PRES, DONC ON UTILISE LES MESURES DE Y DU BAS
-	if(dirY>0){
-
-		if(map.getTile(hgy + dirY, hgx) == MUR || map.getTile(hgy + dirY, bdx) == MUR){
-			zebi = 0;
-			dirY = 0;
-			while(!(map.getTile(hgy + dirY, hgx) == MUR || map.getTile(hgy + dirY, bdx) == MUR)){
-				dirY--;
-				zebi++;
+		else if(dirX<0){ //vers le haut
+			if(map.getTile(yh, xd) == DUR || map.getTile(yh, xg) == DUR){
+				(*this).setOrdonnee((yh + 1) *TILE_SIZE);
+				dirY = 0;
 			}
-			if(zebi != 0){
-				dirY++;
-			}	
-			okay = false; //ne pas appliquer le mouvement plus tard				
 		}
+		okay = !(i==w);
+		i = i+ TILE_SIZE;
+		if(i>(*this).getWidth())
+			i = (*this).getWidth();
 	}
 
+<<<<<<< HEAD
 	//on applique les mouvements si rien n'a été bloqué
 	if(okay){
 		abscisse +=  dirX;
@@ -297,3 +280,19 @@ void Elise::collisionObjets(Map &map){
 // 	y = map.getMaxY() - h;
 // 	}
 // }
+=======
+	//application des mouvements, si ils ont été corrigés ils seront nuls
+	(*this).setAbscisse((*this).getAbscisse() + dirX);
+	(*this).setOrdonnee((*this).getAbscisse() +dirY);
+
+	//correction des dépassements
+	if((*this).getAbscisse()<0)
+		(*this).setAbscisse(0);
+	if ((*this).getAbscisse() + w >= map.getMaxX())
+		(*this).setAbscisse(map.getMaxX() - (*this).getWidth());
+	if((*this).getOrdonnee()<0)
+		(*this).setOrdonnee(0);
+	if ((*this).getOrdonnee() + (*this).getHeight() > map.getMaxY())
+		(*this).setOrdonnee(map.getMaxY() - (*this).getHeight());
+}
+>>>>>>> c1be206f8de1c915658b196f360d716b64eb949a
