@@ -41,6 +41,8 @@ int getOrdonnee();
 int getStamina();
 int getHeight();
 int getWidth();
+int getDirX();
+int getDirY();
 
 
 // Setteurs
@@ -49,6 +51,8 @@ void setOrdonnee(int valeur);
 void setWidth(int valeur);
 void setHeight(int valeur);
 void setStamina(int valeur);
+void setDirX(int val);
+void setDirY(int val);
 
 //Fonctions
 void initialize(Map &map);
@@ -76,6 +80,10 @@ private:
     // Variables utiles pour l'animation :
     // Numéro de la frame (= image) en cours + timer
     int frameNumber, frameTimer, frameMax;
+
+    int dirX, dirY; //direction du mouvement
+
+    int mort; //si c'est 0 elle est vivante, si c'est 1 c'est la fin
 
 
 
