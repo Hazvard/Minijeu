@@ -11,17 +11,15 @@ Elise::Elise(){
 
     //Chargement des ressources graphiques
 
-    for(int i = 0 ; i < 8 ; i++){
-	    if (!eliseMarcheTexture[i].loadFromFile("ressources/Elise_marche.png", sf::IntRect(320 * i, 0 , 320, 320))){
-		    std::cout <<"Erreur de load de la texture" << std::endl;
-	    }
-    }
+	if (!eliseMarcheTexture.loadFromFile("ressources/Elise_marche.png", sf::IntRect(320, 0 , 320, 320))){
+	    std::cout <<"Erreur de load de la texture" << std::endl;
+	}
     
-    for(int i = 0 ; i < 8 ; i++){
-	    if (!eliseNeutreTexture[i].loadFromFile("ressources/Elise_neutre.png", sf::IntRect(320 * i, 0 , 320, 320))){
-		    std::cout <<"Erreur de load de la texture" << std::endl;
-	    }
-    }
+    
+	if (!eliseNeutreTexture.loadFromFile("ressources/Elise_neutre.png", sf::IntRect(320, 0 , 320, 320))){
+		std::cout <<"Erreur de load de la texture" << std::endl;
+	}
+    
 
     // Initialisation des variables
     int stamina = 100 ;
@@ -92,7 +90,7 @@ void Elise::setDirY(int val){
 void Elise::initialize(Map &map){
 
     // Au départ, Elise regarde à droite en animation neutre
-    direction = RIGHT ;
+    direction = DROITE ;
     etat = NEUTRE ;
 
     // On commence à la frame 0
@@ -138,9 +136,20 @@ void Elise::drawElise(sf::RenderWindow &window, Map &map){
             frameTimer --;
     }
 
-    // On place le joueur correctement sur la map
+    // On place le joueur sur la map
 
-    // truc de texture .setPosition(Vector2f(abscisse - map.getDebutAbscisse(), ordonne - map.getDebutOrdonne()));
+    eliseSprite.setPosition(Vector2f(abscisse - map.getDebutAbscisse(), ordonnee - map.getDebutOrdonne()));
+	if( direction == GAUCHE ){ // On affiche differement le personnage s'il regarde à gauche ou droite
+		eliseSprite.scale(-1.f, -1.f) ;
+		eliseSprite.setTextureRect(sf::IntRect( frameNumber * w, 0 , w, h)) ;
+		window.draw(eliseSprite) ;
+	}
+	else{
+		if( direction == GAUCHE ){ // On affiche differement le personnage s'il regarde à gauche ou droite
+		eliseSprite.setTextureRect(sf::IntRect( frameNumber * w, 0 , w, h)) ;
+		window.draw(eliseSprite) ;
+	}
+	}
 
     // truc de texture .setPosition(Vector2f(abscisse - map.getStartX(), ordonnee - map.getStartY()));
 }

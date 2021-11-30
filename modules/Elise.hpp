@@ -96,8 +96,8 @@ const int TEMPS_ENTRE_DEUX_FRAMES = 3;
 const int NEUTRE = 0;
 const int MARCHE = 1;
 
-const int RIGHT = 0 ;
-const int LEFT = 0 ;
+const int GAUCHE = 0 ;
+const int DROITE = 1 ;
 
 // Taille du sprite de notre héros (largeur = width et hauteur = heigth)
 const int ELISE_WIDTH = 40;
@@ -129,8 +129,8 @@ const int DUR = 1;
 enum{ haut, bas, droite, gauche, entrer };
  
 //Background
-Texture eliseMarcheTexture[8] ;
-Texture eliseNeutreTexture[8] ;
+Texture eliseMarcheTexture ;
+Texture eliseNeutreTexture ;
 Sprite eliseSprite ;
  };
 #endif
