@@ -15,8 +15,8 @@ using namespace sf; // Permet de ne pas écrire sf::
 using namespace std;
 
 //Fonctions
-void maj(Entree &entree,Map &map);
-void draw(sf::RenderWindow &window, Map &map);
+void maj(Entree &entree,Map &map, Elise &elise);
+void draw(sf::RenderWindow &window, Map &map, Elise &elise);
 
 // Taille de la fenêtre : 800x600 pixels
 const int SCREEN_WIDTH = 800;

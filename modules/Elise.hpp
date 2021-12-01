@@ -85,7 +85,7 @@ private:
 
     int mort; //si c'est 0 elle est vivante, si c'est 1 c'est la fin
 
-
+    int reflexion; // test pour le moment qui permet de flip le sprite
 
 
 

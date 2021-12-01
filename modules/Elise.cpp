@@ -11,12 +11,15 @@ Elise::Elise(){
 
     //Chargement des ressources graphiques
 
-	if (!eliseMarcheTexture.loadFromFile("ressources/Elise_marche.png", sf::IntRect(320, 0 , 320, 320))){
+	if (!eliseMarcheTexture.loadFromFile("ressources/Elise_marche.png")){
 	    std::cout <<"Erreur de load de la texture" << std::endl;
+	}else{
+		eliseSprite.setTexture(eliseMarcheTexture); // On lie le sprite aavec la texture
+		eliseSprite.setScale(0.25, 0.25) ; // On diminue sa taille pour pas le faire dépasser
 	}
     
     
-	if (!eliseNeutreTexture.loadFromFile("ressources/Elise_neutre.png", sf::IntRect(320, 0 , 320, 320))){
+	if (!eliseNeutreTexture.loadFromFile("ressources/Elise_neutre.png")){
 		std::cout <<"Erreur de load de la texture" << std::endl;
 	}
     
@@ -24,8 +27,9 @@ Elise::Elise(){
     // Initialisation des variables
     int stamina = 100 ;
 
-    int frameNumber = frameTimer = frameMax = abscisse = ordonnee = w = h = 0;
-
+    int frameNumber = frameTimer = frameMax = abscisse = ordonnee = 0;
+	//int w = h = 320 ;
+	//int direction = DROITE ;
 
 }
  
@@ -100,7 +104,7 @@ void Elise::initialize(Map &map){
     frameTimer = TEMPS_ENTRE_DEUX_FRAMES ;
 
     // Le maximum de case de frames de l'image
-    frameMax = 3 ;
+    frameMax = 8 ;
 
     abscisse = map.getBeginX();
     ordonnee = map.getBeginY();
@@ -111,6 +115,9 @@ void Elise::initialize(Map &map){
 
     w = ELISE_WIDTH ;
     h = ELISE_HEIGTH ;
+
+	reflexion = true ;
+	direction = GAUCHE ;
 
 }
 
@@ -140,18 +147,19 @@ void Elise::drawElise(sf::RenderWindow &window, Map &map){
 
     eliseSprite.setPosition(Vector2f(abscisse - map.getDebutAbscisse(), ordonnee - map.getDebutOrdonne()));
 	if( direction == GAUCHE ){ // On affiche differement le personnage s'il regarde à gauche ou droite
-		eliseSprite.scale(-1.f, -1.f) ;
-		eliseSprite.setTextureRect(sf::IntRect( frameNumber * w, 0 , w, h)) ;
+		eliseSprite.setTextureRect(sf::IntRect(frameNumber * 320,0, 320, 320 )) ;  // Je avoir problème ici -------------------------------------------
 		window.draw(eliseSprite) ;
 	}
 	else{
-		if( direction == GAUCHE ){ // On affiche differement le personnage s'il regarde à gauche ou droite
-		eliseSprite.setTextureRect(sf::IntRect( frameNumber * w, 0 , w, h)) ;
+		if(reflexion == true){
+			eliseSprite.scale(-1.f, 1) ;
+			reflexion = false ;
+		}
+		eliseSprite.setTextureRect(sf::IntRect(frameNumber * 320,0, 320, 320 )) ; //frameNumber * w, 0 , w, h)) ;
 		window.draw(eliseSprite) ;
 	}
-	}
 
-    // truc de texture .setPosition(Vector2f(abscisse - map.getStartX(), ordonnee - map.getStartY()));
+    
 }
 
 
@@ -290,5 +298,5 @@ void Elise::collisionObjets(Map &map){
 }
 
 void Elise::update(Entree &entree, Map &map){
-	
+	dirX += ELISE_SPEED ;
 }

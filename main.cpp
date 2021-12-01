@@ -28,6 +28,11 @@ int main(int argc, char ** argv) {
   map.setLevel(2);
   map.changeLevel();
  
+ // On initialise Elise
+ elise.initialize(map) ;
+
+
+
   // Boucle de jeu
   while (renderWindow.isOpen()){
  
@@ -35,11 +40,10 @@ int main(int argc, char ** argv) {
     entree.gestionEntrees(renderWindow);
 
     //Updates (besoin de handle event)
-    maj(entree, map);
+    maj(entree, map, elise);
  
     // Dessin - draw
-    draw(renderWindow, map);
-    //elise.drawElise(renderWindow, static_cast<int> ( clock.getElapsedTime().asSeconds() * 8 ) % 8, 1 ) ;
+    draw(renderWindow, map, elise);
     renderWindow.display();
   }
  
@@ -52,8 +56,9 @@ int main(int argc, char ** argv) {
  
 //Fonction de mise à jour du jeu : gère la logique du jeu
 
-void maj(Entree &entree, Map &map){
-  map.testDefilement(); // Défilement auto
+void maj(Entree &entree, Map &map, Elise &elise){
+  //map.testDefilement(); // Défilement auto
+  elise.update(entree, map) ;
 
 
 }
@@ -61,7 +66,7 @@ void maj(Entree &entree, Map &map){
  
  
 //Fonction de dessin du jeu : dessine tous les éléments
-void draw(RenderWindow &window, Map &map){
+void draw(RenderWindow &window, Map &map, Elise &elise){
   //On efface tout
   window.clear();
  
@@ -70,6 +75,9 @@ void draw(RenderWindow &window, Map &map){
  
   // Affiche la map de tiles : layer 1 (couche active : sol, etc.)
   map.draw(1, window);
+
+  // On affiche Elise
+  elise.drawElise(window, map);
  
   // Affiche la map de tiles : layer 3 (couche en foreground / devant)
   map.draw(3, window);
