@@ -163,7 +163,7 @@ void Elise::drawElise(sf::RenderWindow &window, Map &map){
 }
 
 
-void Elise::centerScrolling(Map &map){
+void Elise::centerScrolling(Map &map){  //pas updaté mais normalement c'est le meme que ans la V1 du jeu
 
 	int centrex = (*this).getWidth()/2 + (*this).getAbscisse(); //centre d'élise
 	int centrey = (*this).getHeight()/2 + (*this).getOrdonnee();
@@ -298,5 +298,71 @@ void Elise::collisionObjets(Map &map){
 }
 
 void Elise::update(Entree &entree, Map &map){
-	dirX += ELISE_SPEED ;
+
+	if(!mort){ //si on est pas morts
+
+		if(entree.getTouche().droite){
+			(*this).setDirX(ELISE_SPEED);
+			sensSprite = DROITE;
+
+			//on checke si on doit initiliser l'animation
+			if(etat != MARCHE){
+				etat = MARCHE;
+				frameNumber = 0; //ca sert un peu a rien comme il y a que 2 frames mais osef
+				frameTimer = TEMPS_ENTRE_DEUX_FRAMES;
+				frameMax = MAXIFRAME;
+			}
+		}
+		else if(entree.getTouche().gauche){
+			(*this).setDirX(-ELISE_SPEED);
+			sensSprite = GAUCHE;
+
+			//on checke si on doit initiliser l'animation
+			if(etat != MARCHE){
+				etat = MARCHE;
+				frameNumber = 0; //ca sert un peu a rien comme il y a que 2 frames mais osef
+				frameTimer = TEMPS_ENTRE_DEUX_FRAMES;
+				frameMax = MAXIFRAME;
+			}
+		}
+		else if(entree.getTouche().haut){
+			(*this).setDirY(-ELISE_SPEED);
+			sensSprite = HAUT;
+
+			//on checke si on doit initiliser l'animation
+			if(etat != MARCHE){
+				etat = MARCHE;
+				frameNumber = 0; //ca sert un peu a rien comme il y a que 2 frames mais osef
+				frameTimer = TEMPS_ENTRE_DEUX_FRAMES;
+				frameMax = MAXIFRAME;
+			}
+		}
+		else if(entree.getTouche().bas){
+			(*this).setDirY(ELISE_SPEED);
+			sensSprite = BAS;
+
+			//on checke si on doit initiliser l'animation
+			if(etat != MARCHE){
+				etat = MARCHE;
+				frameNumber = 0; //ca sert un peu a rien comme il y a que 2 frames mais osef
+				frameTimer = TEMPS_ENTRE_DEUX_FRAMES;
+				frameMax = MAXIFRAME;
+			}
+		}
+
+		else{ //si rien n'est appuyé (ou alors une autre touche que celles de direction)
+			if(etat != NEUTRE){
+				etat = neutre;
+				frameNumber = 0; //ca sert un peu a rien comme il y a que 2 frames mais osef
+				frameTimer = TEMPS_ENTRE_DEUX_FRAMES;
+				frameMax = MAXIFRAME;
+			}
+		}
+	}
+	
+	else{ //Si on est mouru
+		mort = 0; //on ressucite
+		map.changeLevel(); //reload du niveau
+		initialize(map);
+	}
 }

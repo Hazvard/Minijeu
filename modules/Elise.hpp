@@ -75,8 +75,10 @@ private:
     int w, h ;
 
     // Variable utile pour l'affichage
-    int etat, direction ;
+    int etat;
     int enDeplacement ;
+    int sensSprite;
+
     // Variables utiles pour l'animation :
     // Numéro de la frame (= image) en cours + timer
     int frameNumber, frameTimer, frameMax;
@@ -88,16 +90,18 @@ private:
     int reflexion; // test pour le moment qui permet de flip le sprite
 
 
-
 // Animation
 const int TEMPS_ENTRE_DEUX_FRAMES = 3;
+const int MAXIFRAME = 2;
 
 //Valeurs attribuée aux poses du personnages
-const int NEUTRE = 0;
+const int NEUTRE = 0; //cf etat
 const int MARCHE = 1;
 
-const int GAUCHE = 0 ;
+const int GAUCHE = 0 ;  //cf sensSprite
 const int DROITE = 1 ;
+const int HAUT = 2;
+const int BAS = 3;
 
 // Taille du sprite de notre héros (largeur = width et hauteur = heigth)
 const int ELISE_WIDTH = 40;
