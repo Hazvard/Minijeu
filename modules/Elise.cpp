@@ -11,11 +11,11 @@ Elise::Elise(){
 
     //Chargement des ressources graphiques
 
-	if (!eliseMarcheTexture.loadFromFile("ressources/Elise_marche.png")){
+	if (!eliseMarcheTexture.loadFromFile("ressources/Elise.png")){
 	    std::cout <<"Erreur de load de la texture" << std::endl;
 	}else{
 		eliseSprite.setTexture(eliseMarcheTexture); // On lie le sprite aavec la texture
-		eliseSprite.setScale(0.25, 0.25) ; // On diminue sa taille pour pas le faire dépasser
+		eliseSprite.setScale(5, 5) ; // On diminue sa taille pour pas le faire dépasser
 	}
     
     
@@ -29,7 +29,7 @@ Elise::Elise(){
 
     int frameNumber = frameTimer = frameMax = abscisse = ordonnee = 0;
 	//int w = h = 320 ;
-	//int direction = DROITE ;
+	//int sensSprite = DROITE ;
 
 }
  
@@ -94,7 +94,7 @@ void Elise::setDirY(int val){
 void Elise::initialize(Map &map){
 
     // Au départ, Elise regarde à droite en animation neutre
-    direction = DROITE ;
+    sensSprite = DROITE ;
     etat = NEUTRE ;
 
     // On commence à la frame 0
@@ -104,7 +104,7 @@ void Elise::initialize(Map &map){
     frameTimer = TEMPS_ENTRE_DEUX_FRAMES ;
 
     // Le maximum de case de frames de l'image
-    frameMax = 8 ;
+    frameMax = MAXIFRAME ;
 
     abscisse = map.getBeginX();
     ordonnee = map.getBeginY();
@@ -116,8 +116,10 @@ void Elise::initialize(Map &map){
     w = ELISE_WIDTH ;
     h = ELISE_HEIGTH ;
 
+	mort = 0 ;
+
 	reflexion = true ;
-	direction = GAUCHE ;
+	sensSprite = GAUCHE ;
 
 }
 
@@ -146,16 +148,25 @@ void Elise::drawElise(sf::RenderWindow &window, Map &map){
     // On place le joueur sur la map
 
     eliseSprite.setPosition(Vector2f(abscisse - map.getDebutAbscisse(), ordonnee - map.getDebutOrdonne()));
-	if( direction == GAUCHE ){ // On affiche differement le personnage s'il regarde à gauche ou droite
-		eliseSprite.setTextureRect(sf::IntRect(frameNumber * 320,0, 320, 320 )) ;  // Je avoir problème ici -------------------------------------------
+
+	if( sensSprite == GAUCHE ){ // On affiche differement le personnage s'il regarde à gauche ou droite
+
+		eliseSprite.setTextureRect(sf::IntRect(frameNumber * ELISE_WIDTH, 3 * ELISE_HEIGTH, ELISE_HEIGTH, ELISE_WIDTH )) ;  // Je avoir problème ici -------------------------------------------
 		window.draw(eliseSprite) ;
 	}
-	else{
-		if(reflexion == true){
-			eliseSprite.scale(-1.f, 1) ;
-			reflexion = false ;
-		}
-		eliseSprite.setTextureRect(sf::IntRect(frameNumber * 320,0, 320, 320 )) ; //frameNumber * w, 0 , w, h)) ;
+	else if(sensSprite == DROITE){
+
+		eliseSprite.setTextureRect(sf::IntRect(frameNumber * ELISE_WIDTH, 2 * ELISE_HEIGTH, ELISE_HEIGTH, ELISE_WIDTH )) ; 
+		window.draw(eliseSprite) ;
+
+	}else if(sensSprite == HAUT){
+
+		eliseSprite.setTextureRect(sf::IntRect(frameNumber * ELISE_WIDTH, 1 * ELISE_HEIGTH, ELISE_HEIGTH, ELISE_WIDTH )) ; 
+		window.draw(eliseSprite) ;
+
+	}else if( sensSprite == BAS){
+
+		eliseSprite.setTextureRect(sf::IntRect(frameNumber * ELISE_WIDTH, 0 * ELISE_HEIGTH, ELISE_HEIGTH, ELISE_WIDTH )) ; 
 		window.draw(eliseSprite) ;
 	}
 
@@ -305,59 +316,60 @@ void Elise::update(Entree &entree, Map &map){
 			(*this).setDirX(ELISE_SPEED);
 			sensSprite = DROITE;
 
-			//on checke si on doit initiliser l'animation
-			if(etat != MARCHE){
-				etat = MARCHE;
-				frameNumber = 0; //ca sert un peu a rien comme il y a que 2 frames mais osef
-				frameTimer = TEMPS_ENTRE_DEUX_FRAMES;
-				frameMax = MAXIFRAME;
-			}
+			// //on checke si on doit initiliser l'animation
+			// if(etat != MARCHE){
+			// 	etat = MARCHE;
+			// 	frameNumber = 0; //ca sert un peu a rien comme il y a que 2 frames mais osef
+			// 	frameTimer = TEMPS_ENTRE_DEUX_FRAMES;
+			// 	frameMax = MAXIFRAME;
+			// }
 		}
 		else if(entree.getTouche().gauche){
 			(*this).setDirX(-ELISE_SPEED);
 			sensSprite = GAUCHE;
 
-			//on checke si on doit initiliser l'animation
-			if(etat != MARCHE){
-				etat = MARCHE;
-				frameNumber = 0; //ca sert un peu a rien comme il y a que 2 frames mais osef
-				frameTimer = TEMPS_ENTRE_DEUX_FRAMES;
-				frameMax = MAXIFRAME;
-			}
+			// //on checke si on doit initiliser l'animation
+			// if(etat != MARCHE){
+			// 	etat = MARCHE;
+			// 	frameNumber = 0; //ca sert un peu a rien comme il y a que 2 frames mais osef
+			// 	frameTimer = TEMPS_ENTRE_DEUX_FRAMES;
+			// 	frameMax = MAXIFRAME;
+			// }
 		}
 		else if(entree.getTouche().haut){
 			(*this).setDirY(-ELISE_SPEED);
 			sensSprite = HAUT;
 
-			//on checke si on doit initiliser l'animation
-			if(etat != MARCHE){
-				etat = MARCHE;
-				frameNumber = 0; //ca sert un peu a rien comme il y a que 2 frames mais osef
-				frameTimer = TEMPS_ENTRE_DEUX_FRAMES;
-				frameMax = MAXIFRAME;
-			}
+			// //on checke si on doit initiliser l'animation
+			// if(etat != MARCHE){
+			// 	etat = MARCHE;
+			// 	frameNumber = 0; //ca sert un peu a rien comme il y a que 2 frames mais osef
+			// 	frameTimer = TEMPS_ENTRE_DEUX_FRAMES;
+			// 	frameMax = MAXIFRAME;
+			// }
 		}
 		else if(entree.getTouche().bas){
 			(*this).setDirY(ELISE_SPEED);
 			sensSprite = BAS;
 
-			//on checke si on doit initiliser l'animation
-			if(etat != MARCHE){
-				etat = MARCHE;
-				frameNumber = 0; //ca sert un peu a rien comme il y a que 2 frames mais osef
-				frameTimer = TEMPS_ENTRE_DEUX_FRAMES;
-				frameMax = MAXIFRAME;
-			}
+			// //on checke si on doit initiliser l'animation
+			// if(etat != MARCHE){
+			// 	etat = MARCHE;
+			// 	frameNumber = 0; //ca sert un peu a rien comme il y a que 2 frames mais osef
+			// 	frameTimer = TEMPS_ENTRE_DEUX_FRAMES;
+			// 	frameMax = MAXIFRAME;
+			// }
 		}
 
 		else{ //si rien n'est appuyé (ou alors une autre touche que celles de direction)
 			if(etat != NEUTRE){
-				etat = neutre;
+				etat = NEUTRE;
 				frameNumber = 0; //ca sert un peu a rien comme il y a que 2 frames mais osef
 				frameTimer = TEMPS_ENTRE_DEUX_FRAMES;
 				frameMax = MAXIFRAME;
 			}
 		}
+		centerScrolling(map);
 	}
 	
 	else{ //Si on est mouru

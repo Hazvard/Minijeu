@@ -91,7 +91,7 @@ private:
 
 
 // Animation
-const int TEMPS_ENTRE_DEUX_FRAMES = 3;
+const int TEMPS_ENTRE_DEUX_FRAMES = 20;
 const int MAXIFRAME = 2;
 
 //Valeurs attribuée aux poses du personnages
@@ -104,8 +104,8 @@ const int HAUT = 2;
 const int BAS = 3;
 
 // Taille du sprite de notre héros (largeur = width et hauteur = heigth)
-const int ELISE_WIDTH = 40;
-const int ELISE_HEIGTH = 48;
+const int ELISE_WIDTH = 20;
+const int ELISE_HEIGTH = 20;
 
 //Vitesse de déplacement en pixels du sprite
 const int ELISE_SPEED = 3 ;
