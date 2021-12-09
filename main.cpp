@@ -21,7 +21,6 @@ int main(int argc, char ** argv) {
   Entree entree;
   Map map; // Nouvelle classe carte
   Elise  elise ;
-  Carte fond1; // Ancienne classe carte
   
  
   //On commence au premier niveau

@@ -6,7 +6,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "SFML/Graphics.hpp"
-#include "modules/carte.hpp"
 #include "modules/Elise.hpp"
 #include "modules/map.hpp"
 #include "modules/entree.hpp"

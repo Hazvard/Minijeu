@@ -148,28 +148,31 @@ void Elise::drawElise(sf::RenderWindow &window, Map &map){
     // On place le joueur sur la map
 
     eliseSprite.setPosition(Vector2f(abscisse - map.getDebutAbscisse(), ordonnee - map.getDebutOrdonne()));
+	if(etat == MARCHE){
+		if( sensSprite == GAUCHE ){ // On affiche differement le personnage s'il regarde à gauche ou droite
 
-	if( sensSprite == GAUCHE ){ // On affiche differement le personnage s'il regarde à gauche ou droite
+			eliseSprite.setTextureRect(sf::IntRect(frameNumber * ELISE_WIDTH, 3 * ELISE_HEIGTH, ELISE_HEIGTH, ELISE_WIDTH )) ;  // Je avoir problème ici -------------------------------------------
+			window.draw(eliseSprite) ;
+		}
+		else if(sensSprite == DROITE){
 
-		eliseSprite.setTextureRect(sf::IntRect(frameNumber * ELISE_WIDTH, 3 * ELISE_HEIGTH, ELISE_HEIGTH, ELISE_WIDTH )) ;  // Je avoir problème ici -------------------------------------------
-		window.draw(eliseSprite) ;
+			eliseSprite.setTextureRect(sf::IntRect(frameNumber * ELISE_WIDTH, 2 * ELISE_HEIGTH, ELISE_HEIGTH, ELISE_WIDTH )) ; 
+			window.draw(eliseSprite) ;
+
+		}else if(sensSprite == HAUT){
+
+			eliseSprite.setTextureRect(sf::IntRect(frameNumber * ELISE_WIDTH, 1 * ELISE_HEIGTH, ELISE_HEIGTH, ELISE_WIDTH )) ; 
+			window.draw(eliseSprite) ;
+
+		}else if( sensSprite == BAS){
+
+			eliseSprite.setTextureRect(sf::IntRect(frameNumber * ELISE_WIDTH, 0 * ELISE_HEIGTH, ELISE_HEIGTH, ELISE_WIDTH )) ; 
+			window.draw(eliseSprite) ;
+		}
+	}else{
+		eliseSprite.setTextureRect(sf::IntRect(frameNumber * ELISE_WIDTH, 4 * ELISE_HEIGTH, ELISE_HEIGTH, ELISE_WIDTH )) ; 
+			window.draw(eliseSprite) ;
 	}
-	else if(sensSprite == DROITE){
-
-		eliseSprite.setTextureRect(sf::IntRect(frameNumber * ELISE_WIDTH, 2 * ELISE_HEIGTH, ELISE_HEIGTH, ELISE_WIDTH )) ; 
-		window.draw(eliseSprite) ;
-
-	}else if(sensSprite == HAUT){
-
-		eliseSprite.setTextureRect(sf::IntRect(frameNumber * ELISE_WIDTH, 1 * ELISE_HEIGTH, ELISE_HEIGTH, ELISE_WIDTH )) ; 
-		window.draw(eliseSprite) ;
-
-	}else if( sensSprite == BAS){
-
-		eliseSprite.setTextureRect(sf::IntRect(frameNumber * ELISE_WIDTH, 0 * ELISE_HEIGTH, ELISE_HEIGTH, ELISE_WIDTH )) ; 
-		window.draw(eliseSprite) ;
-	}
-
     
 }
 
@@ -317,48 +320,48 @@ void Elise::update(Entree &entree, Map &map){
 			sensSprite = DROITE;
 
 			// //on checke si on doit initiliser l'animation
-			// if(etat != MARCHE){
-			// 	etat = MARCHE;
+			if(etat != MARCHE){
+			 	etat = MARCHE;
 			// 	frameNumber = 0; //ca sert un peu a rien comme il y a que 2 frames mais osef
 			// 	frameTimer = TEMPS_ENTRE_DEUX_FRAMES;
 			// 	frameMax = MAXIFRAME;
-			// }
+			}
 		}
 		else if(entree.getTouche().gauche){
 			(*this).setDirX(-ELISE_SPEED);
 			sensSprite = GAUCHE;
 
 			// //on checke si on doit initiliser l'animation
-			// if(etat != MARCHE){
-			// 	etat = MARCHE;
+			if(etat != MARCHE){
+			 	etat = MARCHE;
 			// 	frameNumber = 0; //ca sert un peu a rien comme il y a que 2 frames mais osef
 			// 	frameTimer = TEMPS_ENTRE_DEUX_FRAMES;
 			// 	frameMax = MAXIFRAME;
-			// }
+			 }
 		}
 		else if(entree.getTouche().haut){
 			(*this).setDirY(-ELISE_SPEED);
 			sensSprite = HAUT;
 
 			// //on checke si on doit initiliser l'animation
-			// if(etat != MARCHE){
-			// 	etat = MARCHE;
+			if(etat != MARCHE){
+			 	etat = MARCHE;
 			// 	frameNumber = 0; //ca sert un peu a rien comme il y a que 2 frames mais osef
 			// 	frameTimer = TEMPS_ENTRE_DEUX_FRAMES;
 			// 	frameMax = MAXIFRAME;
-			// }
+			}
 		}
 		else if(entree.getTouche().bas){
 			(*this).setDirY(ELISE_SPEED);
 			sensSprite = BAS;
 
 			// //on checke si on doit initiliser l'animation
-			// if(etat != MARCHE){
-			// 	etat = MARCHE;
+			if(etat != MARCHE){
+				etat = MARCHE;
 			// 	frameNumber = 0; //ca sert un peu a rien comme il y a que 2 frames mais osef
 			// 	frameTimer = TEMPS_ENTRE_DEUX_FRAMES;
 			// 	frameMax = MAXIFRAME;
-			// }
+			}
 		}
 
 		else{ //si rien n'est appuyé (ou alors une autre touche que celles de direction)
@@ -370,6 +373,7 @@ void Elise::update(Entree &entree, Map &map){
 			}
 		}
 		centerScrolling(map);
+		collisionObjets(map) ;
 	}
 	
 	else{ //Si on est mouru
