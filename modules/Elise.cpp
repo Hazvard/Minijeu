@@ -318,6 +318,7 @@ void Elise::update(Entree &entree, Map &map){
 		if(entree.getTouche().droite){
 			(*this).setDirX(ELISE_SPEED);
 			sensSprite = DROITE;
+			(*this).setAbscisse((*this).getAbscisse() + ELISE_SPEED ) ; // instruction de déplacement sans collision pour tester
 
 			// //on checke si on doit initiliser l'animation
 			if(etat != MARCHE){
@@ -330,6 +331,7 @@ void Elise::update(Entree &entree, Map &map){
 		else if(entree.getTouche().gauche){
 			(*this).setDirX(-ELISE_SPEED);
 			sensSprite = GAUCHE;
+			(*this).setAbscisse((*this).getAbscisse() - ELISE_SPEED ) ;
 
 			// //on checke si on doit initiliser l'animation
 			if(etat != MARCHE){
@@ -342,6 +344,7 @@ void Elise::update(Entree &entree, Map &map){
 		else if(entree.getTouche().haut){
 			(*this).setDirY(-ELISE_SPEED);
 			sensSprite = HAUT;
+			(*this).setOrdonnee((*this).getOrdonnee() - ELISE_SPEED ) ;
 
 			// //on checke si on doit initiliser l'animation
 			if(etat != MARCHE){
@@ -354,6 +357,7 @@ void Elise::update(Entree &entree, Map &map){
 		else if(entree.getTouche().bas){
 			(*this).setDirY(ELISE_SPEED);
 			sensSprite = BAS;
+			(*this).setOrdonnee((*this).getOrdonnee() + ELISE_SPEED ) ;
 
 			// //on checke si on doit initiliser l'animation
 			if(etat != MARCHE){
@@ -373,7 +377,7 @@ void Elise::update(Entree &entree, Map &map){
 			}
 		}
 		centerScrolling(map);
-		collisionObjets(map) ;
+		//collisionObjets(map) ;
 	}
 	
 	else{ //Si on est mouru
