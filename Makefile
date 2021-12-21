@@ -3,7 +3,9 @@ CFLAGS = -W -Wall -ansi -std=c99
 LDFLAGS = -lsfml-graphics -lsfml-window -lsfml-system
 
 EXEC = minijeu
-SRC = main.cpp modules/Elise.cpp modules/map.cpp modules/entree.cpp modules/Menu.cpp
+
+SRC = main.cpp modules/Elise.cpp modules/map.cpp modules/entree.cpp modules/Carte.cpp modules/Menu.cpp
+
 OBJ = $(SRC:.c=.o)
 
 INC_TEST = 
@@ -25,4 +27,3 @@ mrpropre: clean
 	rm -rf $(OBJ_TEST)
 test: $(OBJ_TEST)
 	gcc $(CFLAGS) $(OBJ_TEST) $(LDFLAGS) -o $@
-

@@ -19,7 +19,7 @@ struct WARPSPE { int value; };
 //Constructeur
 Carte();
 
-/*
+
 int getBeginX(void) const;
 int getBeginY(void) const;
 int getDebutAbscisse(void) const;
@@ -28,6 +28,7 @@ int getMaxX(void) const;
 int getMaxY(void) const;
 int getTile(int y, int x) const;
 int getLevel(void) const;
+/*
 int getWarpUp(void) const;
 int getWarpDown(void) const;
 int getWarpLeft(void) const;
@@ -36,21 +37,23 @@ int getWarpSP(int number) const;
 int getWarpDirection(void) const;
 int getWarp_coming_from_x(void) const;
 int getWarp_coming_from_y(void) const;
+*/
  
 //Mutateurs
 void setLevel(int valeur);
 void setDebutAbscisse(int valeur);
 void setDebutOrdonne(int valeur);
 void setTile(int y, int x, int valeur);
+/*
 void setWarpDirection(int valeur);
 void setWarp_coming_from_x(int valeur);
 void setWarp_coming_from_y(int valeur);
-
 */
+
  
 //Fonctions
 void loadMap(std::string filename);
-void draw(int layer, sf::RenderWindow &window);
+void draw(sf::RenderWindow &window);
 void changeLevel(void);
 void testDefilement(void); //fait déffiler la carte toute seule.
  
@@ -85,7 +88,10 @@ int warp_coming_from_x;
 int warp_coming_from_y;
  
 //Tilesets
-sf::Texture tileSet;
+sf::Texture tileSetTexture;  //j'ai bricolé ici alors qi c'est cassé c'est normal
+
+//Sprite 
+sf::Sprite tileSet;
 
 //Police de caractères
 sf::Font font;
