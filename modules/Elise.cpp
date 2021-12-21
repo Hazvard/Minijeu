@@ -23,8 +23,7 @@ Elise::Elise(){
     int stamina = 100 ;
 
     int frameNumber = frameTimer = frameMax = abscisse = ordonnee = 0;
-	//int w = h = 320 ;
-	//int sensSprite = DROITE ;
+	elise = true ;
 
 }
  
@@ -84,6 +83,24 @@ void Elise::setDirX(int val){
 
 void Elise::setDirY(int val){
 	dirY = val;
+}
+
+void Elise::changementDeHeros(bool b){
+	if(elise){
+		if (!eliseMarcheTexture.loadFromFile("ressources/Elise.png")){
+	    	std::cout <<"Erreur de load de la texture" << std::endl;
+		}else{
+			eliseSprite.setTexture(eliseMarcheTexture); // On lie le sprite aavec la texture
+			eliseSprite.setScale(2.3, 2.3) ; // On diminue sa taille pour pas le faire dépasser
+		}
+	}else{
+		if (!eliseMarcheTexture.loadFromFile("ressources/Chloe.png")){
+	    	std::cout <<"Erreur de load de la texture" << std::endl;
+		}else{
+			eliseSprite.setTexture(eliseMarcheTexture); // On lie le sprite aavec la texture
+			eliseSprite.setScale(2.3, 2.3) ; // On diminue sa taille pour pas le faire dépasser
+		}
+	}
 }
 
 void Elise::initialize(Map &map){
@@ -307,7 +324,10 @@ void Elise::collisionObjets(Map &map){
 }
 
 void Elise::update(Entree &entree, Map &map){
-
+	// if(entree.getswitchSkin()){
+	// 	elise = !elise ;
+	// 	changementDeHeros(elise) ;
+	// }
 
 
 	if(!mort){ //si on est pas morts

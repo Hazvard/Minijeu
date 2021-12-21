@@ -5,7 +5,7 @@ using namespace sf;
  
 //Constructeur
 Entree::Entree(){
-    touche.gauche = touche.droite = touche.haut = touche.bas = touche.entrer = touche.P = menu = false;
+    touche.gauche = touche.droite = touche.haut = touche.bas = touche.entrer = touche.P = menu = switchSkin = false;
 }
  
  
@@ -43,6 +43,9 @@ void Entree::setTouche(int touches, bool appuyee){
             break;
         case P:
             touche.P = appuyee ;
+            break;
+        case C:
+            touche.C = appuyee ;
             break;
     }
 }
@@ -96,6 +99,14 @@ void Entree::getEntree(RenderWindow &renderwindow){
                     case Keyboard::Return:
                         touche.entrer = true;
                         break;
+
+                    case Keyboard::C:
+                        touche.C = true;
+                        if(!switchSkin)
+                            switchSkin = true ;
+                        else
+                            switchSkin = false ;
+                        break;
                     
                     case Keyboard::P:
                         touche.P = true ;
@@ -138,6 +149,11 @@ void Entree::getEntree(RenderWindow &renderwindow){
                     case Keyboard::P:
                         touche.P = false ;
                         break;
+                    
+                    case Keyboard::C:
+                        touche.C = false ;
+                        break;
+                    
  
                     default:
                         break;

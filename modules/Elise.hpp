@@ -60,6 +60,7 @@ void update(Entree &entree, Map &map);
 void centerScrolling(Map &map);
 void collisionObjets(Map &map);
 void drawElise(sf::RenderWindow &window, Map &map);
+void changementDeHeros(bool b);
 
  
 private:
@@ -78,6 +79,7 @@ private:
     int etat;
     int enDeplacement ;
     int sensSprite;
+    bool elise ;
 
     // Variables utiles pour l'animation :
     // Numéro de la frame (= image) en cours + timer
