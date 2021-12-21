@@ -15,6 +15,7 @@ class Entree{
         bool entrer; 
         bool P;
         bool C;
+        bool E;
     };
     
     public:
@@ -26,6 +27,7 @@ class Entree{
     Touche getTouche(void) const;
     bool getMenu();
     bool getswitchSkin();
+    bool getElise() ;
     
     //Setteurs
     void setTouche(int touches, bool appuyee);
@@ -43,9 +45,10 @@ class Entree{
 
     bool menu ;
     bool switchSkin ;
+    bool elise ;
  
     //Enum pour les boutons
-    enum{ haut, bas, droite, gauche, entrer, P, C };
+    enum{ haut, bas, droite, gauche, entrer, P, C, E };
 
  
 };

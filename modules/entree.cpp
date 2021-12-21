@@ -5,7 +5,8 @@ using namespace sf;
  
 //Constructeur
 Entree::Entree(){
-    touche.gauche = touche.droite = touche.haut = touche.bas = touche.entrer = touche.P = menu = switchSkin = false;
+    touche.gauche = touche.droite = touche.haut = touche.bas = touche.entrer = touche.P = touche.C = touche.E = menu = switchSkin = false;
+    elise = true ;
 }
  
  
@@ -17,6 +18,15 @@ Entree::Touche Entree::getTouche(void) const {
 bool Entree::getMenu(){
     return menu ;
 }
+
+bool Entree::getswitchSkin(){
+    return switchSkin ;
+}
+
+bool Entree::getElise(){
+    return elise ;
+}
+
  
  
 //Setteurs
@@ -41,11 +51,15 @@ void Entree::setTouche(int touches, bool appuyee){
         case entrer:
             touche.entrer = appuyee ;
             break;
+
         case P:
             touche.P = appuyee ;
             break;
         case C:
             touche.C = appuyee ;
+            break;
+        case E:
+            touche.E = appuyee ;
             break;
     }
 }
@@ -102,10 +116,14 @@ void Entree::getEntree(RenderWindow &renderwindow){
 
                     case Keyboard::C:
                         touche.C = true;
-                        if(!switchSkin)
-                            switchSkin = true ;
-                        else
-                            switchSkin = false ;
+                        switchSkin = true ;
+                        elise = false ;
+                        break;
+
+                    case Keyboard::E:
+                        touche.E = true;
+                        switchSkin = true ;
+                        elise = true ;
                         break;
                     
                     case Keyboard::P:
@@ -152,9 +170,14 @@ void Entree::getEntree(RenderWindow &renderwindow){
                     
                     case Keyboard::C:
                         touche.C = false ;
+                        switchSkin = false ;
                         break;
                     
- 
+                    case Keyboard::E:
+                        touche.E = false ;
+                        switchSkin = false ;
+                        break;
+
                     default:
                         break;
                 }

@@ -86,7 +86,7 @@ void Elise::setDirY(int val){
 }
 
 void Elise::changementDeHeros(bool b){
-	if(elise){
+	if(b){
 		if (!eliseMarcheTexture.loadFromFile("ressources/Elise.png")){
 	    	std::cout <<"Erreur de load de la texture" << std::endl;
 		}else{
@@ -324,11 +324,10 @@ void Elise::collisionObjets(Map &map){
 }
 
 void Elise::update(Entree &entree, Map &map){
-	// if(entree.getswitchSkin()){
-	// 	elise = !elise ;
-	// 	changementDeHeros(elise) ;
-	// }
 
+	if(entree.getswitchSkin()){
+		changementDeHeros(entree.getElise()) ;
+	}
 
 	if(!mort){ //si on est pas morts
 
