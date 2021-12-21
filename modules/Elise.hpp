@@ -7,7 +7,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
-#include "map.hpp"
+#include "Carte.hpp"
 #include "entree.hpp"
 
 
@@ -15,7 +15,7 @@
 using namespace sf; // Permet de ne pas écrire sf::
 using namespace std;
 
-class Map;
+class Carte;
 class Input;
 class Elise{
 
@@ -55,11 +55,11 @@ void setDirX(int val);
 void setDirY(int val);
 
 //Fonctions
-void initialize(Map &map);
-void update(Entree &entree, Map &map);
-void centerScrolling(Map &map);
-void collisionObjets(Map &map);
-void drawElise(sf::RenderWindow &window, Map &map);
+void initialize(Carte &map);
+void update(Entree &entree, Carte &map);
+void centerScrolling(Carte &map);
+void collisionObjets(Carte &map);
+void drawElise(sf::RenderWindow &window, Carte &map);
 
  
 private:

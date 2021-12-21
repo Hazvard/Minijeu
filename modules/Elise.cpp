@@ -91,7 +91,7 @@ void Elise::setDirY(int val){
 	dirY = val;
 }
 
-void Elise::initialize(Map &map){
+void Elise::initialize(Carte &map){
 
     // Au départ, Elise regarde à droite en animation neutre
     sensSprite = DROITE ;
@@ -123,7 +123,7 @@ void Elise::initialize(Map &map){
 
 }
 
-void Elise::drawElise(sf::RenderWindow &window, Map &map){
+void Elise::drawElise(sf::RenderWindow &window, Carte &map){
 
     // On gère le décompte, s'il arrive à 0
     if ( frameTimer <= 0 ){
@@ -177,7 +177,7 @@ void Elise::drawElise(sf::RenderWindow &window, Map &map){
 }
 
 
-void Elise::centerScrolling(Map &map){  //pas updaté mais normalement c'est le meme que ans la V1 du jeu
+void Elise::centerScrolling(Carte &map){  //pas updaté mais normalement c'est le meme que ans la V1 du jeu
 
 	int centrex = (*this).getWidth()/2 + (*this).getAbscisse(); //centre d'élise
 	int centrey = (*this).getHeight()/2 + (*this).getOrdonnee();
@@ -219,7 +219,7 @@ void Elise::centerScrolling(Map &map){  //pas updaté mais normalement c'est le 
 	}
 }
 
-void Elise::collisionObjets(Map &map){
+void Elise::collisionObjets(Carte &map){
 
 	int xg, xd, yh, yb; //coordonnées de test pour voir quelles tiles touche elise : gauche, droite, haut, bas
 	bool okay = true; //controle de la boucle while
@@ -311,7 +311,7 @@ void Elise::collisionObjets(Map &map){
 		(*this).setOrdonnee(map.getMaxY() - (*this).getHeight());
 }
 
-void Elise::update(Entree &entree, Map &map){
+void Elise::update(Entree &entree, Carte &map){
 
 	if(!mort){ //si on est pas morts
 

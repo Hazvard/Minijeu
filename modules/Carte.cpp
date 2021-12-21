@@ -4,8 +4,11 @@ using namespace std;
 using namespace sf;
 
 Carte::Carte(){
-	if (!tileSet1Texture.loadFromFile("ressources/tuiles.png")){
-        cout << "Erreur durant le chargement de l'image du tileset 1." << endl;
+	if (!tileSetTexture.loadFromFile("ressources/tuiles.png")){
+        cout << "Erreur durant le chargement de l'image du tileset." << endl;
+    }
+    else{
+        tileSet.setTexture(tileSetTexture);
     }
 
     testdefil = 0;
@@ -78,53 +81,39 @@ void Carte::draw(RenderWindow &window){
 	int x, y, mapX, x1, x2, mapY, y1, y2, xsource, ysource, a;
 
 	mapX = debutAbscisse / TILE_SIZE; 
-	x1 = (debutAbscisse % TILE_SIZE) * -1; //coord de départ pour l'affichage de la map
-	x2 = x1 + SCREEN_WIDTH + (x1 == 0 ? 0 : TILE_SIZE); //coord de fin de la map
+	x1 = (debutAbscisse % TILE_SIZE) * (-1); //coord de départ pour l'affichage de la map
+	x2 = x1 + SCREEN_WIDTH + (x1 == 0 ? 0 : TILE_SIZE); //coord de fin de la map, on fait expres de sortir de l'écran
 
 	mapY = debutOrdonne / TILE_SIZE;
-    y1 = (debutOrdonne % TILE_SIZE) * -1;
-    y2 = y1 + SCREEN_HEIGHT + (y1 == 0 ? 0 : TILE_SIZE);
+    y1 = (debutOrdonne % TILE_SIZE) * (-1);
+    y2 = y1 + SCREEN_HEIGHT + (y1 == 0 ? 0 : TILE_SIZE); //le ? dit juste: si y !=0, alors y = tile size
 
+
+    //dessin de la map ligne par ligne, par tranche de TILE_SIZE pixels
     for (y = y1; y < y2; y += TILE_SIZE){
-        /* A chaque début de ligne, on réinitialise mapX qui contient la colonne
-        (0 au début puisqu'on ne scrolle pas) */
-        mapX = debutAbscisse / TILE_SIZE;
-    
-        /* A chaque colonne de tile, on dessine la bonne tile en allant
-        de x = 0 à x = 640 */
-            for (x = x1; x < x2; x += TILE_SIZE){
+        mapX = debutAbscisse / TILE_SIZE; //reinit de mapX au début de chaque ligne
 
-                /* Suivant le numéro de notre tile, on découpe le tileset (a = le numéro
-                de la tile */
-                a = tile[mapY][mapX];
+        for (x = x1; x < x2; x += TILE_SIZE){
+            a = tile[mapY][mapX]; //numéro de la tile sur le tileset
         
-                /* Calcul pour obtenir son y (pour un tileset de 10 tiles
-                par ligne, d'où le 10 */
-                ysource = a / 10 * TILE_SIZE;
+            /* Calcul pour obtenir son y (pour un tileset de 10 tiles
+            par ligne, d'où le 10 */
+            ysource = a / 5 * TILE_SIZE;
+            xsource = a % 5 * TILE_SIZE;
+        
+            tileSet.setPosition(Vector2f(x, y));
+            tileSet.setTextureRect(sf::IntRect(xsource, ysource, TILE_SIZE, TILE_SIZE)); //on resize la texture de l'objet tileset vers un carré contenant une seule tile
+            window.draw(tileSet);
 
-                /* Et son x */
-                xsource = a % 10 * TILE_SIZE;
-        
-                /* Fonction qui blitte la bonne tile au bon endroit suivant le timer */
-                if (tileSetNumber == 0){
-                    tileSet1.setPosition(Vector2f(x, y));
-                    tileSet1.setTextureRect(sf::IntRect(xsource, ysource, TILE_SIZE, TILE_SIZE));
-                    window.draw(tileSet1);
-                } else{
-                    tileSet1B.setPosition(Vector2f(x, y));
-                    tileSet1B.setTextureRect(sf::IntRect(xsource, ysource, TILE_SIZE, TILE_SIZE));
-                    window.draw(tileSet1B);
-                }
-        
-                mapX++;
-            }
+            mapX++;
+        }
     
         mapY++;
         
     }
 }
 
-void Carte::testDefilement(void){
+void Carte::testDefilement(void){ //ni changé ni testé mais ca devrait etre pareil qu'avant
     //Test de défilement de la map
     
     
@@ -181,7 +170,7 @@ void Carte::loadMap(string filename){   //PAS ENCORE FINI
     
     vector < vector < int > > lignes;//vcteur de vecteur car 2D 
     vector < int > myVectData;//tete de lecture    
-    string strBuf, strTmp;//que du temporaire    
+    string strBuf, strTmp;//que du temporaire, juste des buffers  
     stringstream iostr;//stringstream de gstion des chaines
     fin.open(filename, fstream::in); //ouverture fichier
     
@@ -195,106 +184,60 @@ void Carte::loadMap(string filename){   //PAS ENCORE FINI
     while (!fin.eof()){
         getline(fin, strBuf);//On récupère la ligne dans la chaîne strBuf
 
-        //Si la ligne est vide, on continue la boucle
-        if (!strBuf.size())
+        if (!strBuf.size()) //ligne vide = on continue la boucle while
             continue;
 
-        iostr.clear();//Sinon on poursuit et on réinitialise notre stringstream
+        iostr.clear(); //reinitialisation du stream
+        iostr.str(strBuf); //injection de la ligne récupérée précédemment dans le stream
     
-        //On y envoie le contenu du buffer strBuf
-        iostr.str(strBuf);
-    
-        //On réinitialise le vecteur ligne
-        myVectData.clear();
+        myVectData.clear(); //reinit du vecteur ligne
     
         //On boucle pour lire chaque numéro de tile du fichier map
         while (true){
-
-            //Pour chaque ligne on récupère le numéro de la tile, en
-            //les parsant grâce aux espaces qui les séparent (' ')
-            getline(iostr, strTmp, ' ');
-    
+            getline(iostr, strTmp, ' '); //recup du numéro de la tile, parsing avec un espace
             //On récupère ce numéro dans dans notre vecteur ligne
             myVectData.push_back(atoi(strTmp.c_str()));
     
             //Si on a fini, on quitte la boucle
-            if (!iostr.good())
+            if (!iostr.good())  //la fonction good dit si le stream a rencontré des erreurs
                 break;
         }
     
         //Si le vecteur ligne n'est pas vide, on l'envoie dans notre vecteur à 2 dimensions
         if (myVectData.size())
-            lignes.push_back(myVectData);
+            lignes.push_back(myVectData); //ajoute la data à la fin du vecteur 2D
     }
-    
-    //On ferme le fichier
     fin.close();
     
-    //On va maintenant remplir les variables de notre classe à l'aide de notre vecteur
-    //à 2 dimensions temporaire.
-    //On commence par récupérer les 3 premières valeurs de la 1ère ligne (0)
-    //qui sont les valeurs de départ du héros et du tileset à afficher
+/*  si on en a besoin, ce sera les coordonnées de départ du perso, à afficher au début de la map
     beginx = lignes[0][0];
-    
     beginy = lignes[0][1];
+    */
     
-    tilesetAffiche = lignes[0][2];
-    
-    //On charge ensuite la première ligne individuellement car elle contient + de données
-    //(décalage de 3 numéros à cause des 3 précédents)
-    for (x = 3; x < MAX_MAP_X + 3; x++){
-        tile[y][x - 3] = lignes[y][x];
+    /*
+    Si lecture des coordonnées personnage, on lit la premiere ligne de manière spécifique avant d'entrer dans la boucle générale
+    for (x = 2; x < MAX_MAP_X+2; x++){
+        tile[y][x - 2] = lignes[y][x];
     }
-    
-    //Puis on charge le reste du tableau de tiles pour la couche 1.
-    //On boucle jusqu'à MAX_MAP_Y et MAX_MAP_X, soit les dimensions
-    //maxi de la map (400 x 150 tiles, pour rappel)
-    for (y = 1; y < MAX_MAP_Y; y++){
+    */
+
+    //double boucle de lecture du tableau ligne pour arriver à un tableau de tiles
+    //pour l'instant on est sur un max de 80 * 80 tiles, voir hpp
+    for (y = 0; y < MAX_MAP_Y; y++){
         for (x = 0; x < MAX_MAP_X; x++){
-            //On copie la valeur de notre vecteur temporaire
-            //dans notre tableau à deux dimensions
             tile[y][x] = lignes[y][x];
     
-            //On détecte si la tile n'est pas vide
+            //Réajustement de limites théoriques si elles sont dépassées
             if (tile[y][x] > 0){
-
-                //Si c'est la cas, on augmente la valeur de maxX ou
-                //maxY car la map n'est pas encore finie.
-
                 if (x > maxX){
                     maxX = x;
                 }
-    
                 if (y > maxY){
                     maxY = y;
                 }
             }
         }
-    }
-    
-    //On fait la même chose pour la seconde couche de tiles :
-    for (y = 0; y < MAX_MAP_Y; y++){
-        for (x = 0; x < MAX_MAP_X; x++){
-            tile2[y][x] = lignes[y + MAX_MAP_Y][x];
-        }
-    }
-    
-    //Puis pour la troisième :
-    for (y = 0; y < MAX_MAP_Y; y++){
-        for (x = 0; x < MAX_MAP_X; x++){
-            tile3[y][x] = lignes[y + MAX_MAP_Y * 2][x];
-        }
-    }
-    
-    //Et enfin pour la quatrième (la couche des collisions
-    //et des tiles spéciales) :
-    for (y = 0; y < MAX_MAP_Y; y++){
-        for (x = 0; x < MAX_MAP_X; x++){
-            tile4[y][x] = lignes[y + MAX_MAP_Y * 3][x];
-        }
-    }
-    
-    
+    }    
     
     //On charge les variables supplémentaires
     y = MAX_MAP_Y * 4;
@@ -307,7 +250,7 @@ void Carte::loadMap(string filename){   //PAS ENCORE FINI
     for (int i = 0; i < 10; i++){
         warpSP[i].value = lignes[y][i + 4];
     }
-    
+    /*
     for (int i = 0; i < 20; i++){
         coffre[i].type = lignes[y][74 + i];
     }
@@ -319,6 +262,7 @@ void Carte::loadMap(string filename){   //PAS ENCORE FINI
     for (int i = 0; i < 10; i++){
         piege[i].type = lignes[y][109 + i];
     }
+    */
     
     
     //conversion en pixels
