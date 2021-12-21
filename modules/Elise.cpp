@@ -18,11 +18,6 @@ Elise::Elise(){
 		eliseSprite.setScale(2.3, 2.3) ; // On diminue sa taille pour pas le faire dépasser
 	}
     
-    
-	if (!eliseNeutreTexture.loadFromFile("ressources/Elise_neutre.png")){
-		std::cout <<"Erreur de load de la texture" << std::endl;
-	}
-    
 
     // Initialisation des variables
     int stamina = 100 ;
@@ -312,6 +307,8 @@ void Elise::collisionObjets(Map &map){
 }
 
 void Elise::update(Entree &entree, Map &map){
+
+
 
 	if(!mort){ //si on est pas morts
 
