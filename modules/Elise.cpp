@@ -320,60 +320,45 @@ void Elise::update(Entree &entree, Map &map){
 			(*this).setDirX(0);
 			(*this).setDirY(0);
 
+			if(entree.getTouche().haut){
+				(*this).setDirY(-ELISE_SPEED);
+				sensSprite = HAUT;
+
+				// //on checke si on doit initiliser l'animation
+				if(etat != MARCHE){
+					etat = MARCHE;
+				}
+			}
+			if(entree.getTouche().bas){
+				(*this).setDirY(ELISE_SPEED);
+				sensSprite = BAS;
+
+				// //on checke si on doit initiliser l'animation
+				if(etat != MARCHE){
+					etat = MARCHE;
+				}
+			}
+
 			if(entree.getTouche().droite){
 				(*this).setDirX(ELISE_SPEED);
 				sensSprite = DROITE;
-				//(*this).setAbscisse((*this).getAbscisse() + ELISE_SPEED ) ; // instruction de déplacement sans collision pour tester
 
 				// //on checke si on doit initiliser l'animation
 				if(etat != MARCHE){
 					etat = MARCHE;
-				// 	frameNumber = 0; //ca sert un peu a rien comme il y a que 2 frames mais osef
-				// 	frameTimer = TEMPS_ENTRE_DEUX_FRAMES;
-				// 	frameMax = MAXIFRAME;
 				}
 			}
-			else if(entree.getTouche().gauche){
+			if(entree.getTouche().gauche){
 				(*this).setDirX(-ELISE_SPEED);
 				sensSprite = GAUCHE;
-				//(*this).setAbscisse((*this).getAbscisse() - ELISE_SPEED ) ;
 
 				// //on checke si on doit initiliser l'animation
 				if(etat != MARCHE){
 					etat = MARCHE;
-				// 	frameNumber = 0; //ca sert un peu a rien comme il y a que 2 frames mais osef
-				// 	frameTimer = TEMPS_ENTRE_DEUX_FRAMES;
-				// 	frameMax = MAXIFRAME;
-				}
-			}
-			else if(entree.getTouche().haut){
-				(*this).setDirY(-ELISE_SPEED);
-				sensSprite = HAUT;
-				//(*this).setOrdonnee((*this).getOrdonnee() - ELISE_SPEED ) ;
-
-				// //on checke si on doit initiliser l'animation
-				if(etat != MARCHE){
-					etat = MARCHE;
-				// 	frameNumber = 0; //ca sert un peu a rien comme il y a que 2 frames mais osef
-				// 	frameTimer = TEMPS_ENTRE_DEUX_FRAMES;
-				// 	frameMax = MAXIFRAME;
-				}
-			}
-			else if(entree.getTouche().bas){
-				(*this).setDirY(ELISE_SPEED);
-				sensSprite = BAS;
-				//(*this).setOrdonnee((*this).getOrdonnee() + ELISE_SPEED ) ;
-
-				// //on checke si on doit initiliser l'animation
-				if(etat != MARCHE){
-					etat = MARCHE;
-				// 	frameNumber = 0; //ca sert un peu a rien comme il y a que 2 frames mais osef
-				// 	frameTimer = TEMPS_ENTRE_DEUX_FRAMES;
-				// 	frameMax = MAXIFRAME;
 				}
 			}
 
-			else{ //si rien n'est appuyé (ou alors une autre touche que celles de direction)
+			if(!entree.getTouche().droite && !entree.getTouche().gauche && !entree.getTouche().bas && !entree.getTouche().haut){ //si rien n'est appuyé (ou alors une autre touche que celles de direction)
 				if(etat != NEUTRE){
 					etat = NEUTRE;
 					frameNumber = 0; //ca sert un peu a rien comme il y a que 2 frames mais osef
