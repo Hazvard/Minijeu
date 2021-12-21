@@ -127,7 +127,7 @@ void Entree::getEntree(RenderWindow &renderwindow){
                         break;
                     
                     case Keyboard::P:
-                        touche.P = true ;
+                        touche.P = false ;
                         break;
  
                     default:

@@ -9,13 +9,14 @@
 #include "modules/Elise.hpp"
 #include "modules/map.hpp"
 #include "modules/entree.hpp"
+#include "modules/Menu.hpp"
 
 using namespace sf; // Permet de ne pas écrire sf::
 using namespace std;
 
 //Fonctions
-void maj(Entree &entree,Map &map, Elise &elise);
-void draw(sf::RenderWindow &window, Map &map, Elise &elise);
+void maj(Entree &entree,Map &map, Elise &elise, Menu &menu);
+void draw(sf::RenderWindow &window, Map &map, Elise &elise, Menu &menu);
 
 // Taille de la fenêtre : 800x600 pixels
 const int SCREEN_WIDTH = 800;

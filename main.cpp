@@ -21,6 +21,7 @@ int main(int argc, char ** argv) {
   Entree entree;
   Map map; // Nouvelle classe carte
   Elise  elise ;
+  Menu menu ;
   
  
   //On commence au premier niveau
@@ -39,10 +40,10 @@ int main(int argc, char ** argv) {
     entree.gestionEntrees(renderWindow);
 
     //Updates (besoin de handle event)
-    maj(entree, map, elise);
+    maj(entree, map, elise, menu);
  
     // Dessin - draw
-    draw(renderWindow, map, elise);
+    draw(renderWindow, map, elise, menu);
     renderWindow.display();
   }
  
@@ -55,9 +56,10 @@ int main(int argc, char ** argv) {
  
 //Fonction de mise à jour du jeu : gère la logique du jeu
 
-void maj(Entree &entree, Map &map, Elise &elise){
+void maj(Entree &entree, Map &map, Elise &elise, Menu &menu){
   //map.testDefilement(); // Défilement auto
   elise.update(entree, map) ;
+  menu.gestionMenu(entree) ;
 
 
 }
@@ -65,21 +67,25 @@ void maj(Entree &entree, Map &map, Elise &elise){
  
  
 //Fonction de dessin du jeu : dessine tous les éléments
-void draw(RenderWindow &window, Map &map, Elise &elise){
+void draw(RenderWindow &window, Map &map, Elise &elise, Menu &menu){
   //On efface tout
   window.clear();
- 
-  // Affiche la map de tiles : layer 2 (couche du fond)
-  map.draw(2, window);
- 
-  // Affiche la map de tiles : layer 1 (couche active : sol, etc.)
-  map.draw(1, window);
+  
+  if(!menu.getMenuActif()){
+    // Affiche la map de tiles : layer 2 (couche du fond)
+    map.draw(2, window);
+  
+    // Affiche la map de tiles : layer 1 (couche active : sol, etc.)
+    map.draw(1, window);
 
-  // On affiche Elise
-  elise.drawElise(window, map);
- 
-  // Affiche la map de tiles : layer 3 (couche en foreground / devant)
-  map.draw(3, window);
+    // On affiche Elise
+    elise.drawElise(window, map);
+  
+    // Affiche la map de tiles : layer 3 (couche en foreground / devant)
+    map.draw(3, window);
+  }
+
+  menu.drawMenu(window) ;
 
   
 }
