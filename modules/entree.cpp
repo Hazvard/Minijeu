@@ -5,13 +5,17 @@ using namespace sf;
  
 //Constructeur
 Entree::Entree(){
-    touche.gauche = touche.droite = touche.haut = touche.bas = touche.entrer = touche.P = false;
+    touche.gauche = touche.droite = touche.haut = touche.bas = touche.entrer = touche.P = menu = false;
 }
  
  
 //Getteurs
 Entree::Touche Entree::getTouche(void) const {
      return touche ;
+}
+
+bool Entree::getMenu(){
+    return menu ;
 }
  
  
@@ -95,6 +99,11 @@ void Entree::getEntree(RenderWindow &renderwindow){
                     
                     case Keyboard::P:
                         touche.P = true ;
+                        if(!menu)
+                            menu = true ;
+                        else
+                            menu = false ;
+
                         break;
  
                     default:

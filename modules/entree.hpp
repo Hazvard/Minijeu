@@ -23,6 +23,7 @@ class Entree{
     
     //Getteurs
     Touche getTouche(void) const;
+    bool getMenu();
     
     //Setteurs
     void setTouche(int touches, bool appuyee);
@@ -37,6 +38,8 @@ class Entree{
     //Variables de la classe en accès privé
     sf::Event event;
     Touche touche;
+
+    bool menu ;
  
     //Enum pour les boutons
     enum{ haut, bas, droite, gauche, entrer, P };
