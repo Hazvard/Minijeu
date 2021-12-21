@@ -13,6 +13,7 @@ class Entree{
         bool haut;
         bool bas;
         bool entrer; 
+        bool P;
     };
     
     public:
@@ -38,7 +39,7 @@ class Entree{
     Touche touche;
  
     //Enum pour les boutons
-    enum{ haut, bas, droite, gauche, entrer };
+    enum{ haut, bas, droite, gauche, entrer, P };
 
  
 };
