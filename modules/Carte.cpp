@@ -103,7 +103,7 @@ void Carte::draw(RenderWindow &window){
         
             tileSet.setPosition(Vector2f(x, y));
             tileSet.setTextureRect(sf::IntRect(xsource, ysource, TILE_SIZE, TILE_SIZE)); //on resize la texture de l'objet tileset vers un carré contenant une seule tile
-            window.draw(tileSet);
+            window.draw(tileSet); //tileset est un sprite donc ok pour le dessiner
 
             mapX++;
         }
@@ -156,9 +156,11 @@ void Carte::testDefilement(void){ //ni changé ni testé mais ca devrait etre pa
     }
 }
 
-void Carte::loadMap(string filename){   //PAS ENCORE FINI
+void Carte::loadMap(string filename){
     //flux de lecture
     fstream fin;
+
+    printf("zebi\n");
 
     //controle boucle
     int x = 0;
@@ -167,7 +169,7 @@ void Carte::loadMap(string filename){   //PAS ENCORE FINI
     maxX = 0;
     maxY = 0;
     
-    
+
     vector < vector < int > > lignes;//vcteur de vecteur car 2D 
     vector < int > myVectData;//tete de lecture    
     string strBuf, strTmp;//que du temporaire, juste des buffers  
@@ -179,9 +181,10 @@ void Carte::loadMap(string filename){   //PAS ENCORE FINI
         cerr << "Erreur de chargement du fichier.\n";
         exit(1);
     }
-    
+  
     //On lit notre fichier jusqu'à la fin (eof = end of file)
     while (!fin.eof()){
+
         getline(fin, strBuf);//On récupère la ligne dans la chaîne strBuf
 
         if (!strBuf.size()) //ligne vide = on continue la boucle while
@@ -208,6 +211,14 @@ void Carte::loadMap(string filename){   //PAS ENCORE FINI
             lignes.push_back(myVectData); //ajoute la data à la fin du vecteur 2D
     }
     fin.close();
+
+
+    //débug
+    beginx = 100;
+    beginy = 100;
+
+
+
     
 /*  si on en a besoin, ce sera les coordonnées de départ du perso, à afficher au début de la map
     beginx = lignes[0][0];
@@ -223,6 +234,7 @@ void Carte::loadMap(string filename){   //PAS ENCORE FINI
 
     //double boucle de lecture du tableau ligne pour arriver à un tableau de tiles
     //pour l'instant on est sur un max de 80 * 80 tiles, voir hpp
+    
     for (y = 0; y < MAX_MAP_Y; y++){
         for (x = 0; x < MAX_MAP_X; x++){
             tile[y][x] = lignes[y][x];
@@ -237,8 +249,10 @@ void Carte::loadMap(string filename){   //PAS ENCORE FINI
                 }
             }
         }
-    }    
-    
+    }  
+
+/*
+    //débug
     //On charge les variables supplémentaires
     y = MAX_MAP_Y * 4;
     
@@ -250,6 +264,11 @@ void Carte::loadMap(string filename){   //PAS ENCORE FINI
     for (int i = 0; i < 10; i++){
         warpSP[i].value = lignes[y][i + 4];
     }
+*/
+
+
+
+
     /*
     for (int i = 0; i < 20; i++){
         coffre[i].type = lignes[y][74 + i];
@@ -263,9 +282,9 @@ void Carte::loadMap(string filename){   //PAS ENCORE FINI
         piege[i].type = lignes[y][109 + i];
     }
     */
-    
-    
+
     //conversion en pixels
     maxX = (maxX + 1) * TILE_SIZE;
     maxY = (maxY + 1) * TILE_SIZE;
+
 }

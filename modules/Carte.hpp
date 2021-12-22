@@ -70,7 +70,7 @@ int debutAbscisse, debutOrdonne;
 int maxX, maxY;
  
 /* Tableau à double dimension représentant la map de tiles */
-int tile[80][80];  //maxi 80 par 80 tiles pour le moment
+int tile[160][160];  //maxi 80 par 80 tiles pour le moment
  
 //Numéro du niveau en cours
 int level;

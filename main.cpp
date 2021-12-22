@@ -1,6 +1,7 @@
 #include "main.hpp"
 
 int main(int argc, char ** argv) {
+
 	sf::RenderWindow renderWindow(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Elise's adventurs"); //fenetre utilisée pour le rendering
 	sf::Time t2 = sf::milliseconds(10);
 	sf::Clock clock; //on crée une horloge pour pouvoir attendre
@@ -13,8 +14,6 @@ int main(int argc, char ** argv) {
   //On active la synchro verticale
   renderWindow.setVerticalSyncEnabled(true);
 
-
-
   //Instanciation des classes
   
   // Ajouter la classe input / handleevent de Simon
@@ -25,7 +24,7 @@ int main(int argc, char ** argv) {
   
  
   //On commence au premier niveau
-  map.setLevel(2);
+  map.setLevel(5);
   map.changeLevel();
  
  // On initialise Elise

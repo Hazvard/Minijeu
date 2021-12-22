@@ -90,6 +90,8 @@ private:
 
     int reflexion; // test pour le moment qui permet de flip le sprite
 
+    const int test = 3;
+
 
 // Animation
 const int TEMPS_ENTRE_DEUX_FRAMES = 20;
