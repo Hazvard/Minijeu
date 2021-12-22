@@ -20,14 +20,14 @@ struct WARPSPE { int value; };
 Carte();
 
 
-int getBeginX(void) const;
-int getBeginY(void) const;
-int getDebutAbscisse(void) const;
-int getDebutOrdonne(void) const;
-int getMaxX(void) const;
-int getMaxY(void) const;
+int getBeginX() const;
+int getBeginY() const;
+int getDebutAbscisse() const;
+int getDebutOrdonne() const;
+int getMaxX() const;
+int getMaxY() const;
 int getTile(int y, int x) const;
-int getLevel(void) const;
+int getLevel() const;
 /*
 int getWarpUp(void) const;
 int getWarpDown(void) const;
@@ -44,6 +44,7 @@ void setLevel(int valeur);
 void setDebutAbscisse(int valeur);
 void setDebutOrdonne(int valeur);
 void setTile(int y, int x, int valeur);
+void setBegin(int x, int y);
 /*
 void setWarpDirection(int valeur);
 void setWarp_coming_from_x(int valeur);
@@ -58,7 +59,7 @@ void changeLevel(void);
 void testDefilement(void); //fait déffiler la carte toute seule.
  
  
-private: 
+private:
 
 /* Coordonnées de départ du héros, lorsqu'il commence le niveau */
 int beginx, beginy;
@@ -88,7 +89,7 @@ int warp_coming_from_x;
 int warp_coming_from_y;
  
 //Tilesets
-sf::Texture tileSetTexture;  //j'ai bricolé ici alors qi c'est cassé c'est normal
+sf::Texture tileSetTexture;  //j'ai bricolé ici alors si c'est cassé c'est normal
 
 //Sprite 
 sf::Sprite tileSet;

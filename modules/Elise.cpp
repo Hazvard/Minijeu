@@ -85,6 +85,7 @@ void Elise::setDirY(int val){
 	dirY = val;
 }
 
+
 void Elise::changementDeHeros(bool b){
 	if(b){
 		if (!eliseMarcheTexture.loadFromFile("ressources/Elise.png")){
@@ -117,12 +118,12 @@ void Elise::initialize(Carte &map){
     // Le maximum de case de frames de l'image
     frameMax = MAXIFRAME ;
 
-    abscisse = map.getBeginX();
-    ordonnee = map.getBeginY();
+    abscisse = map.getBeginX() - ELISE_WIDTH/3;
+    ordonnee = map.getBeginY() - ELISE_HEIGTH;
 
     // Initialise la caméra
-    map.setDebutAbscisse(0) ;
-    map.setDebutOrdonne(0);
+    map.setDebutAbscisse(abscisse - SCREEN_WIDTH/2);
+    map.setDebutOrdonne(ordonnee- SCREEN_HEIGHT/2);
 
     w = ELISE_WIDTH ;
     h = ELISE_HEIGTH ;

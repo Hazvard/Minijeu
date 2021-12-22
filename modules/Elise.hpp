@@ -45,6 +45,7 @@ int getDirX();
 int getDirY();
 
 
+
 // Setteurs
 void setAbscisse(int valeur);
 void setOrdonnee(int valeur);
@@ -53,6 +54,7 @@ void setHeight(int valeur);
 void setStamina(int valeur);
 void setDirX(int val);
 void setDirY(int val);
+
 
 //Fonctions
 void initialize(Carte &map);
@@ -71,7 +73,7 @@ private:
     // Position du sprite d'Elise
     int abscisse, ordonnee ;
 
-    // Dimmension du sprite d'Elise
+    // Dimension du sprite d'Elise
     int w, h ;
 
     // Variable utile pour l'affichage
@@ -89,8 +91,6 @@ private:
     int mort; //si c'est 0 elle est vivante, si c'est 1 c'est la fin
 
     int reflexion; // test pour le moment qui permet de flip le sprite
-
-    const int test = 3;
 
 
 // Animation

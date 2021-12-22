@@ -19,27 +19,27 @@ Carte::Carte(){
 
 
 //GETTERS
-int Carte::getBeginX(void) const { 
+int Carte::getBeginX() const { 
 	return beginx; 
 }
 
-int Carte::getBeginY(void) const { 
+int Carte::getBeginY() const { 
 	return beginy; 
 }
 
-int Carte::getDebutAbscisse(void) const { 
+int Carte::getDebutAbscisse() const { 
 	return debutAbscisse; 
 }
 
-int Carte::getDebutOrdonne(void) const { 
+int Carte::getDebutOrdonne() const { 
 	return debutOrdonne; 
 }
 
-int Carte::getMaxX(void) const { 
+int Carte::getMaxX() const { 
 	return maxX; 
 }
 
-int Carte::getMaxY(void) const { 
+int Carte::getMaxY() const { 
 	return maxY; 
 }
 
@@ -47,7 +47,7 @@ int Carte::getTile(int y, int x) const {
 	return tile[y][x]; 
 }
 
-int Carte::getLevel(void) const { 
+int Carte::getLevel() const { 
 	return level; 
 }
 
@@ -67,6 +67,13 @@ void Carte::setDebutOrdonne(int valeur) {
 void Carte::setTile(int y, int x, int valeur) {   //sert possiblement à rien mais au moins c'est là
 	tile[y][x] = valeur; 
 }
+
+void Carte::setBegin(int x, int y){
+    beginx = x;
+    beginy = y;
+}
+
+
 
 
 
@@ -98,8 +105,8 @@ void Carte::draw(RenderWindow &window){
         
             /* Calcul pour obtenir son y (pour un tileset de 10 tiles
             par ligne, d'où le 10 */
-            ysource = a / 5 * TILE_SIZE;
-            xsource = a % 5 * TILE_SIZE;
+            ysource = a / 6 * TILE_SIZE;
+            xsource = a % 6 * TILE_SIZE;
         
             tileSet.setPosition(Vector2f(x, y));
             tileSet.setTextureRect(sf::IntRect(xsource, ysource, TILE_SIZE, TILE_SIZE)); //on resize la texture de l'objet tileset vers un carré contenant une seule tile
@@ -160,8 +167,6 @@ void Carte::loadMap(string filename){
     //flux de lecture
     fstream fin;
 
-    printf("zebi\n");
-
     //controle boucle
     int x = 0;
     int y = 0;
@@ -213,31 +218,20 @@ void Carte::loadMap(string filename){
     fin.close();
 
 
-    //débug
-    beginx = 100;
-    beginy = 100;
-
-
-
-    
-/*  si on en a besoin, ce sera les coordonnées de départ du perso, à afficher au début de la map
-    beginx = lignes[0][0];
-    beginy = lignes[0][1];
-    */
-    
-    /*
-    Si lecture des coordonnées personnage, on lit la premiere ligne de manière spécifique avant d'entrer dans la boucle générale
-    for (x = 2; x < MAX_MAP_X+2; x++){
-        tile[y][x - 2] = lignes[y][x];
-    }
-    */
-
     //double boucle de lecture du tableau ligne pour arriver à un tableau de tiles
     //pour l'instant on est sur un max de 80 * 80 tiles, voir hpp
+
+    //au cas ou on ait pas de begin
+    beginx = 0;
+    beginy = 0;
     
     for (y = 0; y < MAX_MAP_Y; y++){
         for (x = 0; x < MAX_MAP_X; x++){
             tile[y][x] = lignes[y][x];
+            if(tile[y][x] == 5){ //tile 5 = carré bleu
+                beginx = x*TILE_SIZE;
+                beginy = y*TILE_SIZE;
+            }
     
             //Réajustement de limites théoriques si elles sont dépassées
             if (tile[y][x] > 0){
