@@ -4,11 +4,20 @@ using namespace std;
 using namespace sf;
 
 Carte::Carte(){
-	if (!tileSetTexture.loadFromFile("ressources/tuiles.png")){
-        cout << "Erreur durant le chargement de l'image du tileset." << endl;
+    //on charge le tileset de la frame 1
+	if (!tileSetTexture1.loadFromFile("ressources/Frame1.png")){
+        cout << "Erreur durant le chargement de l'image du tileset 1." << endl;
     }
     else{
-        tileSet.setTexture(tileSetTexture);
+        tileSet1.setTexture(tileSetTexture1);
+    }
+
+    //on charge le tileset 2
+    if (!tileSetTexture2.loadFromFile("ressources/Frame2.png")){
+        cout << "Erreur durant le chargement de l'image du tileset 2." << endl;
+    }
+    else{
+        tileSet2.setTexture(tileSetTexture2);
     }
 
     testdefil = 0;
@@ -85,6 +94,8 @@ void Carte::changeLevel(void){ // Récupère le nom de la map pour la charger
 }
 
 void Carte::draw(RenderWindow &window){
+
+    //code fait avec soin par mes petites mains
 	int x, y, mapX, x1, x2, mapY, y1, y2, xsource, ysource, a;
 
 	mapX = debutAbscisse / TILE_SIZE; 
@@ -95,6 +106,12 @@ void Carte::draw(RenderWindow &window){
     y1 = (debutOrdonne % TILE_SIZE) * (-1);
     y2 = y1 + SCREEN_HEIGHT + (y1 == 0 ? 0 : TILE_SIZE); //le ? dit juste: si y !=0, alors y = tile size
 
+
+    //test de sélection de la frame
+    bool choixFrame; //on exteriorise la sélection de la frame de la boucle de draw pour éviter que le tileset change en cours de dessin
+    Time instant = frameTimer.getElapsedTime();
+    int frameur = (int)instant.asSeconds(); 
+    choixFrame = (frameur%2 == 0); //true si l'instant est pair, false sinon
 
     //dessin de la map ligne par ligne, par tranche de TILE_SIZE pixels
     for (y = y1; y < y2; y += TILE_SIZE){
@@ -107,10 +124,19 @@ void Carte::draw(RenderWindow &window){
             par ligne, d'où le 10 */
             ysource = a / 6 * TILE_SIZE;
             xsource = a % 6 * TILE_SIZE;
-        
-            tileSet.setPosition(Vector2f(x, y));
-            tileSet.setTextureRect(sf::IntRect(xsource, ysource, TILE_SIZE, TILE_SIZE)); //on resize la texture de l'objet tileset vers un carré contenant une seule tile
-            window.draw(tileSet); //tileset est un sprite donc ok pour le dessiner
+            
+            if(choixFrame){
+                tileSet1.setPosition(Vector2f(x, y));
+                tileSet1.setTextureRect(sf::IntRect(xsource, ysource, TILE_SIZE, TILE_SIZE)); //on resize la texture de l'objet tileset vers un carré contenant une seule tile
+                window.draw(tileSet1); //tileset est un sprite donc ok pour le dessiner
+                cout << "biteuh" << endl; 
+            }
+            else{
+                tileSet2.setPosition(Vector2f(x, y));
+                tileSet2.setTextureRect(sf::IntRect(xsource, ysource, TILE_SIZE, TILE_SIZE)); //on resize la texture de l'objet tileset vers un carré contenant une seule tile
+                window.draw(tileSet2); //tileset est un sprite donc ok pour le dessiner
+                cout << "bitasse" << endl; 
+            }
 
             mapX++;
         }

@@ -87,12 +87,17 @@ WARPSPE warpSP[10];
 int warpDirection;
 int warp_coming_from_x;
 int warp_coming_from_y;
+
+//gestion de l'animation de la map
+sf::Clock frameTimer;
  
 //Tilesets
-sf::Texture tileSetTexture;  //j'ai bricolé ici alors si c'est cassé c'est normal
+sf::Texture tileSetTexture1;  //j'ai bricolé ici alors si c'est cassé c'est normal
+sf::Texture tileSetTexture2;  //j'ai bricolé ici alors si c'est cassé c'est normal
 
 //Sprite 
-sf::Sprite tileSet;
+sf::Sprite tileSet1;
+sf::Sprite tileSet2;
 
 //Police de caractères
 sf::Font font;
