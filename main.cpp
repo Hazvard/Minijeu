@@ -24,7 +24,7 @@ int main(int argc, char ** argv) {
   
  
   //On commence au premier niveau
-  map.setLevel(5);
+  map.setLevel(4);
   map.changeLevel();
  
  // On initialise Elise
@@ -77,6 +77,7 @@ void draw(RenderWindow &window, Carte &map, Elise &elise, Menu &menu){
 
     // On affiche Elise
     elise.drawElise(window, map);
+    map.drawTimer(window) ;
   }
 
   menu.drawMenu(window) ;

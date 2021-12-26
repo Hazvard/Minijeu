@@ -20,10 +20,17 @@ Carte::Carte(){
         tileSet2.setTexture(tileSetTexture2);
     }
 
+    //On charge la police
+    if (!font.loadFromFile("ressources/arial.ttf")){
+         cout << "Erreur durant le chargement de la police." << endl;
+    }
+
     testdefil = 0;
     level = 1;
     debutAbscisse = 0;
     debutOrdonne = 0;
+    timer = seconds(0.00f);
+    tempsdonne = 60 ;
 }
 
 
@@ -60,6 +67,12 @@ int Carte::getLevel() const {
 	return level; 
 }
 
+
+float Carte::getTimer(){
+    timer = frameTimer.getElapsedTime();
+    return timer.asSeconds() ;
+}
+
 //SETTERS
 void Carte::setLevel(int valeur) { 
 	level = valeur; 
@@ -82,6 +95,14 @@ void Carte::setBegin(int x, int y){
     beginy = y;
 }
 
+void Carte::TimerAZero(){
+    timer = timer - timer ;
+}
+
+std::string Carte::decompte(){
+    return to_string(tempsdonne - (int)getTimer()) ;
+}
+
 
 
 
@@ -94,6 +115,9 @@ void Carte::changeLevel(void){ // Récupère le nom de la map pour la charger
 }
 
 void Carte::draw(RenderWindow &window){
+
+
+
 
     //code fait avec soin par mes petites mains
 	int x, y, mapX, x1, x2, mapY, y1, y2, xsource, ysource, a;
@@ -142,6 +166,35 @@ void Carte::draw(RenderWindow &window){
         mapY++;
         
     }
+
+}
+
+void Carte::drawTimer(RenderWindow &window){
+
+    sf::RectangleShape rectangle;
+    rectangle.setSize(sf::Vector2f(75, 30));
+    rectangle.setOutlineColor(sf::Color::Blue);
+    rectangle.setOutlineThickness(5);
+    rectangle.setPosition(380.f, 12.f);
+    window.draw(rectangle);
+
+    sf::Text text;
+
+    // select the font
+    text.setFont(font);
+    text.setString(decompte()); // On affiche le décompte
+
+    // taille des character
+    text.setCharacterSize(35); // en pixels
+
+    // couleur
+    text.setFillColor(sf::Color::Blue);
+
+    text.setPosition(400.f, 5.f) ;
+
+    // Si on vzut faire souligner ou gras
+    //text.setStyle(sf::Text::Bold | sf::Text::Underlined);
+    window.draw(text);
 }
 
 void Carte::testDefilement(void){ //ni changé ni testé mais ca devrait etre pareil qu'avant

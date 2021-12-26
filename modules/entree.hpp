@@ -2,6 +2,7 @@
 #define ENTREE_H
  
 #include <SFML/Graphics.hpp>
+#include <iostream>
  
  
 class Entree{
@@ -42,6 +43,7 @@ class Entree{
     //Variables de la classe en accès privé
     sf::Event event;
     Touche touche;
+    sf::Vector2i positionSouris ;
 
     bool menu ;
     bool switchSkin ;
