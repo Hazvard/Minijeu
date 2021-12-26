@@ -1,4 +1,5 @@
 #include "entree.hpp"
+#include <cstdlib>
  
 using namespace std;
 using namespace sf;
@@ -74,6 +75,24 @@ void Entree::gestionEntrees(RenderWindow &renderwindow){
  
  
 void Entree::getEntree(RenderWindow &renderwindow){
+
+
+    if( sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+        positionSouris = sf::Mouse::getPosition(renderwindow) ;
+        std::cout << "x" << positionSouris.x << "    Y" << positionSouris.y << std::endl ;
+        if(menu){
+
+            if(positionSouris.x > 486 && positionSouris.x < 723 && positionSouris.y > 75 && positionSouris.y < 147) // Case jouer
+                menu = false ;
+
+            if(positionSouris.x > 486 && positionSouris.x < 723 && positionSouris.y > 178 && positionSouris.y < 251) // Case recomencer
+                menu = false ; // Ne fais pas encore sa fonction
+
+            if(positionSouris.x > 486 && positionSouris.x < 723 && positionSouris.y > 284 && positionSouris.y < 361) // Case quitter
+                renderwindow.close();
+
+        }
+    }
  
     // Continue jusqu'à avoir tout traité
     while (renderwindow.pollEvent(event)){
