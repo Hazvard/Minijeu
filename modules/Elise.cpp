@@ -249,24 +249,24 @@ void Elise::collisionObjets(Carte &map){
 	while(okay){
 
 		//on reporte les mesures de position d'elise vers des mesures sur la map (conversion base pixel vers base ecran)
-		xg = ((*this).getAbscisse() + (*this).getDirX())/TILE_SIZE;
-		xd = ((*this).getAbscisse() + (*this).getDirX() + (*this).getWidth() - 1)/TILE_SIZE; //si c'est kaputt, enlever le -1
-		yh = (*this).getOrdonnee()/TILE_SIZE;
+		xg = ((*this).getAbscisse() + (*this).getDirX() - (*this).getWidth()/2.3)/TILE_SIZE;
+		xd = ((*this).getAbscisse() + (*this).getDirX() + 2.3*(*this).getWidth() - 1)/TILE_SIZE; //si c'est kaputt, enlever le -1
+		yh = ((*this).getOrdonnee() + 2.3*(*this).getHeight())/TILE_SIZE;
 		yb = ((*this).getOrdonnee() + i - 1)/TILE_SIZE; //le i sert à descendre d'une ligne de tiles
 
-		//on checke pas si on est dans les limites de l'écran, c'est pour les losers ca
+		//on checke pas si on est dans les limites de l'écran
 
 		if((*this).getDirX() >0){
-			if(map.getTile(yh, xd) == DUR || map.getTile(yb, xd) == DUR){
+			if(map.getTile(yh, xd) == CAILLOU|| map.getTile(yb, xd) == CAILLOU || map.getTile(yh, xd) == ENCLUME|| map.getTile(yb, xd) == ENCLUME){
 				//on colle elise à la tile qu'on peut pas traverser
 				(*this).setAbscisse(xd*TILE_SIZE); //revient à ajouter dirX + w - 1 à x
-				(*this).setAbscisse((*this).getAbscisse()- (*this).getWidth() -1);
+				(*this).setAbscisse((*this).getAbscisse()- 2.3*(*this).getWidth() -1);
 				(*this).setDirX(0);
 			}
 		}
 		else if((*this).getDirX()<0){
-			if(map.getTile(yh, xg) == DUR || map.getTile(yb, xg) == DUR){
-				(*this).setAbscisse((xg + 1)*TILE_SIZE); //revient à ajouter dirX + 1
+			if(map.getTile(yh, xg) == CAILLOU || map.getTile(yb, xg) == CAILLOU||map.getTile(yh, xg) == ENCLUME || map.getTile(yb, xg) == ENCLUME){
+				(*this).setAbscisse((xg+1)*TILE_SIZE); //revient à ajouter dirX + 1
 				(*this).setDirX(0);
 			}
 		}
@@ -285,19 +285,19 @@ void Elise::collisionObjets(Carte &map){
 
 		xg = (*this).getAbscisse()/TILE_SIZE;
 		xd = ((*this).getAbscisse()+i) / TILE_SIZE;
-		yh = ((*this).getOrdonnee() + (*this).getDirY())/TILE_SIZE;
-		yb = ((*this).getOrdonnee() + (*this).getDirY() +(*this).getHeight()) / TILE_SIZE;
+		yh = ((*this).getOrdonnee() + (*this).getDirY() + 0.5*2.3*(*this).getHeight())/TILE_SIZE;
+		yb = ((*this).getOrdonnee() + (*this).getDirY() +2.3*(*this).getHeight()) / TILE_SIZE;
 
 		if((*this).getDirY()>0){ //attention, vers le bas!
-			if(map.getTile(yb, xd) == DUR || map.getTile(yb, xg) == DUR){
+			if(map.getTile(yb, xd) == CAILLOU || map.getTile(yb, xg) == CAILLOU||map.getTile(yb, xd) == ENCLUME || map.getTile(yb, xg) == ENCLUME){
 				(*this).setOrdonnee(yb*TILE_SIZE);
-				(*this).setOrdonnee((*this).getOrdonnee() - (*this).getHeight() - 1); //evient à faire y = y -1
+				(*this).setOrdonnee((*this).getOrdonnee() - 2.3*(*this).getHeight() - 1); //evient à faire y = y -1
 				(*this).setDirY(0);
 			}
 		}
 		else if((*this).getDirY()<0){ //vers le haut
-			if(map.getTile(yh, xd) == DUR || map.getTile(yh, xg) == DUR){
-				(*this).setOrdonnee((yh + 1) *TILE_SIZE);
+			if(map.getTile(yh, xd) == CAILLOU || map.getTile(yh, xg) == CAILLOU||map.getTile(yh, xd) == ENCLUME || map.getTile(yh, xg) == ENCLUME){
+				(*this).setOrdonnee((yh + 1) *TILE_SIZE - 0.5*2.3*(*this).getHeight());
 				(*this).setDirY(0);
 			}
 		}
@@ -321,6 +321,25 @@ void Elise::collisionObjets(Carte &map){
 		(*this).setOrdonnee(0);
 	if ((*this).getOrdonnee() + (*this).getHeight() > map.getMaxY())
 		(*this).setOrdonnee(map.getMaxY() - (*this).getHeight());
+
+
+
+
+	//mise à mort d'élise
+	xg = (*this).getAbscisse()/TILE_SIZE; //réutilisation des mêmes procédés et mêmes variables pour pas gâcher
+	xd = ((*this).getAbscisse() + (*this).getWidth() - 1)/TILE_SIZE; //si c'est kaputt, enlever le -1
+	yh = (*this).getOrdonnee()/TILE_SIZE;
+	yb = ((*this).getOrdonnee() + (*this).getHeight())/TILE_SIZE; 
+
+	//si elise a les pieds dans l'eau
+	if(map.getTile(yb, xd) == EAU || map.getTile(yb, xg) == EAU||map.getTile(yb, xd) == EAUSOL || map.getTile(yb, xg) == EAUSOL){
+		mort = 1;
+	}
+	//si elise est sur un laser
+	if(map.getTile(yb, xd) == LASERGAUCHE || map.getTile(yb, xg) == LASERGAUCHE||map.getTile(yb, xd) == LASERMILIEU || map.getTile(yb, xg) == LASERMILIEU||map.getTile(yb, xd) == LASERDROIT || map.getTile(yb, xg) == LASERDROIT){
+		mort = 1;
+	}
+
 }
 
 void Elise::update(Entree &entree, Carte &map){

@@ -130,7 +130,16 @@ const int TILE_SIZE = 32 ;
 const int SCROLL_DISTANCE = 3;
 
 //Constante qui code pour les cases collisionnées
-const int DUR = 1;
+const int EAUSOL = 0;
+const int EAU = 1;
+const int SOL = 2;
+const int CAILLOU = 3;
+const int PORTAILR = 4;
+const int PORTAILB = 5;
+const int LASERGAUCHE = 6;
+const int LASERMILIEU = 7;
+const int LASERDROIT = 8;
+const int ENCLUME = 9;
 
 //Enum pour les entrées
 enum{ haut, bas, droite, gauche, entrer };

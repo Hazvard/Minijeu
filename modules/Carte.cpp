@@ -13,7 +13,7 @@ Carte::Carte(){
     }
 
     //on charge le tileset 2
-    if (!tileSetTexture2.loadFromFile("ressources/Frame2.png")){
+    if (!tileSetTexture2.loadFromFile("ressources/Frame2.png")){ //réutiliser la même texture en la redéfinissant ne fonctionne pas
         cout << "Erreur durant le chargement de l'image du tileset 2." << endl;
     }
     else{
@@ -129,13 +129,11 @@ void Carte::draw(RenderWindow &window){
                 tileSet1.setPosition(Vector2f(x, y));
                 tileSet1.setTextureRect(sf::IntRect(xsource, ysource, TILE_SIZE, TILE_SIZE)); //on resize la texture de l'objet tileset vers un carré contenant une seule tile
                 window.draw(tileSet1); //tileset est un sprite donc ok pour le dessiner
-                cout << "biteuh" << endl; 
             }
             else{
                 tileSet2.setPosition(Vector2f(x, y));
                 tileSet2.setTextureRect(sf::IntRect(xsource, ysource, TILE_SIZE, TILE_SIZE)); //on resize la texture de l'objet tileset vers un carré contenant une seule tile
                 window.draw(tileSet2); //tileset est un sprite donc ok pour le dessiner
-                cout << "bitasse" << endl; 
             }
 
             mapX++;
