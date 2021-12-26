@@ -2,6 +2,7 @@
 #define CARTE_H
  
 #include <SFML/Graphics.hpp>
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -28,6 +29,7 @@ int getMaxX() const;
 int getMaxY() const;
 int getTile(int y, int x) const;
 int getLevel() const;
+float getTimer() ;
 /*
 int getWarpUp(void) const;
 int getWarpDown(void) const;
@@ -55,9 +57,12 @@ void setWarp_coming_from_y(int valeur);
 //Fonctions
 void loadMap(std::string filename);
 void draw(sf::RenderWindow &window);
+void drawTimer(sf::RenderWindow &window);
 void changeLevel(void);
 void testDefilement(void); //fait déffiler la carte toute seule.
- 
+void TimerAZero();
+std::string decompte();
+
  
 private:
 
@@ -75,6 +80,10 @@ int tile[160][160];  //maxi 80 par 80 tiles pour le moment
  
 //Numéro du niveau en cours
 int level;
+
+//timer
+sf::Time timer ;
+int tempsdonne ;
  
 //Variable pour testDefilement()
 int testdefil;

@@ -79,7 +79,7 @@ void Entree::getEntree(RenderWindow &renderwindow){
 
     if( sf::Mouse::isButtonPressed(sf::Mouse::Left)){
         positionSouris = sf::Mouse::getPosition(renderwindow) ;
-        std::cout << "x" << positionSouris.x << "    Y" << positionSouris.y << std::endl ;
+        
         if(menu){
 
             if(positionSouris.x > 486 && positionSouris.x < 723 && positionSouris.y > 75 && positionSouris.y < 147) // Case jouer

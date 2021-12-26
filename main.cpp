@@ -77,6 +77,7 @@ void draw(RenderWindow &window, Carte &map, Elise &elise, Menu &menu){
 
     // On affiche Elise
     elise.drawElise(window, map);
+    map.drawTimer(window) ;
   }
 
   menu.drawMenu(window) ;
