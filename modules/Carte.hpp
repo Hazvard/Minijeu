@@ -62,6 +62,9 @@ void changeLevel(void);
 void testDefilement(void); //fait déffiler la carte toute seule.
 void TimerAZero();
 std::string decompte();
+void nextLevel();
+void addTime();
+int decompteInt();
 
  
 private:
@@ -132,6 +135,9 @@ const int MAX_MAP_Y = 80;
  
 /* Taille d'une tile (32 x 32 pixels) */
 const int TILE_SIZE = 32; 
+
+//temps qu'on donne généreusement à la fin de la complétion d'une map
+const int TEMPSSUPPLEMENTAIRE = 15;
  
 };
 #endif

@@ -129,6 +129,7 @@ void Elise::initialize(Carte &map){
     h = ELISE_HEIGTH ;
 
 	mort = 0 ;
+	score = 0;
 
 	reflexion = true ;
 	sensSprite = GAUCHE ;
@@ -326,10 +327,10 @@ void Elise::collisionObjets(Carte &map){
 
 
 	//mise à mort d'élise
-	xg = (*this).getAbscisse()/TILE_SIZE; //réutilisation des mêmes procédés et mêmes variables pour pas gâcher
-	xd = ((*this).getAbscisse() + (*this).getWidth() - 1)/TILE_SIZE; //si c'est kaputt, enlever le -1
-	yh = (*this).getOrdonnee()/TILE_SIZE;
-	yb = ((*this).getOrdonnee() + (*this).getHeight())/TILE_SIZE; 
+	xg = ((*this).getAbscisse() - (*this).getWidth()/2.3)/TILE_SIZE; //réutilisation des mêmes procédés qu'au dessus
+	xd = ((*this).getAbscisse() + 2.3*(*this).getWidth() - 1)/TILE_SIZE; 
+	yh = ((*this).getOrdonnee())/TILE_SIZE;
+	yb = ((*this).getOrdonnee() + 2.3*(*this).getHeight())/TILE_SIZE; 
 
 	//si elise a les pieds dans l'eau
 	if(map.getTile(yb, xd) == EAU || map.getTile(yb, xg) == EAU||map.getTile(yb, xd) == EAUSOL || map.getTile(yb, xg) == EAUSOL){
@@ -338,6 +339,13 @@ void Elise::collisionObjets(Carte &map){
 	//si elise est sur un laser
 	if(map.getTile(yb, xd) == LASERGAUCHE || map.getTile(yb, xg) == LASERGAUCHE||map.getTile(yb, xd) == LASERMILIEU || map.getTile(yb, xg) == LASERMILIEU||map.getTile(yb, xd) == LASERDROIT || map.getTile(yb, xg) == LASERDROIT){
 		mort = 1;
+	}
+
+	//fin du niveau : arrivée au point bleu
+	if(map.getTile(yb, xd) == PORTAILB || map.getTile(yb, xg) == PORTAILB){
+		score++;
+		map.nextLevel(); //changement de niveau, on implémentera ca avec une liste chainée mais pour l'instant ca incrémente juste le numéro.
+		(*this).initialize(map);
 	}
 
 }

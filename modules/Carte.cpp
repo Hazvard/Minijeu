@@ -99,19 +99,39 @@ void Carte::TimerAZero(){
     timer = timer - timer ;
 }
 
+
+
+//AUTRES FONCTIONS
+
 std::string Carte::decompte(){
     return to_string(tempsdonne - (int)getTimer()) ;
 }
 
+//renvoie un intpour le décompte (pour le game over)
+int Carte::decompteInt(){
+    return tempsdonne - (int)getTimer();
+}
+
+//ajoute du temps sur le compteur principal
+void Carte::addTime(){
+    tempsdonne = tempsdonne + TEMPSSUPPLEMENTAIRE;
+}
+
+void Carte::creerListeDeCartes(){
+    //wtf c'est dur en fait
+}
 
 
-
-
-//AUTRES FONCTIONS
 void Carte::changeLevel(void){ // Récupère le nom de la map pour la charger
     string filename;
     filename = "cartes/map" + to_string(level) + ".txt";
     loadMap(filename);
+}
+
+void Carte::nextLevel(void){
+    level++;
+    (*this).addTime();
+    (*this).changeLevel();  //apres, elise s'initialise elle même si cette fonction est appellée par la fin d'un niveau.
 }
 
 void Carte::draw(RenderWindow &window){

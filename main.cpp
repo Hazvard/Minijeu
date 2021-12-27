@@ -28,7 +28,7 @@ int main(int argc, char ** argv) {
   map.changeLevel();
  
  // On initialise Elise
- elise.initialize(map) ;
+ elise.initialize(map);
 
 
 

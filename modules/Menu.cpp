@@ -27,8 +27,8 @@ void Menu::gestionMenu( Entree &entree){
 
 bool Menu::getMenuActif(){
     return menuActif ;
-    }
+}
 
 void Menu::setMenuActif( bool b){
     menuActif = b ;
-    }
+}

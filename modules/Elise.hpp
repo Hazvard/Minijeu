@@ -92,6 +92,8 @@ private:
 
     int reflexion; // test pour le moment qui permet de flip le sprite
 
+    int score; //nombre de maps finies
+
 
 // Animation
 const int TEMPS_ENTRE_DEUX_FRAMES = 20;
@@ -134,8 +136,8 @@ const int EAUSOL = 0;
 const int EAU = 1;
 const int SOL = 2;
 const int CAILLOU = 3;
-const int PORTAILR = 4;
-const int PORTAILB = 5;
+const int PORTAILB = 4;
+const int PORTAILR = 5;
 const int LASERGAUCHE = 6;
 const int LASERMILIEU = 7;
 const int LASERDROIT = 8;
