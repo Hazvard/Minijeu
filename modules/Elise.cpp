@@ -57,6 +57,14 @@ int Elise::getDirY(){
 	return dirY;
 }
 
+bool Elise::getMort(){
+	if(mort){
+		return true ;
+	}else{
+		return false ;
+	}
+}
+
 void Elise::setAbscisse(int valeur){
     abscisse = valeur ;
 }

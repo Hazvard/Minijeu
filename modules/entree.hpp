@@ -27,11 +27,13 @@ class Entree{
     //Getteurs
     Touche getTouche(void) const;
     bool getMenu();
+    bool getMort();
     bool getswitchSkin();
     bool getElise() ;
     
     //Setteurs
     void setTouche(int touches, bool appuyee);
+    void setMort(bool b);
     
     //Fonctions
     void gestionEntrees(sf::RenderWindow &renderwindow);
@@ -46,6 +48,7 @@ class Entree{
     sf::Vector2i positionSouris ;
 
     bool menu ;
+    bool mort ;
     bool switchSkin ;
     bool elise ;
  

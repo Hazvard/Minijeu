@@ -10,7 +10,13 @@ Menu::Menu(){
         menu.setTexture(menuTexture);
     }
 
-    menuActif = false ;
+    if(!finTexture.loadFromFile("ressources/fin.png")){
+        cout << "Erreur durant le chargement de l'image"<< endl;
+    }else{
+        fin.setTexture(finTexture);
+    }
+
+    menuActif = gameover = false ;
 }
 
 
@@ -31,4 +37,21 @@ bool Menu::getMenuActif(){
 
 void Menu::setMenuActif( bool b){
     menuActif = b ;
+}
+
+
+
+void Menu::drawFin( sf:: RenderWindow &window){
+    if(gameover){
+        window.draw(fin) ;
+    }
+
+}
+
+bool Menu::getFinActif(){
+    return gameover ;
+}
+
+void Menu::setFinActif( bool b){
+    gameover = b ;
 }

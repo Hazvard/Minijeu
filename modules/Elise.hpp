@@ -43,6 +43,7 @@ int getHeight();
 int getWidth();
 int getDirX();
 int getDirY();
+bool getMort();
 
 
 
@@ -54,6 +55,7 @@ void setHeight(int valeur);
 void setStamina(int valeur);
 void setDirX(int val);
 void setDirY(int val);
+void setMort(int val);
 
 
 //Fonctions

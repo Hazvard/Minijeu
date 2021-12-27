@@ -29,8 +29,9 @@ Carte::Carte(){
     level = 1;
     debutAbscisse = 0;
     debutOrdonne = 0;
-    timer = seconds(0.00f);
+    timer =  timeMenu = seconds(0.00f);
     tempsdonne = 60 ;
+    menu = false ;
 }
 
 
@@ -69,8 +70,21 @@ int Carte::getLevel() const {
 
 
 float Carte::getTimer(){
-    timer = frameTimer.getElapsedTime();
-    return timer.asSeconds() ;
+    if(menu){
+
+        timeMenu =  TimerMenu.getElapsedTime() + timeMenu ;
+        TimerMenu.restart() ;
+        return timer.asSeconds();
+
+    }else{
+        TimerMenu.restart() ;
+        timer = frameTimer.getElapsedTime() - timeMenu;
+        return timer.asSeconds() ;
+    }
+}
+
+bool Carte::getMenu(){
+    return menu ;
 }
 
 //SETTERS
@@ -99,17 +113,27 @@ void Carte::TimerAZero(){
     timer = timer - timer ;
 }
 
+void Carte::setMenu(bool b){
+    menu = b ;
+}
 
 
 //AUTRES FONCTIONS
 
 std::string Carte::decompte(){
+    if(menu){
+        
+    }
     return to_string(tempsdonne - (int)getTimer()) ;
 }
 
 //renvoie un intpour le décompte (pour le game over)
 int Carte::decompteInt(){
     return tempsdonne - (int)getTimer();
+}
+
+bool Carte::tempsDepasse(){
+    return decompteInt() < 1 ;
 }
 
 //ajoute du temps sur le compteur principal
@@ -154,6 +178,7 @@ void Carte::draw(RenderWindow &window){
     //test de sélection de la frame
     bool choixFrame; //on exteriorise la sélection de la frame de la boucle de draw pour éviter que le tileset change en cours de dessin
     Time instant = frameTimer.getElapsedTime();
+
     int frameur = (int)instant.asSeconds(); 
     choixFrame = (frameur%2 == 0); //true si l'instant est pair, false sinon
 
@@ -190,31 +215,32 @@ void Carte::draw(RenderWindow &window){
 }
 
 void Carte::drawTimer(RenderWindow &window){
+    if(!tempsDepasse()){
+        sf::RectangleShape rectangle;
+        rectangle.setSize(sf::Vector2f(75, 30));
+        rectangle.setOutlineColor(sf::Color::Blue);
+        rectangle.setOutlineThickness(5);
+        rectangle.setPosition(380.f, 12.f);
+        window.draw(rectangle);
 
-    sf::RectangleShape rectangle;
-    rectangle.setSize(sf::Vector2f(75, 30));
-    rectangle.setOutlineColor(sf::Color::Blue);
-    rectangle.setOutlineThickness(5);
-    rectangle.setPosition(380.f, 12.f);
-    window.draw(rectangle);
+        sf::Text text;
 
-    sf::Text text;
+        // select the font
+        text.setFont(font);
+        text.setString(decompte()); // On affiche le décompte
 
-    // select the font
-    text.setFont(font);
-    text.setString(decompte()); // On affiche le décompte
+        // taille des character
+        text.setCharacterSize(35); // en pixels
 
-    // taille des character
-    text.setCharacterSize(35); // en pixels
+        // couleur
+        text.setFillColor(sf::Color::Blue);
 
-    // couleur
-    text.setFillColor(sf::Color::Blue);
+        text.setPosition(400.f, 5.f) ;
 
-    text.setPosition(400.f, 5.f) ;
-
-    // Si on vzut faire souligner ou gras
-    //text.setStyle(sf::Text::Bold | sf::Text::Underlined);
-    window.draw(text);
+        // Si on vzut faire souligner ou gras
+        //text.setStyle(sf::Text::Bold | sf::Text::Underlined);
+        window.draw(text);
+    }
 }
 
 void Carte::testDefilement(void){ //ni changé ni testé mais ca devrait etre pareil qu'avant

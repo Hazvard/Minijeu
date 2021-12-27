@@ -28,6 +28,13 @@ bool Entree::getElise(){
     return elise ;
 }
 
+void Entree::setMort(bool b){
+    mort = b ;
+}
+
+bool Entree::getMort(){
+    return mort ;
+}
  
  
 //Setteurs
@@ -91,6 +98,12 @@ void Entree::getEntree(RenderWindow &renderwindow){
             if(positionSouris.x > 486 && positionSouris.x < 723 && positionSouris.y > 284 && positionSouris.y < 361) // Case quitter
                 renderwindow.close();
 
+        }else if(mort){
+            if(positionSouris.x > 486 && positionSouris.x < 723 && positionSouris.y > 178 && positionSouris.y < 251) // Case recomencer
+                menu = false ; // Ne fais pas encore sa fonction
+
+            if(positionSouris.x > 486 && positionSouris.x < 723 && positionSouris.y > 284 && positionSouris.y < 361) // Case quitter
+                renderwindow.close();
         }
     }
  

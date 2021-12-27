@@ -30,6 +30,7 @@ int getMaxY() const;
 int getTile(int y, int x) const;
 int getLevel() const;
 float getTimer() ;
+bool getMenu() ;
 /*
 int getWarpUp(void) const;
 int getWarpDown(void) const;
@@ -47,6 +48,7 @@ void setDebutAbscisse(int valeur);
 void setDebutOrdonne(int valeur);
 void setTile(int y, int x, int valeur);
 void setBegin(int x, int y);
+void setMenu(bool b) ;
 /*
 void setWarpDirection(int valeur);
 void setWarp_coming_from_x(int valeur);
@@ -62,9 +64,11 @@ void changeLevel(void);
 void testDefilement(void); //fait déffiler la carte toute seule.
 void TimerAZero();
 std::string decompte();
+void creerListeDeCartes();
 void nextLevel();
 void addTime();
 int decompteInt();
+bool tempsDepasse();
 
  
 private:
@@ -84,8 +88,11 @@ int tile[160][160];  //maxi 80 par 80 tiles pour le moment
 //Numéro du niveau en cours
 int level;
 
+bool menu ;
+
 //timer
 sf::Time timer ;
+sf::Time timeMenu ;
 int tempsdonne ;
  
 //Variable pour testDefilement()
@@ -102,6 +109,7 @@ int warp_coming_from_y;
 
 //gestion de l'animation de la map
 sf::Clock frameTimer;
+sf::Clock TimerMenu;
  
 //Tilesets
 sf::Texture tileSetTexture1;  //j'ai bricolé ici alors si c'est cassé c'est normal

@@ -60,6 +60,9 @@ void maj(Entree &entree, Carte &map, Elise &elise,  Menu &menu){
   //map.testDefilement(); // Défilement auto
   elise.update(entree, map) ;
   menu.gestionMenu(entree) ;
+  menu.setFinActif( map.tempsDepasse()) ;
+  map.setMenu(entree.getMenu());
+  entree.setMort(map.tempsDepasse() ) ;
 
 
 }
@@ -77,10 +80,11 @@ void draw(RenderWindow &window, Carte &map, Elise &elise, Menu &menu){
 
     // On affiche Elise
     elise.drawElise(window, map);
-    map.drawTimer(window) ;
   }
 
   menu.drawMenu(window) ;
+  map.drawTimer(window) ;
+  menu.drawFin(window);
 
   
 }
