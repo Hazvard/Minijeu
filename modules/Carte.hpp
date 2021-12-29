@@ -20,6 +20,8 @@ struct WARPSPE { int value; };
 //Constructeur
 Carte();
 
+void initialisation() ;
+
 
 int getBeginX() const;
 int getBeginY() const;

@@ -22,13 +22,8 @@ int main(int argc, char ** argv) {
   Elise  elise ;
   Menu menu ;
   
- 
-  //On commence au premier niveau
-  map.setLevel(3);
-  map.changeLevel();
- 
- // On initialise Elise
- elise.initialize(map);
+ initialisation( entree, map, elise, menu) ;
+
 
 
 
@@ -64,6 +59,10 @@ void maj(Entree &entree, Carte &map, Elise &elise,  Menu &menu){
   map.setMenu(entree.getMenu());
   entree.setMort(map.tempsDepasse() ) ;
 
+  if( entree.getRecommencer()){
+    initialisation(entree, map, elise, menu) ;
+  }
+
 
 }
  
@@ -87,4 +86,19 @@ void draw(RenderWindow &window, Carte &map, Elise &elise, Menu &menu){
   menu.drawFin(window);
 
   
+}
+
+
+void initialisation(Entree &entree, Carte &map, Elise &elise, Menu &menu){
+
+    //On commence au premier niveau
+  entree.initialisation() ;
+  map.initialisation()  ;
+  elise.initialisation();
+
+  map.setLevel(3);
+  map.changeLevel();
+ 
+ // On initialise Elise
+ elise.initialize(map);
 }

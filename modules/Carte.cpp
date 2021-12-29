@@ -34,6 +34,17 @@ Carte::Carte(){
     menu = false ;
 }
 
+void Carte::initialisation(){
+    testdefil = 0;
+    level = 1;
+    debutAbscisse = 0;
+    debutOrdonne = 0;
+    timer =  timeMenu = seconds(0.00f);
+    tempsdonne = 60 ;
+    menu = false ;
+    frameTimer.restart() ;
+    TimerMenu.restart() ;
+}
 
 //GETTERS
 int Carte::getBeginX() const { 

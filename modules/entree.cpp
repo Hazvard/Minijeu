@@ -6,10 +6,15 @@ using namespace sf;
  
 //Constructeur
 Entree::Entree(){
-    touche.gauche = touche.droite = touche.haut = touche.bas = touche.entrer = touche.P = touche.C = touche.E = menu = switchSkin = false;
+    touche.gauche = touche.droite = touche.haut = touche.bas = touche.entrer = touche.P = touche.C = touche.E = menu = switchSkin = recommencer = false;
     elise = true ;
 }
  
+
+void Entree::initialisation(){
+    touche.gauche = touche.droite = touche.haut = touche.bas = touche.entrer = touche.P = touche.C = touche.E = menu = switchSkin = recommencer = false;
+    elise = true ;
+}
  
 //Getteurs
 Entree::Touche Entree::getTouche(void) const {
@@ -36,6 +41,11 @@ bool Entree::getMort(){
     return mort ;
 }
  
+ bool Entree::getRecommencer(){
+     return recommencer ;
+ }
+
+
  
 //Setteurs
 void Entree::setTouche(int touches, bool appuyee){
@@ -71,6 +81,10 @@ void Entree::setTouche(int touches, bool appuyee){
             break;
     }
 }
+
+void Entree::setRecommencer(bool b){
+    recommencer = b ;
+}
  
  
 //Fonctions
@@ -93,14 +107,14 @@ void Entree::getEntree(RenderWindow &renderwindow){
                 menu = false ;
 
             if(positionSouris.x > 486 && positionSouris.x < 723 && positionSouris.y > 178 && positionSouris.y < 251) // Case recomencer
-                menu = false ; // Ne fais pas encore sa fonction
+                recommencer = true ;
 
             if(positionSouris.x > 486 && positionSouris.x < 723 && positionSouris.y > 284 && positionSouris.y < 361) // Case quitter
                 renderwindow.close();
 
         }else if(mort){
             if(positionSouris.x > 486 && positionSouris.x < 723 && positionSouris.y > 178 && positionSouris.y < 251) // Case recomencer
-                menu = false ; // Ne fais pas encore sa fonction
+                recommencer = true ;
 
             if(positionSouris.x > 486 && positionSouris.x < 723 && positionSouris.y > 284 && positionSouris.y < 361) // Case quitter
                 renderwindow.close();

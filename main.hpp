@@ -17,6 +17,7 @@ using namespace std;
 
 //Fonctions
 void maj(Entree &entree, Carte &map, Elise &elise, Menu &menu);
+void initialisation(Entree &entree, Carte &map, Elise &elise, Menu &menu);
 void draw(sf::RenderWindow &window, Carte &map, Elise &elise, Menu &menu);
 
 // Taille de la fenêtre : 800x600 pixels

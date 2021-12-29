@@ -26,7 +26,16 @@ Elise::Elise(){
 	elise = true ;
 
 }
- 
+
+
+void Elise::initialisation(){
+	 // Initialisation des variables
+    int stamina = 100 ;
+
+    int frameNumber = frameTimer = frameMax = abscisse = ordonnee = 0;
+	elise = true ;
+
+}
 //Fonctions ---------------------------------------------------------------------------------
 
 int Elise::getAbscisse(){
