@@ -23,6 +23,8 @@ class Entree{
     
     //Constructeur
     Entree();
+
+    void initialisation();
     
     //Getteurs
     Touche getTouche(void) const;
@@ -30,10 +32,12 @@ class Entree{
     bool getMort();
     bool getswitchSkin();
     bool getElise() ;
+    bool getRecommencer() ;
     
     //Setteurs
     void setTouche(int touches, bool appuyee);
     void setMort(bool b);
+    void setRecommencer(bool b) ;
     
     //Fonctions
     void gestionEntrees(sf::RenderWindow &renderwindow);
@@ -51,6 +55,7 @@ class Entree{
     bool mort ;
     bool switchSkin ;
     bool elise ;
+    bool recommencer ;
  
     //Enum pour les boutons
     enum{ haut, bas, droite, gauche, entrer, P, C, E };

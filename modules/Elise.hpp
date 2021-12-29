@@ -32,6 +32,8 @@ public:
  
 //Constructeur ---------------------------------------
 Elise();
+
+void initialisation() ;
  
 //Fonctions ------------------------------------------
 
