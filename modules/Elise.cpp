@@ -349,6 +349,10 @@ void Elise::collisionObjets(Carte &map){
 		mort = 1;
 	}
 
+	if(map.getTile(yb, xd) == LASERHAUT || map.getTile(yb, xg) == LASERHAUT||map.getTile(yb, xd) == LASERVERTICAL || map.getTile(yb, xg) == LASERVERTICAL||map.getTile(yb, xd) == LASERBAS || map.getTile(yb, xg) == LASERBAS){
+		mort = 1;
+	}
+
 	//fin du niveau : arrivée au point bleu
 	if(map.getTile(yb, xd) == PORTAILB || map.getTile(yb, xg) == PORTAILB){
 		score++;

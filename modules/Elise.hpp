@@ -144,6 +144,9 @@ const int LASERGAUCHE = 6;
 const int LASERMILIEU = 7;
 const int LASERDROIT = 8;
 const int ENCLUME = 9;
+const int LASERBAS = 10;
+const int LASERVERTICAL = 11;
+const int LASERHAUT = 12;
 
 //Enum pour les entrées
 enum{ haut, bas, droite, gauche, entrer };
