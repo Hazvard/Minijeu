@@ -133,7 +133,7 @@ float HUDtimer;
 int HUDDirection;
 
 //liste dynamique chainée de cartes
-Liste <int> listeDeCartes;
+Liste listeDeCartes;
  
  
 /*******************/

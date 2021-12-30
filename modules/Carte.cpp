@@ -170,8 +170,7 @@ void Carte::creerListeDeCartes(){ //enchaine les cartes dans une liste dynamique
         listeDeCartes.inserer(0, tableaubasique[zebi]);
         tableaubasique[zebi] = -1;
     }
-
-
+    //en théorie maintenant la liste est random, avec chaque map une seule et unique fois
 }
 
 
