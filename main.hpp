@@ -11,6 +11,8 @@
 #include "modules/entree.hpp"
 #include "modules/Carte.hpp"
 #include "modules/Menu.hpp"
+#include "modules/Liste.hpp"
+
 
 using namespace sf; // Permet de ne pas écrire sf::
 using namespace std;

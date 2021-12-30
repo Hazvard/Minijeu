@@ -91,12 +91,16 @@ void draw(RenderWindow &window, Carte &map, Elise &elise, Menu &menu){
 
 void initialisation(Entree &entree, Carte &map, Elise &elise, Menu &menu){
 
+//Liste
+Liste liste ;
+liste.inserer(0, 3);
+
     //On commence au premier niveau
   entree.initialisation() ;
   map.initialisation()  ;
   elise.initialisation();
 
-  map.setLevel(3);
+  map.setLevel(liste.getNoeud(0));
   map.changeLevel();
  
  // On initialise Elise
