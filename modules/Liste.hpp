@@ -7,28 +7,25 @@
 using namespace std;
  
 // Définition du noeud en tant que struct
-template <typename T>
 struct Noeud
 {
-    T donnees;
-    Noeud <T>* suivant;
+    int donnees;
+    Noeud * suivant;
 };
  
 // Définition de la classe Liste
-template <typename T>
-class Liste
-{
+class Liste{
     private:
-        Noeud <T>* entete;
+        Noeud * entete;
         int compteur;
-        Noeud <T>* CreerNoeud (const T& valeur);
+        Noeud * CreerNoeud (int &valeur);
      
     public:
         Liste ();
         ~Liste ();
-        void inserer (int pos, const T& valeur);
+        void inserer (int pos, int &valeur);
         void supprimer (int pos);
-        T& getNoeud (int pos) const;
+        int getNoeud (int pos) const;
         void afficher () const;
         int taille () const;
 };
