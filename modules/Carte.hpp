@@ -134,6 +134,7 @@ int HUDDirection;
 
 //liste dynamique chainée de cartes
 Liste listeDeCartes;
+int indiceliste;
  
  
 /*******************/

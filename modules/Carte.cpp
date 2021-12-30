@@ -44,6 +44,10 @@ void Carte::initialisation(){
     menu = false ;
     frameTimer.restart() ;
     TimerMenu.restart() ;
+
+    creerListeDeCartes();
+    indiceliste = 0;
+    level = listeDeCartes.getNoeud(indiceliste); //fait office de setLevel
 }
 
 //GETTERS
@@ -99,8 +103,8 @@ bool Carte::getMenu(){
 }
 
 //SETTERS
-void Carte::setLevel(int valeur) { 
-	level = valeur; 
+void Carte::setLevel(int indice) { 
+	level = listeDeCartes.getNoeud(indice);
 }
 
 void Carte::setDebutAbscisse(int valeur) { 
@@ -158,30 +162,40 @@ void Carte::creerListeDeCartes(){ //enchaine les cartes dans une liste dynamique
     int zebi = -1;
 
     for(int i = 0; i < 10; i++){
-        zebi = rand() % 10 + 1;  //sélection d'un nombre entre 1 et 10
+        zebi = rand() % 10;  //sélection d'un nombre entre 0 et 9
 
-        while(tableaubasique[zebi] == -1){
+        while(tableaubasique[zebi] == -1){ //cas ou la valeur a déjà été prise
             zebi++;
-            if(zebi>10){
-                zebi = 1;
+            if(zebi>9){ //rebouclage à 9
+                zebi = 0;
             }
         }
 
-        listeDeCartes.inserer(0, tableaubasique[zebi]);
-        tableaubasique[zebi] = -1;
+        listeDeCartes.inserer(i, tableaubasique[zebi]); //insertion du nombre random dans la liste
+        cout << tableaubasique[zebi] << endl;
+        tableaubasique[zebi] = -1; //"suppression" de ce nombre dans le tableau
     }
     //en théorie maintenant la liste est random, avec chaque map une seule et unique fois
 }
 
 
 void Carte::changeLevel(void){ // Récupère le noeud 0 de la liste et le supprime
+    //cout << level << endl;
     string filename;
     filename = "cartes/map" + to_string(level) + ".txt";
     loadMap(filename);
 }
 
 void Carte::nextLevel(void){
-    level++;
+    if(indiceliste < 10){
+        level = listeDeCartes.getNoeud(indiceliste);
+        indiceliste++;
+    }
+    else{
+        cout << "Plus de cartes dispo!" << endl;
+        level = 50;
+    }
+    //level++; changement de level original
     (*this).addTime();
     (*this).changeLevel();  //apres, elise s'initialise elle même si cette fonction est appellée par la fin d'un niveau.
 }

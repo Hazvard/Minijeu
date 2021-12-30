@@ -96,7 +96,8 @@ void initialisation(Entree &entree, Carte &map, Elise &elise, Menu &menu){
   map.initialisation()  ;
   elise.initialisation();
 
-  map.setLevel(1);
+
+  //map.setLevel(liste.getNoeud(0));  //pas besoin, on met dejà le level 0 lors de l'initialisation de la map
   map.changeLevel();
  
  // On initialise Elise

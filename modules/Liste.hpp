@@ -18,12 +18,12 @@ class Liste{
     private:
         Noeud * entete;
         int compteur;
-        Noeud * CreerNoeud (int &valeur);
+        Noeud * CreerNoeud (int valeur);
      
     public:
         Liste ();
         ~Liste ();
-        void inserer (int pos, int &valeur);
+        void inserer (int pos, int valeur);
         void supprimer (int pos);
         int getNoeud (int pos) const;
         void afficher () const;

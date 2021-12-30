@@ -17,7 +17,7 @@ Liste:: ~Liste ()
 }
  
 
-Noeud * Liste  :: CreerNoeud (int &valeur){
+Noeud * Liste  :: CreerNoeud (int valeur){
     Noeud * temp = new Noeud ;
     temp -> donnees = valeur;
     temp -> suivant = NULL;
@@ -25,7 +25,7 @@ Noeud * Liste  :: CreerNoeud (int &valeur){
 }
  
 
-void Liste  :: inserer (int pos, int &valeur)
+void Liste  :: inserer (int pos, int valeur)
 {
     if (pos < 0 || pos > compteur){
         cout << "Erreur! La position est invalide." << endl;
