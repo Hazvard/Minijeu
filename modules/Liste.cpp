@@ -1,17 +1,14 @@
-#ifndef LISTE_CPP
-#define LISTE_CPP
- 
 #include "Liste.hpp"
  
 // Constructeur
-template <typename T>
-Liste <T> :: Liste ():entete (NULL), compteur (0) {}
+
+Liste::Liste ():entete (NULL), compteur (0) {}
  
 // Destructeur
-template <typename T>
-Liste <T> :: ~Liste ()
+
+Liste:: ~Liste ()
 {
-    Noeud <T>* del = entete;
+    Noeud * del = entete;
     while (entete){
         entete = entete -> suivant;
         delete del;
@@ -19,22 +16,22 @@ Liste <T> :: ~Liste ()
     }
 }
  
-template <typename T>
-Noeud <T>* Liste <T> :: CreerNoeud (const T& valeur){
-    Noeud <T>* temp = new Noeud <T>;
+
+Noeud * Liste  :: CreerNoeud (int &valeur){
+    Noeud * temp = new Noeud ;
     temp -> donnees = valeur;
     temp -> suivant = NULL;
     return temp;
 }
  
-template <typename T>
-void Liste <T> :: inserer (int pos, const T& valeur)
+
+void Liste  :: inserer (int pos, int &valeur)
 {
     if (pos < 0 || pos > compteur){
         cout << "Erreur! La position est invalide." << endl;
         return;
     }
-    Noeud <T>* nouveau = CreerNoeud (valeur);
+    Noeud * nouveau = CreerNoeud (valeur);
  
     //Insertion au début
     if (pos == 0){
@@ -43,7 +40,7 @@ void Liste <T> :: inserer (int pos, const T& valeur)
     }
     // Insertion au milieu 
     else{
-        Noeud <T>* courant = entete;
+        Noeud * courant = entete;
         for (int i = 1; i < pos; i++){
             courant = courant -> suivant;
         }
@@ -53,31 +50,31 @@ void Liste <T> :: inserer (int pos, const T& valeur)
     compteur++;
 }
  
-template <typename T>
-void Liste <T> :: supprimer (int pos){
+
+void Liste  :: supprimer (int pos){
     if (pos < 0 || pos > compteur-1){
         cout << "Erreur! La position est invalide." << endl;
         return;
     }
     if (pos == 0){
-        Noeud <T>* del = entete;
+        Noeud * del = entete;
         entete = entete -> suivant;
         delete del;
     }
     else{
-        Noeud <T>* courant = entete;
+        Noeud * courant = entete;
         for (int i = 0; i < pos-1; i++){
             courant = courant -> suivant;
         }
-        Noeud <T>* del = courant -> suivant;
+        Noeud * del = courant -> suivant;
         courant -> suivant = courant -> suivant -> suivant;
         delete del;
     }
     compteur--;
 }
  
-template <typename T>
-T& Liste <T> :: getNoeud (int pos) const {
+
+int Liste  :: getNoeud (int pos) const {
     if (pos < 0 || pos > compteur-1){
         cout << "Erreur! La position est invalide";
         assert (false);
@@ -86,7 +83,7 @@ T& Liste <T> :: getNoeud (int pos) const {
         return entete -> donnees;
     }
     else{
-        Noeud <T>* courant = entete;
+        Noeud * courant = entete;
         for (int i = 0 ; i < pos ; i++){
             courant = courant -> suivant;
         }
@@ -94,67 +91,20 @@ T& Liste <T> :: getNoeud (int pos) const {
     }
 }
  
-template <typename T>
-void Liste <T> :: afficher () const {
+
+void Liste  :: afficher () const {
     if (compteur == 0){
         cout << "La liste est vide!" << endl;
         return;
     }
-    Noeud <T>* courant = entete;
+    Noeud * courant = entete;
     while (courant != 0){
-        cout << courant -> donnees < endl;
+        cout << courant -> donnees << endl;
         courant = courant -> suivant;
     }
 }
  
-template <typename T>
-int Liste <T> :: taille () const{
+
+int Liste  :: taille () const{
     return compteur;
 }
-#endif
-
-// Liste::Liste(){
-// 	laListe->numCarte = 0;
-// }
-
-
-// //getters
-// int Liste::getTete(){
-// 	return laListe->numCarte;
-// }
-
-// int Liste::getTaille(){
-// 	int i = 0;
-// 	while(laListe -> suivant != NULL){
-// 		i++;
-// 	}
-// 	return i;
-// }
-
-// //setters
-// void Liste::setTete(int zebi){
-// 	laListe -> numCarte = zebi;
-// }
-
-// void Liste::setSuivant(maillon* l){ //si c'est pété, parsemer de pointeurs
-// 	laListe -> suivant = l;
-// }
-
-/*
-void Liste::goSuivant(){
-	(this) = laListe -> suivant;
-}
-
-
-//autres
-void Liste::shuffle(){
-	//ipod
-}
-
-void Liste::ajouter(int i){ //fonction qui ajoute un élément À LA FIN de la liste
-	Liste *l;
-	l.setTete(i);
-	(*this).suivant = l;
-}
-
-*/
