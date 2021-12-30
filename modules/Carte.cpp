@@ -152,12 +152,30 @@ void Carte::addTime(){
     tempsdonne = tempsdonne + TEMPSSUPPLEMENTAIRE;
 }
 
-void Carte::creerListeDeCartes(){
-    //wtf c'est dur en fait
+void Carte::creerListeDeCartes(){ //enchaine les cartes dans une liste dynamique
+    //on choisit juste des nombres random dans un tableau de nombres, et on les empile dans la liste
+    int tableaubasique [10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }; //on considère qu'on a 10 maps exactement
+    int zebi = -1;
+
+    for(int i = 0; i < 10; i++){
+        zebi = rand() % 10 + 1;  //sélection d'un nombre entre 1 et 10
+
+        while(tableaubasique[zebi] == -1){
+            zebi++;
+            if(zebi>10){
+                zebi = 1;
+            }
+        }
+
+        listeDeCartes.inserer(0, tableaubasique[zebi]);
+        tableaubasique[zebi] = -1;
+    }
+
+
 }
 
 
-void Carte::changeLevel(void){ // Récupère le nom de la map pour la charger
+void Carte::changeLevel(void){ // Récupère le noeud 0 de la liste et le supprime
     string filename;
     filename = "cartes/map" + to_string(level) + ".txt";
     loadMap(filename);

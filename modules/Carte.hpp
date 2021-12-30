@@ -8,6 +8,8 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <cstdlib>
+#include "Liste.hpp"
  
  
 class Carte
@@ -129,6 +131,9 @@ sf::Texture HUDTexture;
 sf::Sprite HUD;
 float HUDtimer;
 int HUDDirection;
+
+//liste dynamique chainée de cartes
+Liste <int> listeDeCartes;
  
  
 /*******************/
