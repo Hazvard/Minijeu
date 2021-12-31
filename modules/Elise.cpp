@@ -344,8 +344,8 @@ void Elise::collisionObjets(Carte &map){
 
 
 	//mise à mort d'élise
-	xg = ((*this).getAbscisse() - (*this).getWidth()/2.3)/TILE_SIZE; //réutilisation des mêmes procédés qu'au dessus
-	xd = ((*this).getAbscisse() + 2.3*(*this).getWidth() - 1)/TILE_SIZE; 
+	xg = ((*this).getAbscisse()+10)/TILE_SIZE; //réutilisation des mêmes procédés qu'au dessus
+	xd = ((*this).getAbscisse() + 2.3*(*this).getWidth() - 10)/TILE_SIZE; 
 	yh = ((*this).getOrdonnee())/TILE_SIZE;
 	yb = ((*this).getOrdonnee() + 2.3*(*this).getHeight())/TILE_SIZE; 
 

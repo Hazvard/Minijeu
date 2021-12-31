@@ -172,7 +172,6 @@ void Carte::creerListeDeCartes(){ //enchaine les cartes dans une liste dynamique
         }
 
         listeDeCartes.inserer(i, tableaubasique[zebi]); //insertion du nombre random dans la liste
-        cout << tableaubasique[zebi] << endl;
         tableaubasique[zebi] = -1; //"suppression" de ce nombre dans le tableau
     }
     //en théorie maintenant la liste est random, avec chaque map une seule et unique fois
