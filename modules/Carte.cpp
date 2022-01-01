@@ -48,6 +48,7 @@ void Carte::initialisation(){
     creerListeDeCartes();
     indiceliste = 0;
     level = listeDeCartes.getNoeud(indiceliste); //fait office de setLevel
+    score = 0 ;
 }
 
 //GETTERS
@@ -83,6 +84,9 @@ int Carte::getLevel() const {
 	return level; 
 }
 
+string Carte::getLevelToString(){ 
+	return to_string(level); 
+}
 
 float Carte::getTimer(){
     if(menu){
@@ -100,6 +104,10 @@ float Carte::getTimer(){
 
 bool Carte::getMenu(){
     return menu ;
+}
+
+int Carte::getscore(){
+    return score ;
 }
 
 //SETTERS
@@ -196,6 +204,7 @@ void Carte::nextLevel(void){
     }
     //level++; changement de level original
     (*this).addTime();
+    score++ ;
     (*this).changeLevel();  //apres, elise s'initialise elle même si cette fonction est appellée par la fin d'un niveau.
 }
 
@@ -277,6 +286,31 @@ void Carte::drawTimer(RenderWindow &window){
         text.setFillColor(sf::Color::Blue);
 
         text.setPosition(400.f, 5.f) ;
+
+        // Si on vzut faire souligner ou gras
+        //text.setStyle(sf::Text::Bold | sf::Text::Underlined);
+        window.draw(text);
+    }else{
+        // sf::RectangleShape rectangle;
+        // rectangle.setSize(sf::Vector2f(75, 30));
+        // rectangle.setOutlineColor(sf::Color::Red);
+        // rectangle.setOutlineThickness(5);
+        // rectangle.setPosition(600.f, 380.f);
+        // window.draw(rectangle);
+
+        sf::Text text;
+
+        // select the font
+        text.setFont(font);
+        text.setString( "Score : " + to_string(score) ); // On affiche le décompte
+
+        // taille des character
+        text.setCharacterSize(35); // en pixels
+
+        // couleur
+        text.setFillColor(sf::Color::Red);
+
+        text.setPosition(535.f, 380.f) ;
 
         // Si on vzut faire souligner ou gras
         //text.setStyle(sf::Text::Bold | sf::Text::Underlined);

@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include "SFML/Graphics.hpp"
 #include "modules/Elise.hpp"
-//#include "modules/map.hpp"
+#include "modules/Score.hpp"
 #include "modules/entree.hpp"
 #include "modules/Carte.hpp"
 #include "modules/Menu.hpp"
@@ -18,7 +18,7 @@ using namespace sf; // Permet de ne pas écrire sf::
 using namespace std;
 
 //Fonctions
-void maj(Entree &entree, Carte &map, Elise &elise, Menu &menu);
+void maj(Entree &entree, Carte &map, Elise &elise, Menu &menu, Score &score);
 void initialisation(Entree &entree, Carte &map, Elise &elise, Menu &menu);
 void draw(sf::RenderWindow &window, Carte &map, Elise &elise, Menu &menu);
 

@@ -35,6 +35,7 @@ int getTile(int y, int x) const;
 int getLevel() const;
 float getTimer() ;
 bool getMenu() ;
+int getscore();
 /*
 int getWarpUp(void) const;
 int getWarpDown(void) const;
@@ -73,6 +74,7 @@ void nextLevel();
 void addTime();
 int decompteInt();
 bool tempsDepasse();
+std::string getLevelToString();
 
  
 private:
@@ -91,6 +93,7 @@ int tile[160][160];  //maxi 80 par 80 tiles pour le moment
  
 //Numéro du niveau en cours
 int level;
+int score;
 
 bool menu ;
 

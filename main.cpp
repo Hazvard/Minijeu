@@ -1,6 +1,8 @@
 #include "main.hpp"
 
+
 int main(int argc, char ** argv) {
+
 
 	sf::RenderWindow renderWindow(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Elise's adventurs"); //fenetre utilisée pour le rendering
 	sf::Time t2 = sf::milliseconds(10);
@@ -21,6 +23,7 @@ int main(int argc, char ** argv) {
   Carte map; // Nouvelle classe carte
   Elise  elise ;
   Menu menu ;
+  Score score  ;
   
  initialisation( entree, map, elise, menu) ;
 
@@ -34,7 +37,7 @@ int main(int argc, char ** argv) {
     entree.gestionEntrees(renderWindow);
 
     //Updates (besoin de handle event)
-    maj(entree, map, elise, menu);
+    maj(entree, map, elise, menu, score);
  
     // Dessin - draw
     draw(renderWindow, map, elise, menu);
@@ -51,8 +54,9 @@ int main(int argc, char ** argv) {
 //Fonction de mise à jour du jeu : gère la logique du jeu
 
 
-void maj(Entree &entree, Carte &map, Elise &elise,  Menu &menu){
+void maj(Entree &entree, Carte &map, Elise &elise,  Menu &menu, Score &score){
   //map.testDefilement(); // Défilement auto
+  score.setScore(map.getscore());
   elise.update(entree, map) ;
   menu.gestionMenu(entree) ;
   menu.setFinActif( map.tempsDepasse()) ;
@@ -63,6 +67,9 @@ void maj(Entree &entree, Carte &map, Elise &elise,  Menu &menu){
     initialisation(entree, map, elise, menu) ;
   }
 
+  if(map.tempsDepasse())
+    score.printScoreToFile("Score.txt");
+
 
 }
  
@@ -72,6 +79,7 @@ void maj(Entree &entree, Carte &map, Elise &elise,  Menu &menu){
 void draw(RenderWindow &window, Carte &map, Elise &elise, Menu &menu){
   //On efface tout
   window.clear();
+
   
   if(!menu.getMenuActif()){
     // Affiche la map de tiles
@@ -82,9 +90,9 @@ void draw(RenderWindow &window, Carte &map, Elise &elise, Menu &menu){
   }
 
   menu.drawMenu(window) ;
-  map.drawTimer(window) ;
   menu.drawFin(window);
-
+  map.drawTimer(window) ;
+  
   
 }
 

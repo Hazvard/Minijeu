@@ -4,7 +4,7 @@ LDFLAGS = -lsfml-graphics -lsfml-window -lsfml-system
 
 EXEC = minijeu
 
-SRC = main.cpp modules/Elise.cpp modules/entree.cpp modules/Carte.cpp modules/Menu.cpp modules/Liste.cpp
+SRC = main.cpp modules/Elise.cpp modules/entree.cpp modules/Carte.cpp modules/Menu.cpp modules/Liste.cpp modules/Score.cpp
 
 OBJ = $(SRC:.c=.o)
 

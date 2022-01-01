@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "score.hpp"
+#include "Score.hpp"
 
 
 int main(int argc, char ** argv) {
