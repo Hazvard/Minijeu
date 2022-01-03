@@ -22,6 +22,8 @@ void maj(Entree &entree, Carte &map, Elise &elise, Menu &menu, Score &score);
 void initialisation(Entree &entree, Carte &map, Elise &elise, Menu &menu);
 void draw(sf::RenderWindow &window, Carte &map, Elise &elise, Menu &menu);
 
+int controleScore; //bricolage
+
 // Taille de la fenêtre : 800x600 pixels
 const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 480;

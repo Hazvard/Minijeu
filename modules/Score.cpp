@@ -30,7 +30,8 @@ void Score::incrementScore(int a){
 
 //Autres
 void Score::printScoreToFile(const std::string &str){ //str est le nom du fichier, voire l'arborescence si ca passe avec ofstram
-	ofstream scoreFile(str);
+	ofstream scoreFile;
+	scoreFile.open(str, std::ios::app);
 	scoreFile << "Score final: " << val <<endl;
 	scoreFile.close();
 }

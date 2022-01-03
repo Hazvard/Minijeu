@@ -24,6 +24,8 @@ int main(int argc, char ** argv) {
   Elise  elise ;
   Menu menu ;
   Score score  ;
+
+  controleScore = 1; //variable de controle pour les boucles mal foutues de dan :)
   
  initialisation( entree, map, elise, menu) ;
 
@@ -65,10 +67,13 @@ void maj(Entree &entree, Carte &map, Elise &elise,  Menu &menu, Score &score){
 
   if( entree.getRecommencer()){
     initialisation(entree, map, elise, menu) ;
+    controleScore = 1; //variable de controle pour les boucles mal foutues de dan :)
   }
 
-  if(map.tempsDepasse())
+  if(map.tempsDepasse() && controleScore == 1){ //évite qu'on imprime un milliard de fois le score durant l'écran de game over
+    controleScore = 0;
     score.printScoreToFile("Score.txt");
+  }
 
 
 }
