@@ -166,22 +166,32 @@ void Carte::addTime(){
 
 void Carte::creerListeDeCartes(){ //enchaine les cartes dans une liste dynamique
     //on choisit juste des nombres random dans un tableau de nombres, et on les empile dans la liste
-    int tableaubasique [10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }; //on considère qu'on a 10 maps exactement
+
+    int *tab = static_cast<int *>(malloc(sizeof(int) * NBCARTE));
+    if (tab == NULL){
+        printf("Echec du malloc pour la tableau CREERLISTEDECARTE");
+    }
+    for(int i = 0 ; i < NBCARTE ; i++){
+        tab[i] = i ;
+    }
+
     int zebi = -1;
 
-    for(int i = 0; i < 10; i++){
-        zebi = rand() % 10;  //sélection d'un nombre entre 0 et 9
-
-        while(tableaubasique[zebi] == -1){ //cas ou la valeur a déjà été prise
+    for(int i = 0; i < NBCARTE; i++){
+        zebi = rand() % NBCARTE;  //sélection d'un nombre entre 0 et 9
+        cout<< zebi <<endl ;
+        while(tab[zebi] == -1){ //cas ou la valeur a déjà été prise
             zebi++;
-            if(zebi>9){ //rebouclage à 9
+            if( zebi > NBCARTE - 1){ //rebouclage à 9
                 zebi = 0;
             }
         }
 
-        listeDeCartes.inserer(i, tableaubasique[zebi]); //insertion du nombre random dans la liste
-        tableaubasique[zebi] = -1; //"suppression" de ce nombre dans le tableau
+        listeDeCartes.inserer(i, tab[zebi]); //insertion du nombre random dans la liste
+        tab[zebi] = -1; //"suppression" de ce nombre dans le tableau
+        
     }
+    free(tab) ;
     //en théorie maintenant la liste est random, avec chaque map une seule et unique fois
 }
 
@@ -442,38 +452,6 @@ void Carte::loadMap(string filename){
             }
         }
     }  
-
-/*
-    //débug
-    //On charge les variables supplémentaires
-    y = MAX_MAP_Y * 4;
-    
-    warpUp = lignes[y][0];
-    warpDown = lignes[y][1];
-    warpLeft = lignes[y][2];
-    warpRight = lignes[y][3];
-    
-    for (int i = 0; i < 10; i++){
-        warpSP[i].value = lignes[y][i + 4];
-    }
-*/
-
-
-
-
-    /*
-    for (int i = 0; i < 20; i++){
-        coffre[i].type = lignes[y][74 + i];
-    }
-    
-    for (int i = 0; i < 10; i++){
-        button[i].type = lignes[y][99 + i];
-    }
-    
-    for (int i = 0; i < 10; i++){
-        piege[i].type = lignes[y][109 + i];
-    }
-    */
 
     //conversion en pixels
     maxX = (maxX + 1) * TILE_SIZE;

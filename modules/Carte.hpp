@@ -3,6 +3,8 @@
  
 #include <SFML/Graphics.hpp>
 
+#include <stdio.h>
+#include <stdlib.h>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -12,8 +14,7 @@
 #include "Liste.hpp"
  
  
-class Carte
-{
+class Carte{
  
 public:
 
@@ -157,6 +158,9 @@ const int TILE_SIZE = 32;
 
 //temps qu'on donne généreusement à la fin de la complétion d'une map
 const int TEMPSSUPPLEMENTAIRE = 15;
+
+// Nombre de carte
+const int NBCARTE = 11;
  
 };
 #endif
