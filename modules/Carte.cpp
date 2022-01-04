@@ -173,21 +173,25 @@ void Carte::creerListeDeCartes(){ //enchaine les cartes dans une liste dynamique
     }
     for(int i = 0 ; i < NBCARTE ; i++){
         tab[i] = i ;
+        //cout<< tab[i] <<endl ;
     }
-
     int zebi = -1;
+
+    srand(time(0)); //génère la seed pour le générateur de random
 
     for(int i = 0; i < NBCARTE; i++){
         zebi = rand() % NBCARTE;  //sélection d'un nombre entre 0 et 9
-        cout<< zebi <<endl ;
+        //cout<< "zebigenerator: " << zebi <<endl ;
         while(tab[zebi] == -1){ //cas ou la valeur a déjà été prise
             zebi++;
-            if( zebi > NBCARTE - 1){ //rebouclage à 9
+            if( zebi >= NBCARTE){ //rebouclage à la fin du tableau
                 zebi = 0;
             }
+            //cout<<"zebiselector: " << zebi <<endl ;
         }
 
         listeDeCartes.inserer(i, tab[zebi]); //insertion du nombre random dans la liste
+        //cout<<"l'élu des zebis: " << zebi <<endl ;
         tab[zebi] = -1; //"suppression" de ce nombre dans le tableau
         
     }
@@ -204,11 +208,12 @@ void Carte::changeLevel(void){ // Récupère le noeud 0 de la liste et le suppri
 }
 
 void Carte::nextLevel(void){
-    if(indiceliste < 10){
+    if(indiceliste < NBCARTE - 1){
         level = listeDeCartes.getNoeud(indiceliste);
         indiceliste++;
     }
     else{
+
         cout << "Plus de cartes dispo!" << endl;
         level = 50;
     }
