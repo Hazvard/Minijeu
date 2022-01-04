@@ -16,6 +16,13 @@ int main(int argc, char ** argv) {
   //On active la synchro verticale
   renderWindow.setVerticalSyncEnabled(true);
 
+  //on met une belle icone
+  auto icone = sf::Image{};
+  if (!icone.loadFromFile("ressources/icon.png")){
+    cout<<"Erreur de chargement de l'icone" << endl;
+  }
+  renderWindow.setIcon(80, 80, icone.getPixelsPtr());
+
   //Instanciation des classes
   
   // Ajouter la classe input / handleevent de Simon
